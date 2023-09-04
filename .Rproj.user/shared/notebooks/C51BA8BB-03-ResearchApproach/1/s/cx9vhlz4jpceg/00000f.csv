@@ -1,0 +1,2 @@
+"0","sampleselected <- select(fulltest, ""Actor"" = group,""**Gastropopulism**"" =  Gastropopulism, ""**Data Format**"" = Data.Format,""**Platform**"" =  Platform,""**Distribution**"" =  Distribution)"
+"0",""

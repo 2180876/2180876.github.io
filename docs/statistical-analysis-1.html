@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Statistical Analysis | _main.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Statistical Analysis | _main.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Statistical Analysis | _main.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="research-approach.html"/>
+<link rel="next" href="individual-timelines-thematic-analysis.html"/>
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="templates/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="index.html#section" id="toc-section"></a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="literature-review.html"><a href="literature-review.html"><i class="fa fa-check"></i><b>2</b> Literature Review</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="literature-review.html"><a href="literature-review.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="literature-review.html"><a href="literature-review.html#populism"><i class="fa fa-check"></i><b>2.2</b> Populism</a></li>
+<li class="chapter" data-level="2.3" data-path="literature-review.html"><a href="literature-review.html#communication-performance-and-multimodality"><i class="fa fa-check"></i><b>2.3</b> Communication: Performance and Multimodality</a></li>
+<li class="chapter" data-level="2.4" data-path="literature-review.html"><a href="literature-review.html#celebrity-politicians-and-social-media"><i class="fa fa-check"></i><b>2.4</b> Celebrity Politicians and Social Media</a></li>
+<li class="chapter" data-level="2.5" data-path="literature-review.html"><a href="literature-review.html#food-semiotics"><i class="fa fa-check"></i><b>2.5</b> Food Semiotics</a></li>
+<li class="chapter" data-level="2.6" data-path="literature-review.html"><a href="literature-review.html#gastropopulism"><i class="fa fa-check"></i><b>2.6</b> Gastropopulism</a></li>
+<li class="chapter" data-level="2.7" data-path="literature-review.html"><a href="literature-review.html#my-account-of-gastropopulism"><i class="fa fa-check"></i><b>2.7</b> My Account of Gastropopulism</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="research-approach.html"><a href="research-approach.html"><i class="fa fa-check"></i><b>3</b> Research Approach</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="research-approach.html"><a href="research-approach.html#methodological-considerations"><i class="fa fa-check"></i><b>3.1</b> Methodological considerations</a></li>
+<li class="chapter" data-level="3.2" data-path="research-approach.html"><a href="research-approach.html#sample"><i class="fa fa-check"></i><b>3.2</b> Sample</a></li>
+<li class="chapter" data-level="3.3" data-path="research-approach.html"><a href="research-approach.html#data"><i class="fa fa-check"></i><b>3.3</b> Data</a></li>
+<li class="chapter" data-level="3.4" data-path="research-approach.html"><a href="research-approach.html#methods-and-analysis"><i class="fa fa-check"></i><b>3.4</b> Methods and Analysis</a></li>
+<li class="chapter" data-level="3.5" data-path="research-approach.html"><a href="research-approach.html#statistical-analysis"><i class="fa fa-check"></i><b>3.5</b> Statistical Analysis</a></li>
+<li class="chapter" data-level="3.6" data-path="research-approach.html"><a href="research-approach.html#mixed-methods-individual-timeline-thematic-analysis"><i class="fa fa-check"></i><b>3.6</b> Mixed-methods Individual Timeline Thematic Analysis</a></li>
+<li class="chapter" data-level="3.7" data-path="research-approach.html"><a href="research-approach.html#deductive-qualitative-thematic-analysis"><i class="fa fa-check"></i><b>3.7</b> Deductive Qualitative Thematic Analysis</a></li>
+<li class="chapter" data-level="3.8" data-path="research-approach.html"><a href="research-approach.html#multimodal-social-semiotics-timeline-transcription"><i class="fa fa-check"></i><b>3.8</b> Multimodal Social Semiotics Timeline Transcription</a></li>
+<li class="chapter" data-level="3.9" data-path="research-approach.html"><a href="research-approach.html#methodology-discussion"><i class="fa fa-check"></i><b>3.9</b> Methodology Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="statistical-analysis-1.html"><a href="statistical-analysis-1.html"><i class="fa fa-check"></i><b>4</b> Statistical Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="statistical-analysis-1.html"><a href="statistical-analysis-1.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="statistical-analysis-1.html"><a href="statistical-analysis-1.html#incorporation"><i class="fa fa-check"></i><b>4.2</b> Incorporation</a></li>
+<li class="chapter" data-level="4.3" data-path="statistical-analysis-1.html"><a href="statistical-analysis-1.html#cultural-association"><i class="fa fa-check"></i><b>4.3</b> Cultural Association</a></li>
+<li class="chapter" data-level="4.4" data-path="statistical-analysis-1.html"><a href="statistical-analysis-1.html#performances-of-class-belonging"><i class="fa fa-check"></i><b>4.4</b> Performances of Class Belonging</a></li>
+<li class="chapter" data-level="4.5" data-path="statistical-analysis-1.html"><a href="statistical-analysis-1.html#gastropopulism-and-individual-trends"><i class="fa fa-check"></i><b>4.5</b> Gastropopulism and Individual Trends</a></li>
+<li class="chapter" data-level="4.6" data-path="statistical-analysis-1.html"><a href="statistical-analysis-1.html#discussion-of-statistical-analysis"><i class="fa fa-check"></i><b>4.6</b> Discussion of Statistical Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="individual-timelines-thematic-analysis.html"><a href="individual-timelines-thematic-analysis.html"><i class="fa fa-check"></i><b>5</b> Individual Timelines Thematic Analysis</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="individual-timelines-thematic-analysis.html"><a href="individual-timelines-thematic-analysis.html#introduction-3"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="individual-timelines-thematic-analysis.html"><a href="individual-timelines-thematic-analysis.html#trump"><i class="fa fa-check"></i><b>5.2</b> Trump</a></li>
+<li class="chapter" data-level="5.3" data-path="individual-timelines-thematic-analysis.html"><a href="individual-timelines-thematic-analysis.html#aoc"><i class="fa fa-check"></i><b>5.3</b> AOC</a></li>
+<li class="chapter" data-level="5.4" data-path="individual-timelines-thematic-analysis.html"><a href="individual-timelines-thematic-analysis.html#corbyn"><i class="fa fa-check"></i><b>5.4</b> Corbyn</a></li>
+<li class="chapter" data-level="5.5" data-path="individual-timelines-thematic-analysis.html"><a href="individual-timelines-thematic-analysis.html#farage"><i class="fa fa-check"></i><b>5.5</b> Farage</a></li>
+<li class="chapter" data-level="5.6" data-path="individual-timelines-thematic-analysis.html"><a href="individual-timelines-thematic-analysis.html#discussion"><i class="fa fa-check"></i><b>5.6</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="deductive-thematic-analysis.html"><a href="deductive-thematic-analysis.html"><i class="fa fa-check"></i><b>6</b> Deductive Thematic Analysis</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="deductive-thematic-analysis.html"><a href="deductive-thematic-analysis.html#nationalism"><i class="fa fa-check"></i><b>6.1</b> Nationalism</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="deductive-thematic-analysis.html"><a href="deductive-thematic-analysis.html#exclusionary"><i class="fa fa-check"></i><b>6.1.1</b> Exclusionary</a></li>
+<li class="chapter" data-level="6.1.2" data-path="deductive-thematic-analysis.html"><a href="deductive-thematic-analysis.html#inclusionary"><i class="fa fa-check"></i><b>6.1.2</b> Inclusionary</a></li>
+<li class="chapter" data-level="6.1.3" data-path="deductive-thematic-analysis.html"><a href="deductive-thematic-analysis.html#nationalism-discussion"><i class="fa fa-check"></i><b>6.1.3</b> Nationalism discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="deductive-thematic-analysis.html"><a href="deductive-thematic-analysis.html#class"><i class="fa fa-check"></i><b>6.2</b> Class</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="deductive-thematic-analysis.html"><a href="deductive-thematic-analysis.html#corbyn-1"><i class="fa fa-check"></i><b>6.2.1</b> Corbyn</a></li>
+<li class="chapter" data-level="6.2.2" data-path="deductive-thematic-analysis.html"><a href="deductive-thematic-analysis.html#farage-3"><i class="fa fa-check"></i><b>6.2.2</b> Farage</a></li>
+<li class="chapter" data-level="6.2.3" data-path="deductive-thematic-analysis.html"><a href="deductive-thematic-analysis.html#aoc-1"><i class="fa fa-check"></i><b>6.2.3</b> AOC</a></li>
+<li class="chapter" data-level="6.2.4" data-path="deductive-thematic-analysis.html"><a href="deductive-thematic-analysis.html#trump-3"><i class="fa fa-check"></i><b>6.2.4</b> Trump</a></li>
+<li class="chapter" data-level="6.2.5" data-path="deductive-thematic-analysis.html"><a href="deductive-thematic-analysis.html#discussion-of-class"><i class="fa fa-check"></i><b>6.2.5</b> Discussion of Class</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="performative-eating-multimodal-social-semiotics-timeline-transcripts.html"><a href="performative-eating-multimodal-social-semiotics-timeline-transcripts.html"><i class="fa fa-check"></i><b>7</b> Performative Eating: Multimodal Social Semiotics Timeline Transcripts</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="performative-eating-multimodal-social-semiotics-timeline-transcripts.html"><a href="performative-eating-multimodal-social-semiotics-timeline-transcripts.html#introduction-4"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="performative-eating-multimodal-social-semiotics-timeline-transcripts.html"><a href="performative-eating-multimodal-social-semiotics-timeline-transcripts.html#trump-4"><i class="fa fa-check"></i><b>7.2</b> Trump</a></li>
+<li class="chapter" data-level="7.3" data-path="performative-eating-multimodal-social-semiotics-timeline-transcripts.html"><a href="performative-eating-multimodal-social-semiotics-timeline-transcripts.html#farage-4"><i class="fa fa-check"></i><b>7.3</b> Farage</a></li>
+<li class="chapter" data-level="7.4" data-path="performative-eating-multimodal-social-semiotics-timeline-transcripts.html"><a href="performative-eating-multimodal-social-semiotics-timeline-transcripts.html#aoc-2"><i class="fa fa-check"></i><b>7.4</b> AOC</a></li>
+<li class="chapter" data-level="7.5" data-path="performative-eating-multimodal-social-semiotics-timeline-transcripts.html"><a href="performative-eating-multimodal-social-semiotics-timeline-transcripts.html#corbyn-2"><i class="fa fa-check"></i><b>7.5</b> Corbyn</a></li>
+<li class="chapter" data-level="7.6" data-path="performative-eating-multimodal-social-semiotics-timeline-transcripts.html"><a href="performative-eating-multimodal-social-semiotics-timeline-transcripts.html#discussion-1"><i class="fa fa-check"></i><b>7.6</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="conclusion.html"><a href="conclusion.html#introduction-5"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="conclusion.html"><a href="conclusion.html#limitations-contributions-and-future-research"><i class="fa fa-check"></i><b>8.2</b> Limitations, Contributions, and Future Research</a></li>
+<li class="chapter" data-level="8.3" data-path="conclusion.html"><a href="conclusion.html#final-reflection-are-you-what-you-eat"><i class="fa fa-check"></i><b>8.3</b> Final reflection: Are you what you eat?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i>Bibliography</a></li>
+<li class="chapter" data-level="" data-path="appendices.html"><a href="appendices.html"><i class="fa fa-check"></i>Appendices</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html"><i class="fa fa-check"></i>Appendix A</a></li>
+<li class="chapter" data-level="" data-path="appendix-b.html"><a href="appendix-b.html"><i class="fa fa-check"></i>Appendix B</a></li>
+<li class="chapter" data-level="" data-path="appendix-c.html"><a href="appendix-c.html"><i class="fa fa-check"></i>Appendix C</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="statistical-analysis-1" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Statistical Analysis<a href="statistical-analysis-1.html#statistical-analysis-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-2" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Introduction<a href="statistical-analysis-1.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Table 4.1 below presents summary statistics for my sample, showing the count and relative frequency of each code per actor, ideology, region, and overall. The literature review critiqued gastropopulism studies generalising from the empirical evidence disproportionately drawn from one actor. In my sample, UK actors generated the most data (67%), with Corbyn accounting for 63.4% ‘left’ data and Farage 69.9% ‘right’ data. This is congruent with my performance-based approach, which does not expect actors to use gastropopulism equally. Table 4.1 illustrates how conflating gastropopulism with an actor’s ideology or region obscures individual-level variations and patterns. In fact, it demonstrates how gastropopulism research is unsuited to statistical generalisability. Resultantly, Table 4.1 is intended towards analytical generalisability. This chapter establishes the empirical grounding of the subsequent analytical sections.</p>
+<p class="caption">
+Table 4.1: Summary Statistics by Actor, Ideology, Region, and Overall
+</p>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:750px; overflow-x: scroll; width:100%; ">
+<table class="table table-condensed" style="font-size: 14px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;" colspan="4">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Actor
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Ideology
+</div>
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;" colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Geography
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;" colspan="1">
+</th>
+</tr>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+Variable
+</th>
+<th style="text-align:center;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+AOC <br>N = 26
+</th>
+<th style="text-align:center;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+Corbyn <br>N = 45
+</th>
+<th style="text-align:center;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+Farage <br>N = 65
+</th>
+<th style="text-align:center;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+Trump <br>N = 27
+</th>
+<th style="text-align:center;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+Left <br>N = 71
+</th>
+<th style="text-align:center;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+Right <br>N = 92
+</th>
+<th style="text-align:center;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+UK <br>N = 110
+</th>
+<th style="text-align:center;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+USA <br>N = 53
+</th>
+<th style="text-align:center;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;">
+Overall <br>N = 163
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<strong>Incorporation</strong>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Absent
+</td>
+<td style="text-align:center;">
+14 (54%)
+</td>
+<td style="text-align:center;">
+29 (64%)
+</td>
+<td style="text-align:center;">
+25 (38%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+17 (63%)
+</td>
+<td style="text-align:center;">
+43 (61%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+42 (46%)
+</td>
+<td style="text-align:center;">
+54 (49%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+31 (58%)
+</td>
+<td style="text-align:center;">
+85 (52%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Implied
+</td>
+<td style="text-align:center;">
+5 (19%)
+</td>
+<td style="text-align:center;">
+9 (20%)
+</td>
+<td style="text-align:center;">
+30 (46%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+8 (30%)
+</td>
+<td style="text-align:center;">
+14 (20%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+38 (41%)
+</td>
+<td style="text-align:center;">
+39 (35%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+13 (25%)
+</td>
+<td style="text-align:center;">
+52 (32%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Present
+</td>
+<td style="text-align:center;">
+7 (27%)
+</td>
+<td style="text-align:center;">
+7 (16%)
+</td>
+<td style="text-align:center;">
+10 (15%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+2 (7.4%)
+</td>
+<td style="text-align:center;">
+14 (20%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+12 (13%)
+</td>
+<td style="text-align:center;">
+17 (15%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+9 (17%)
+</td>
+<td style="text-align:center;">
+26 (16%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<strong>Cultural Association</strong>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Assimilated
+</td>
+<td style="text-align:center;">
+4 (15%)
+</td>
+<td style="text-align:center;">
+11 (24%)
+</td>
+<td style="text-align:center;">
+9 (14%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+5 (19%)
+</td>
+<td style="text-align:center;">
+15 (21%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+14 (15%)
+</td>
+<td style="text-align:center;">
+20 (18%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+9 (17%)
+</td>
+<td style="text-align:center;">
+29 (18%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Endogenous
+</td>
+<td style="text-align:center;">
+15 (58%)
+</td>
+<td style="text-align:center;">
+21 (47%)
+</td>
+<td style="text-align:center;">
+40 (62%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+19 (70%)
+</td>
+<td style="text-align:center;">
+36 (51%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+59 (64%)
+</td>
+<td style="text-align:center;">
+61 (55%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+34 (64%)
+</td>
+<td style="text-align:center;">
+95 (58%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Exogenous
+</td>
+<td style="text-align:center;">
+3 (12%)
+</td>
+<td style="text-align:center;">
+10 (22%)
+</td>
+<td style="text-align:center;">
+8 (12%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+13 (18%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+8 (8.7%)
+</td>
+<td style="text-align:center;">
+18 (16%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+3 (5.7%)
+</td>
+<td style="text-align:center;">
+21 (13%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Regional Endogenous
+</td>
+<td style="text-align:center;">
+4 (15%)
+</td>
+<td style="text-align:center;">
+3 (6.7%)
+</td>
+<td style="text-align:center;">
+8 (12%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+3 (11%)
+</td>
+<td style="text-align:center;">
+7 (9.9%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+11 (12%)
+</td>
+<td style="text-align:center;">
+11 (10%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+7 (13%)
+</td>
+<td style="text-align:center;">
+18 (11%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<strong>Nourishment</strong>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Healthy
+</td>
+<td style="text-align:center;">
+1 (3.8%)
+</td>
+<td style="text-align:center;">
+7 (16%)
+</td>
+<td style="text-align:center;">
+8 (12%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+1 (3.7%)
+</td>
+<td style="text-align:center;">
+8 (11%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+9 (9.8%)
+</td>
+<td style="text-align:center;">
+15 (14%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+2 (3.8%)
+</td>
+<td style="text-align:center;">
+17 (10%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Moderate
+</td>
+<td style="text-align:center;">
+6 (23%)
+</td>
+<td style="text-align:center;">
+19 (42%)
+</td>
+<td style="text-align:center;">
+4 (6.2%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+3 (11%)
+</td>
+<td style="text-align:center;">
+25 (35%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+7 (7.6%)
+</td>
+<td style="text-align:center;">
+23 (21%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+9 (17%)
+</td>
+<td style="text-align:center;">
+32 (20%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Unhealthy
+</td>
+<td style="text-align:center;">
+19 (73%)
+</td>
+<td style="text-align:center;">
+19 (42%)
+</td>
+<td style="text-align:center;">
+53 (82%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+23 (85%)
+</td>
+<td style="text-align:center;">
+38 (54%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+76 (83%)
+</td>
+<td style="text-align:center;">
+72 (65%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+42 (79%)
+</td>
+<td style="text-align:center;">
+114 (70%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<strong>Taste</strong>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Alcohol
+</td>
+<td style="text-align:center;">
+5 (19%)
+</td>
+<td style="text-align:center;">
+3 (6.7%)
+</td>
+<td style="text-align:center;">
+35 (54%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+8 (11%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+35 (38%)
+</td>
+<td style="text-align:center;">
+38 (35%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+5 (9.4%)
+</td>
+<td style="text-align:center;">
+43 (26%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Fresh
+</td>
+<td style="text-align:center;">
+3 (12%)
+</td>
+<td style="text-align:center;">
+5 (11%)
+</td>
+<td style="text-align:center;">
+8 (12%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+2 (7.4%)
+</td>
+<td style="text-align:center;">
+8 (11%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+10 (11%)
+</td>
+<td style="text-align:center;">
+13 (12%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+5 (9.4%)
+</td>
+<td style="text-align:center;">
+18 (11%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Hot drink
+</td>
+<td style="text-align:center;">
+2 (7.7%)
+</td>
+<td style="text-align:center;">
+7 (16%)
+</td>
+<td style="text-align:center;">
+3 (4.6%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+9 (13%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+3 (3.3%)
+</td>
+<td style="text-align:center;">
+10 (9.1%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+2 (3.8%)
+</td>
+<td style="text-align:center;">
+12 (7.4%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Other
+</td>
+<td style="text-align:center;">
+3 (12%)
+</td>
+<td style="text-align:center;">
+4 (8.9%)
+</td>
+<td style="text-align:center;">
+0 (0%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+7 (9.9%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+4 (3.6%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+3 (5.7%)
+</td>
+<td style="text-align:center;">
+7 (4.3%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Salty/fatty
+</td>
+<td style="text-align:center;">
+7 (27%)
+</td>
+<td style="text-align:center;">
+20 (44%)
+</td>
+<td style="text-align:center;">
+11 (17%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+16 (59%)
+</td>
+<td style="text-align:center;">
+27 (38%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+27 (29%)
+</td>
+<td style="text-align:center;">
+31 (28%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+23 (43%)
+</td>
+<td style="text-align:center;">
+54 (33%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Sweet
+</td>
+<td style="text-align:center;">
+6 (23%)
+</td>
+<td style="text-align:center;">
+6 (13%)
+</td>
+<td style="text-align:center;">
+8 (12%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+9 (33%)
+</td>
+<td style="text-align:center;">
+12 (17%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+17 (18%)
+</td>
+<td style="text-align:center;">
+14 (13%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+15 (28%)
+</td>
+<td style="text-align:center;">
+29 (18%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<strong>Worker Performance</strong>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Absent
+</td>
+<td style="text-align:center;">
+22 (85%)
+</td>
+<td style="text-align:center;">
+36 (80%)
+</td>
+<td style="text-align:center;">
+61 (94%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+27 (100%)
+</td>
+<td style="text-align:center;">
+58 (82%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+88 (96%)
+</td>
+<td style="text-align:center;">
+97 (88%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+49 (92%)
+</td>
+<td style="text-align:center;">
+146 (90%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Present
+</td>
+<td style="text-align:center;">
+4 (15%)
+</td>
+<td style="text-align:center;">
+9 (20%)
+</td>
+<td style="text-align:center;">
+4 (6.2%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+13 (18%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+4 (4.3%)
+</td>
+<td style="text-align:center;">
+13 (12%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+4 (7.5%)
+</td>
+<td style="text-align:center;">
+17 (10%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<strong>Part of ‘the people’</strong>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Absent
+</td>
+<td style="text-align:center;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+1 (2.2%)
+</td>
+<td style="text-align:center;">
+0 (0%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+1 (1.4%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+1 (0.9%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+1 (0.6%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Present
+</td>
+<td style="text-align:center;">
+26 (100%)
+</td>
+<td style="text-align:center;">
+44 (98%)
+</td>
+<td style="text-align:center;">
+65 (100%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+27 (100%)
+</td>
+<td style="text-align:center;">
+70 (99%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+92 (100%)
+</td>
+<td style="text-align:center;">
+109 (99%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+53 (100%)
+</td>
+<td style="text-align:center;">
+162 (99%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<strong>Bad Manners</strong>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Absent
+</td>
+<td style="text-align:center;">
+2 (7.7%)
+</td>
+<td style="text-align:center;">
+11 (24%)
+</td>
+<td style="text-align:center;">
+2 (3.1%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+2 (7.4%)
+</td>
+<td style="text-align:center;">
+13 (18%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+4 (4.3%)
+</td>
+<td style="text-align:center;">
+13 (12%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+4 (7.5%)
+</td>
+<td style="text-align:center;">
+17 (10%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Present
+</td>
+<td style="text-align:center;">
+24 (92%)
+</td>
+<td style="text-align:center;">
+34 (76%)
+</td>
+<td style="text-align:center;">
+63 (97%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+25 (93%)
+</td>
+<td style="text-align:center;">
+58 (82%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+88 (96%)
+</td>
+<td style="text-align:center;">
+97 (88%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+49 (92%)
+</td>
+<td style="text-align:center;">
+146 (90%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<strong>Immediacy</strong>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Absent
+</td>
+<td style="text-align:center;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+2 (4.4%)
+</td>
+<td style="text-align:center;">
+0 (0%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+2 (2.8%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+2 (1.8%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+0 (0%)
+</td>
+<td style="text-align:center;">
+2 (1.2%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Present
+</td>
+<td style="text-align:center;">
+26 (100%)
+</td>
+<td style="text-align:center;">
+43 (96%)
+</td>
+<td style="text-align:center;">
+65 (100%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+27 (100%)
+</td>
+<td style="text-align:center;">
+69 (97%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+92 (100%)
+</td>
+<td style="text-align:center;">
+108 (98%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+53 (100%)
+</td>
+<td style="text-align:center;">
+161 (99%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;border-right:1px solid;">
+<strong>Individual Trend</strong>
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;border-right:1px solid;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Absent
+</td>
+<td style="text-align:center;">
+3 (12%)
+</td>
+<td style="text-align:center;">
+19 (46%)
+</td>
+<td style="text-align:center;">
+22 (34%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+8 (30%)
+</td>
+<td style="text-align:center;">
+22 (33%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+30 (33%)
+</td>
+<td style="text-align:center;">
+41 (39%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+11 (21%)
+</td>
+<td style="text-align:center;">
+52 (33%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Implied
+</td>
+<td style="text-align:center;">
+7 (27%)
+</td>
+<td style="text-align:center;">
+13 (32%)
+</td>
+<td style="text-align:center;">
+16 (25%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+10 (37%)
+</td>
+<td style="text-align:center;">
+20 (30%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+26 (28%)
+</td>
+<td style="text-align:center;">
+29 (27%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+17 (32%)
+</td>
+<td style="text-align:center;">
+46 (29%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;border-right:1px solid;" indentlevel="1">
+Present
+</td>
+<td style="text-align:center;">
+16 (62%)
+</td>
+<td style="text-align:center;">
+9 (22%)
+</td>
+<td style="text-align:center;">
+27 (42%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+9 (33%)
+</td>
+<td style="text-align:center;">
+25 (37%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+36 (39%)
+</td>
+<td style="text-align:center;">
+36 (34%)
+</td>
+<td style="text-align:center;border-right:1px solid;">
+25 (47%)
+</td>
+<td style="text-align:center;">
+61 (38%)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="incorporation" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Incorporation<a href="statistical-analysis-1.html#incorporation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>While Diehl (2017, p12) and Bourdieu (1984, p190) emphasise incorporation, or eating, as the most powerful way to signify belonging to the people, Table 4.1 shows that this was present in only 26 (16%) items overall. ‘Implied’ incorporation, with the actor framed as “about” to eat/drink was twice as common, found in 52 (32%) items. Just over half of my sample lacked actual or implied incorporation.</p>
+<p>Interestingly, breaking down the <code>Data Format</code> variable by the <code>Incorporation</code> variable indicates the affordances of audiovisual content for incorporation [Table in Appendix B]. This shows that 23 (88%) of the 26 ‘present’ <code>incorporation</code> items were audiovisual, and 50 (96%) of the 52 ‘implied’ <code>incorporation</code> items were visual. Still images of a political actor incorporating food/drink present a high risk of looking overly posed (breaking the illusion of spontaneity) or overly unappealing (inviting ridicule). With still images, implied incorporation may appear more natural/candid, thus legitimising the performed authenticity and spontaneity. Biting and chewing are dynamic, violent motions (Stano, 2015, p658) best suited to the video format, which captures the process of incorporation rather than just a frame. With videos, implied incorporation may pierce performed authenticity and spontaneity, as it highlights that the actor is not actually consuming the food/drink. This speaks to the distinct affordances of visual and audiovisual formats for impression management.
+I return to this idea in my final analytical section, §7: Performative Eating.</p>
+</div>
+<div id="cultural-association" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Cultural Association<a href="statistical-analysis-1.html#cultural-association" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Examining the <code>Cultural Association</code> variable provides initial support for my theory’s emphasis on the explanatory power of individual-level analysis rather than extant gastropopulism theory’s focus on ideology and Italy.
+Food semiotics are highly culturally situated (Kress, 2011, p45). Accordingly, the categories for this variable are situated, meaning they relate to the cultural identities of the actor and their region. This adapts the food origin distinctions presented as national/local by Starita (2022, Appendix) and as endogenous/exogenous by Stano (2015, p3). For example, the Scottish soft drink Irn Bru is ‘regional endogenous’ for Farage [P3] and Corbyn [P2] but ‘exogenous’ for AOC [P1; V49]. Farage’s appearances at the <em>British Curry</em> Awards [P109; V10; V11; V13] and Corbyn’s at the <em>British Kebab</em> Awards [V12; V14] are coded as ‘assimilated’. Conversely, items showing Corbyn dishing up curries in Sikh Gurdwaras [P14; P34; P39; V30] are coded as ‘exogenous’, as Corbyn is not Sikh.</p>
+<p>Unexpectedly, Table 4.1 shows that AOC and Farage have remarkably similar <code>cultural association</code> distributions, with almost identical relative frequencies of their uses of assimilated and exogenous foods. This is notable because their politics surrounding cultural/national identity are diametrically opposed. Prior gastropopulism literature emphasises an exclusionary/inclusionary dichotomy, asserting that right-wing populists primarily use food to convey their exclusionary nationalism, with no reference to its potential for inclusion. In §6.1: Nationalism, I explore how the strategic ambiguity utilised in gastropopulist performances by Trump and Farage thwart analytical attempts to code gastropopulism using an exclusionary/inclusionary dichotomy. The individual variation and strategic ambiguity within my sample’s <code>cultural association</code> variable and analysis thereof demonstrates the theoretical and empirical limitations of analysing gastropopulism through an ideological lens. My performance-based theory does not deny that ideology and region contribute to how an actor manifests their gastropopulism. However, I assert gastropopulism as a flexible and open way for individuals to construct identity, rather than a restrictive representation of ideology that exists independently of the actor.</p>
+</div>
+<div id="performances-of-class-belonging" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Performances of Class Belonging<a href="statistical-analysis-1.html#performances-of-class-belonging" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <code>Nourishment</code> and <code>Taste</code> variables attempt to capture Bourdieu’s (1984, p468) elite/mass food-based class division (e.g., healthy/unhealthy; light/heavy; quality/quantity). Table 4.1 shows that AOC, Farage, and Trump lean heavily towards unhealthy foods. Corbyn’s profile is more balanced, but favours the moderate-unhealthy and salty/fatty. The <code>taste</code> variable’s <code>fresh</code> category includes home-cooked meals. This is where the absence of AOC’s disappearing gastropopulist content (e.g., cooking livestreams) is most keenly felt, limiting its analytical utility. The consistency of Trump’s performed tastes preferences for salty/fatty [n=16 (59%)] and sweet [n=9 (33%)] foods is not a coincidence; García-Santamaría (2020, p143) views this as a way to reveal a relatable and <em>seemingly</em> apolitical weakness. Farage’s extensive use of alcohol in his gastropopulism [n=35 (54%)] is a form of mimetic identification with British binge drinking culture (Jayne <em>et al</em>, 2008, p88). Jayne <em>et al</em> (2008, p88) caution against accepting entrenched “classed” perceptions of “respectability” that oppose British binge drinking with “‘continental’ or ‘sensible’” European drinking culture. However, through Goffman’s (1959, p20) lens, this is “dramatic realisation” of precisely the identity Farage wishes to convey through his alcohol-centred gastropopulist performances. In addition, the <code>Worker Performance</code> variable sets the stage for §6.2: Class, examining how the actors embody their class belonging through food hospitality worker role performances. No such observations of Trump were found, so his discussion explores how he embodies class belonging through his menu choices.</p>
+</div>
+<div id="gastropopulism-and-individual-trends" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Gastropopulism and Individual Trends<a href="statistical-analysis-1.html#gastropopulism-and-individual-trends" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The variables capturing gastropopulism’s individual features show that the actors were highly consistent at integrating all three into their performances. Corbyn, however, omitted <code>bad manners</code> in 24% his performances. This motivates looking at his full dataset, and providing a multimodal analysis of how he – and the others – actually perform their gastropopulism <em>multimodally</em>. To this end, the <code>Individual Trend</code> variable sets the stage for the next analytical chapter: Individual Timelines and Trends.</p>
+<p><strong>Trump</strong> [n=9 (33%)] <strong>‘put his money where his mouth is’</strong>, meaning instances wherein he (claimed to) use his personal wealth to buy fast food for his people, with a secondary code for performances of his personal consumption of popular, cheap foods [n=10 (37%)]. <strong>AOC</strong> [n=16 (62%)] <strong>physically engages with her constituency</strong> through gastropopulist performances, with a secondary code for performances implied to be in her NY/DC homes [n=7 (27%)]. <strong>Corbyn</strong> [n=9 (22%)] uses his Labour campaign slogan <strong>“for the many, not the few”</strong> in his gastropopulist performances, particularly through puns and emojis, with a secondary code for performances embodying the slogan, e.g., community work [n=13 (32%)]. Finally, I explore how <strong>Farage</strong> [n=27 (42%)] explicitly leverages <strong>food and drink as the cause and solution of problems</strong>, blending the personal and the political, with a secondary code for doing so implicitly [n=16 (25%)].</p>
+</div>
+<div id="discussion-of-statistical-analysis" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Discussion of Statistical Analysis<a href="statistical-analysis-1.html#discussion-of-statistical-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This statistical analysis chapter has assessed how political actors construct gastropopulist performances. Moreover, this has provided a robust comparison of individual-, ideological-, and regional-level explanations. This gives an unprecedented depth and breadth of analysis of empirical evidence of gastropopulism. Crucially, this facilitates analytic generalisability for existing theory as well as establishing a flexible and transparent framework for future studies of (gastro)populism. In addition, this has demonstrated how my research design is informed by the data as well as literature, in order to conduct a cohesive and comprehensive test of my theory. This chapter has contextualised the empirical grounding for the subsequent analyses, which will closely scrutinise the multimodality of the performances, and the role of constructed public identity. This will enable a considered answer to my research question, <em>how do political actors use multimodal gastropopulist performances to construct and legitimise their public identities?</em>.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="research-approach.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="individual-timelines-thematic-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/ulyngs/oxforddown/tree/master/04-StatisticalAnalysis.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

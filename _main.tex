@@ -1,0 +1,1206 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% OXFORD THESIS TEMPLATE
+
+% Use this template to produce a standard thesis that meets the Oxford University requirements for DPhil submission
+%
+% Originally by Keith A. Gillow (gillow@maths.ox.ac.uk), 1997
+% Modified by Sam Evans (sam@samuelevansresearch.org), 2007
+% Modified by John McManigle (john@oxfordechoes.com), 2015
+% Modified by Ulrik Lyngs (ulrik.lyngs@cs.ox.ac.uk), 2018-, for use with R Markdown
+%
+% Ulrik Lyngs, 25 Nov 2018: Following John McManigle, broad permissions are granted to use, modify, and distribute this software
+% as specified in the MIT License included in this distribution's LICENSE file.
+%
+% John commented this file extensively, so read through to see how to use the various options.  Remember that in LaTeX,
+% any line starting with a % is NOT executed.
+
+%%%%% PAGE LAYOUT
+% The most common choices should be below.  You can also do other things, like replace "a4paper" with "letterpaper", etc.
+
+% 'twoside' formats for two-sided binding (ie left and right pages have mirror margins; blank pages inserted where needed):
+%\documentclass[a4paper,twoside]{templates/ociamthesis}
+% Specifying nothing formats for one-sided binding (ie left margin > right margin; no extra blank pages):
+%\documentclass[a4paper]{ociamthesis}
+% 'nobind' formats for PDF output (ie equal margins, no extra blank pages):
+%\documentclass[a4paper,nobind]{templates/ociamthesis}
+
+% As you can see from the line below, oxforddown uses the a4paper size, 
+% and passes in the binding option from the YAML header in index.Rmd:
+\documentclass[a4paper, nobind]{templates/ociamthesis}
+
+
+%%%%% ADDING LATEX PACKAGES
+% add hyperref package with options from YAML %
+\usepackage[pdfpagelabels]{hyperref}
+% handle long urls
+\usepackage{xurl}
+% change the default coloring of links to something sensible
+\usepackage{xcolor}
+
+\definecolor{mylinkcolor}{RGB}{0,0,139}
+\definecolor{myurlcolor}{RGB}{0,0,139}
+\definecolor{mycitecolor}{RGB}{0,33,71}
+
+\hypersetup{
+  hidelinks,
+  colorlinks,
+  linktocpage=true,
+  linkcolor=mylinkcolor,
+  urlcolor=myurlcolor,
+  citecolor=mycitecolor
+}
+
+
+% add float package to allow manual control of figure positioning %
+\usepackage{float}
+
+% enable strikethrough
+\usepackage[normalem]{ulem}
+
+% use soul package for correction highlighting
+\usepackage{color, soulutf8}
+\definecolor{correctioncolor}{HTML}{CCCCFF}
+\sethlcolor{correctioncolor}
+\newcommand{\ctext}[3][RGB]{%
+  \begingroup
+  \definecolor{hlcolor}{#1}{#2}\sethlcolor{hlcolor}%
+  \hl{#3}%
+  \endgroup
+}
+% stop soul from freaking out when it sees citation commands
+\soulregister\ref7
+\soulregister\cite7
+\soulregister\citet7
+\soulregister\autocite7
+\soulregister\textcite7
+\soulregister\pageref7
+
+%%%%% FIXING / ADDING THINGS THAT'S SPECIAL TO R MARKDOWN'S USE OF LATEX TEMPLATES
+% pandoc puts lists in 'tightlist' command when no space between bullet points in Rmd file,
+% so we add this command to the template
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+ 
+% allow us to include code blocks in shaded environments
+
+% User-included things with header_includes or in_header will appear here
+% kableExtra packages will appear here if you use library(kableExtra)
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+
+
+%UL set section header spacing
+\usepackage{titlesec}
+% 
+\titlespacing\subsubsection{0pt}{24pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+
+
+%UL set whitespace around verbatim environments
+\usepackage{etoolbox}
+\makeatletter
+\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+\makeatother
+
+
+%%%%%%% PAGE HEADERS AND FOOTERS %%%%%%%%%
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\fancyhf{} % clear the header and footers
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter. #1}{\thechapter. #1}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection. #1}} 
+\renewcommand{\headrulewidth}{0pt}
+
+\fancyhead[LO]{\emph{\leftmark}} 
+\fancyhead[RE]{\emph{\rightmark}} 
+
+
+
+
+% UL page number position 
+\fancyfoot[C]{\emph{\thepage}} %regular pages
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\emph{\thepage}}} %chapter pages
+
+
+
+
+%%%%% SELECT YOUR DRAFT OPTIONS
+% This adds a "DRAFT" footer to every normal page.  (The first page of each chapter is not a "normal" page.)
+
+% IP feb 2021: option to include line numbers in PDF
+
+% for line wrapping in code blocks
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines=true, breakanywhere=true, commandchars=\\\{\}}
+
+% This highlights (in blue) corrections marked with (for words) \mccorrect{blah} or (for whole
+% paragraphs) \begin{mccorrection} . . . \end{mccorrection}.  This can be useful for sending a PDF of
+% your corrected thesis to your examiners for review.  Turn it off, and the blue disappears.
+\correctionstrue
+
+
+%%%%% BIBLIOGRAPHY SETUP
+% Note that your bibliography will require some tweaking depending on your department, preferred format, etc.
+% If you've not used LaTeX before, I recommend just using pandoc for citations -- this is what's used unless you specific e.g. "citation_package: natbib" in index.Rmd
+% If you're already a LaTeX pro and are used to natbib or something, modify as necessary.
+
+% this allows the latex template to handle pandoc citations
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{1mm}
+  \setlength{\baselineskip}{6mm}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+
+
+
+% Uncomment this if you want equation numbers per section (2.3.12), instead of per chapter (2.18):
+%\numberwithin{equation}{subsection}
+
+
+%%%%% THESIS / TITLE PAGE INFORMATION
+% Everybody needs to complete the following:
+\title{\texttt{oxforddown}:\\
+An Oxford University Thesis\\
+Template for R Markdown}
+\author{Author Name}
+\college{Your College}
+
+% Master's candidates who require the alternate title page (with candidate number and word count)
+% must also un-comment and complete the following three lines:
+
+% Uncomment the following line if your degree also includes exams (eg most masters):
+%\renewcommand{\submittedtext}{Submitted in partial completion of the}
+% Your full degree name.  (But remember that DPhils aren't "in" anything.  They're just DPhils.)
+\degree{Doctor of Philosophy}
+
+% Term and year of submission, or date if your board requires (eg most masters)
+\degreedate{Michaelmas 2018}
+
+
+%%%%% YOUR OWN PERSONAL MACROS
+% This is a good place to dump your own LaTeX macros as they come up.
+
+% To make text superscripts shortcuts
+\renewcommand{\th}{\textsuperscript{th}} % ex: I won 4\th place
+\newcommand{\nd}{\textsuperscript{nd}}
+\renewcommand{\st}{\textsuperscript{st}}
+\newcommand{\rd}{\textsuperscript{rd}}
+
+%%%%% THE ACTUAL DOCUMENT STARTS HERE
+\begin{document}
+
+%%%%% CHOOSE YOUR LINE SPACING HERE
+% This is the official option.  Use it for your submission copy and library copy:
+\setlength{\textbaselineskip}{22pt plus2pt}
+% This is closer spacing (about 1.5-spaced) that you might prefer for your personal copies:
+%\setlength{\textbaselineskip}{18pt plus2pt minus1pt}
+
+% You can set the spacing here for the roman-numbered pages (acknowledgements, table of contents, etc.)
+\setlength{\frontmatterbaselineskip}{17pt plus1pt minus1pt}
+
+% UL: You can set the line and paragraph spacing here for the separate abstract page to be handed in to Examination schools
+\setlength{\abstractseparatelineskip}{13pt plus1pt minus1pt}
+\setlength{\abstractseparateparskip}{0pt plus 1pt}
+
+% UL: You can set the general paragraph spacing here - I've set it to 2pt (was 0) so
+% it's less claustrophobic
+\setlength{\parskip}{2pt plus 1pt}
+
+%
+% Customise title page
+%
+\def\crest{{\includegraphics[width=5cm]{templates/beltcrest.pdf}}}
+\renewcommand{\university}{University of Oxford}
+\renewcommand{\submittedtext}{A thesis submitted for the degree of}
+\renewcommand{\thesistitlesize}{\fontsize{22pt}{28pt}\selectfont}
+\renewcommand{\gapbeforecrest}{25mm}
+\renewcommand{\gapaftercrest}{25mm
+}
+
+
+% Leave this line alone; it gets things started for the real document.
+\setlength{\baselineskip}{\textbaselineskip}
+
+
+%%%%% CHOOSE YOUR SECTION NUMBERING DEPTH HERE
+% You have two choices.  First, how far down are sections numbered?  (Below that, they're named but
+% don't get numbers.)  Second, what level of section appears in the table of contents?  These don't have
+% to match: you can have numbered sections that don't show up in the ToC, or unnumbered sections that
+% do.  Throughout, 0 = chapter; 1 = section; 2 = subsection; 3 = subsubsection, 4 = paragraph...
+
+% The level that gets a number:
+\setcounter{secnumdepth}{2}
+% The level that shows up in the ToC:
+\setcounter{tocdepth}{1}
+
+
+%%%%% ABSTRACT SEPARATE
+% This is used to create the separate, one-page abstract that you are required to hand into the Exam
+% Schools.  You can comment it out to generate a PDF for printing or whatnot.
+
+% JEM: Pages are roman numbered from here, though page numbers are invisible until ToC.  This is in
+% keeping with most typesetting conventions.
+\begin{romanpages}
+
+% Title page is created here
+\maketitle
+
+%%%%% DEDICATION
+\begin{dedication}
+  For Yihui Xie
+\end{dedication}
+
+%%%%% ACKNOWLEDGEMENTS
+
+
+\begin{acknowledgements}
+ 	This is where you will normally thank your advisor, colleagues, family and friends, as well as funding and institutional support. In our case, we will give our praises to the people who developed the ideas and tools that allow us to push open science a little step forward by writing plain-text, transparent, and reproducible theses in R Markdown.
+
+ We must be grateful to John Gruber for inventing the original version of Markdown, to John MacFarlane for creating Pandoc (\url{http://pandoc.org}) which converts Markdown to a large number of output formats, and to Yihui Xie for creating \texttt{knitr} which introduced R Markdown as a way of embedding code in Markdown documents, and \texttt{bookdown} which added tools for technical and longer-form writing.
+
+ Special thanks to \href{http://chester.rbind.io}{Chester Ismay}, who created the \texttt{thesisdown} package that helped many a PhD student write their theses in R Markdown. And a very special thanks to John McManigle, whose adaption of Sam Evans' adaptation of Keith Gillow's original maths template for writing an Oxford University DPhil thesis in LaTeX provided the template that I in turn adapted for R Markdown.
+
+ Finally, profuse thanks to JJ Allaire, the founder and CEO of \href{http://rstudio.com}{RStudio}, and Hadley Wickham, the mastermind of the tidyverse without whom we'd all just given up and done data science in Python instead. Thanks for making data science easier, more accessible, and more fun for us all.
+
+ \begin{flushright}
+ Ulrik Lyngs \\
+ Linacre College, Oxford \\
+ 2 December 2018
+ \end{flushright}
+\end{acknowledgements}
+
+
+
+%%%%% ABSTRACT
+
+
+\renewcommand{\abstracttitle}{Abstract}
+\begin{abstract}
+	This \emph{R Markdown} template is for writing an Oxford University thesis. The template is built using Yihui Xie's \texttt{bookdown} package, with heavy inspiration from Chester Ismay's \texttt{thesisdown} and the \texttt{OxThesis} \LaTeX~template (most recently adapted by John McManigle).
+
+This template's sample content include illustrations of how to write a thesis in R Markdown, and largely follows the structure from \href{https://ulyngs.github.io/rmarkdown-workshop-2019/}{this R Markdown workshop}.
+
+Congratulations for taking a step further into the lands of open, reproducible science by writing your thesis using a tool that allows you to transparently include tables and dynamically generated plots directly from the underlying data. Hip hooray!
+\end{abstract}
+
+
+
+%%%%% MINI TABLES
+% This lays the groundwork for per-chapter, mini tables of contents.  Comment the following line
+% (and remove \minitoc from the chapter files) if you don't want this.  Un-comment either of the
+% next two lines if you want a per-chapter list of figures or tables.
+\dominitoc % include a mini table of contents
+
+% This aligns the bottom of the text of each page.  It generally makes things look better.
+\flushbottom
+
+% This is where the whole-document ToC appears:
+\tableofcontents
+
+\listoffigures
+	\mtcaddchapter
+  	% \mtcaddchapter is needed when adding a non-chapter (but chapter-like) entity to avoid confusing minitoc
+
+% Uncomment to generate a list of tables:
+\listoftables
+  \mtcaddchapter
+%%%%% LIST OF ABBREVIATIONS
+% This example includes a list of abbreviations.  Look at text/abbreviations.tex to see how that file is
+% formatted.  The template can handle any kind of list though, so this might be a good place for a
+% glossary, etc.
+% First parameter can be changed eg to "Glossary" or something.
+% Second parameter is the max length of bold terms.
+\begin{mclistof}{List of Abbreviations}{3.2cm}
+
+\item[1-D, 2-D]
+
+One- or two-dimensional, referring \textbf{in this thesis} to spatial dimensions in an image.
+
+\item[Otter]
+
+One of the finest of water mammals.
+
+\item[Hedgehog]
+
+Quite a nice prickly friend.
+
+\end{mclistof} 
+
+
+% The Roman pages, like the Roman Empire, must come to its inevitable close.
+\end{romanpages}
+
+%%%%% CHAPTERS
+% Add or remove any chapters you'd like here, by file name (excluding '.tex'):
+\flushbottom
+
+% all your chapters and appendices will appear here
+\textcolor{red}{word count 761/755}
+
+\hypertarget{introduction}{%
+\chapter{Introduction}\label{introduction}}
+
+This dissertation aims to broaden our understanding of gastropopulism to accommodate a range of ideological and regional contexts. The emerging research on gastropopulism explores it in conflation with right-wing discursive ideology, specifically exclusionary nationalism. Furthermore, the empirical evidence heavily relies (70\%) on the content of a single actor, which distorts the findings. These factors are forming a vicious circle, entrenching a limited and biased understanding of gastropopulism. The political implication of academic conflation of (gastro)populism with nationalism is the validation of harmful claims as `soft' and representative of ``the people'' (Hunger and Paxton, 2021, p630). As such, there is a significant gap in the literature that necessitates radical review of gastropopulism. In this dissertation I have designed and applied a research methodology to overcome the current divides in populism research: conflation with ideology; insensitivity to geographical/cultural contexts; differences between quantitative and qualitative methods (Hunger and Paxton, 2021, p629).
+
+Research Question: \textbf{\emph{How do political actors use multimodal gastropopulist performances to construct and legitimise their public identities?}}
+
+In this dissertation, `multimodal communication', `gastropopulism', and `public identities' are divided into the following elements. Multimodal communication integrates the individual communicative modes of language, food and the body (Norris, 2004, p152). The features of gastropopulist performances are (1) belonging with `the people'; (2) bad manners; (3) immediacy (Moffitt, 2016, p40). A public identity is constructed through emphasising selected roles, herein, celebrity, politician, personal, and professional (Bast, 2021, p200).
+
+Accordingly, my account formulates gastropopulism as \emph{an actor's use of multimodal communication integrating language, food, and the body in performances of connecting with `the people', bad manners, and immediacy, in order to construct a consistent public identity that performs authenticity through strategically blending their celebrity, politician, personal, and professional roles}.
+
+To test my account, I have undertaken mixed-methods analysis of visual and audiovisual data of Alexandria Ocasio-Cortez \protect\hyperlink{aoc}{AOC} (left-wing, US), Donald Trump (right-wing, US), Nigel Farage (right-wing, UK) and Jeremy Corbyn (left-wing, UK). My research design is complex but comprehensive and cohesive, structured as follows. \textbf{Chapter Two: Integrative Literature Review} offers a qualitative synthesis of the relevant themes to the emerging field of gastropopulism, namely: populism; performance and multimodal communication; celebrity and social media; food semiotics and the body. I then critically assess the three existing empirical studies of gastropopulism to clearly establish the gap in the literature and the need to challenge and extend our knowledge of gastropopulism. \textbf{Chapter Three: Multimodal Social Semiotics Research Approach} outlines my methodological considerations, sample, and methods. This presents descriptive statistics for my sample. My methods and coding process are discussed, and my codebook for gastropopulist features is presented. \textbf{Chapter Four: Statistical Analysis} generates summary statistics of key variables for my entire sample {[}n=163{]}, by actor, ideology, region, and overall, to examine how gastropopulist performances are constructed. This chapter demonstrates why empirical evidence of gastropopulism is suited to analytic, not statistical, generalisability. Furthermore, the empirical grounding of the subsequent chapters is established. \textbf{Chapter Five: Individual Timeline Thematic Analysis} is a mixed-methods examination of each actor's data, using quantitative interactive timeline visualisations paired with qualitative discussions of individual trends, generated through inductive thematic analysis. This examines how the actors demonstrate their belonging to their people: Trump uses his personal wealth to buy his people fast food; AOC physically belongs in her constituency; Corbyn uses his campaign slogan `For The Many'; Farage uses food/drink to represent the cause/solution of problems. \textbf{Chapter Six: Nationalism and Class} uses deductive qualitative thematic analysis to explore how the central themes of extant gastropopulism literature manifest in my sample and theory. The `nationalism' section critically assesses the exclusionary/inclusionary binary presented by the literature, as well as the conflation of gastropopulism with right-wing discursive ideology. The `class' section considers how the actors embody class solidarity through performing a pub/bar worker role, apart from Trump, who integrates his professional identity into his food choices. This chapter dissects what it means for a gastropopulist performance to be viewed as credible. \textbf{Chapter Seven: Performative Eating} analyses performative eating videos using an original framework, Multimodal Social Semiotics Timeline Transcription. This explores the unique affordances of turning eating into a spectacle for gastropopulist performers. \textbf{Chapter Eight: Discussion} reflects upon the theory and arguments brought forth. This considers the work's limitations and offers opportunities for future research. Ultimately, I conclude that disentangling gastropopulism from ideological assumptions is necessary and achievable; my research design facilitates a comprehensive understanding of gastropopulism \emph{qua} gastropopulism that can comfortably accommodate different ideological and regional contexts. \textcolor{red}{sentence about impression management}
+
+\textcolor{red}{word count 2273/2230}
+
+\hypertarget{literature-review}{%
+\chapter{Literature Review}\label{literature-review}}
+
+This integrative qualitative thematic literature review provides an overview of relevant themes in the emerging gastropopulism field to establish the need for, and assist in developing, a new theoretical model of the concept (Torraco, 2005, p357). The relevant themes are: \textbf{populism}; \textbf{communication (performance and multimodality)}; \textbf{celebrity politics and social media}; \textbf{food semiotics}; \textbf{gastropopulism}. The gastropopulism section is a detailed critical engagement with the theoretical assumptions, methodologies, and empirical evidence of the three extant empirical studies. In particular, the over-reliance on data from one political actor/context (Italy's far-right Matteo Salvini) is critically assessed. This establishes the gap in gastropopulism literature, and demonstrates the need to reconstruct gastropopulism theory. Finally, I offer my account of gastropopulism, developed from the literature synthesised herein, to be robustly empirically tested in subsequent chapters.
+
+\hypertarget{populism}{%
+\section{Populism}\label{populism}}
+
+Whilst ostensibly extensively researched, `populism' lacks conceptual clarity and is frequently conflated with left- or right-wing ideologies (Hunger and Paxton, 2021, p617). Settling the wider debate on populism is beyond the remit of my dissertation. Instead, influenced by Moffitt (2016, p40), my dissertation considers populism as performance, with the central features of: (1) belonging with `the people'; (2) bad manners; (3) immediacy. Per Garcia-Santamaria (2021, p32), this is used to convey authenticity, social intimacy, and spontaneity/urgency, in order to construct a blended political and personal identity of the actor. Populists construct an antagonistic divide between `the people' and `the elite' to emphasise their belonging with `the people' (Moffitt, 2016, p43). As a theoretical frame, the features are ideologically and culturally neutral, and flexible to contextual application (e.g., cultural perceptions of `bad' manners) (Moffitt, 2016, p45). Furthermore, Moffitt (2016, p41) asserts that the conceptual tools provided by the dramaturgical lexicon (e.g., performance, audience, stage, prop) are useful for empirical analysis of populism, as they ground the theory's ontological assumptions in more `concrete' \emph{ontic} content. Moreover, his performative approach emphasises multimodality (e.g., aesthetics, gestures) (Moffitt, 2016, p40), thus effectively captures the inherently multimodal nature of gastropopulist communication.
+
+\hypertarget{communication-performance-and-multimodality}{%
+\section{Communication: Performance and Multimodality}\label{communication-performance-and-multimodality}}
+
+Goffman's (1959) work on performance remains highly influential to the communication field.
+The central idea is that observation entails a contextual shift, whereby one's actions become communicative performances, implicitly or explicitly signifying meaning and identity to the observer (Goffman, 1959, p43). This is keenly relevant for political actors, whose highly visible position in the public sphere invites intense observation (McDonnell and Wheeler, 2019, p427).
+This motivates ``impression management'', meaning attempts to influence perceptions by carefully emphasising or concealing certain aspects to present an idealised performance as `authentic' (Goffman, 1959, p30). However, according to Goffman (1959, p36), this can easily backfire because the audience is sensitive both to minor discrepancies and seeming overly calculated. Thus, authenticity itself is a \emph{performance}, not a discernible true/false characteristic of a performance/performer (Zummo, 2020, p111). As such, this dissertation examines how actors deploy impression management in their multimodal gastropopulist performances, which concerns how such performances (and their performed authenticity) might be \emph{discredited}, rather than \emph{false} (Goffman, 1959, p44).
+
+Sigrid Norris (2004, p156), a pioneer of multimodal communication research, asserts that communication studies normatively afford primacy to linguistic modes, with other modes being treated as appendages. Norris (2004, p152) views communicative modes as ``loosely bounded units''; the mode of image can be divided (herein) into the modes of language, the body, food, or ``a range of other equally correct communicative modes''. As this work centres the actor as a communicator, `image' and `video' are taken to be \emph{formats} rather than modes of communication.
+Image (visual) and video (audiovisual) formats of communication are predominant in traditional and social media; political actors increasingly work to take advantage of different modes (particularly the body and objects) to convey messages (Diehl, 2017, p7). Kress (2011, p38) states that the integration of modes constitute ``one connected cultural resource for meaning-making'', or, in Goffman's terms, a communicative performance. Each mode holds equal (potential) \emph{capacity} to contribute meaning, and each holds distinct affordances and social shaping (Kress, 2011, p38). Accordingly, it is vital that political actors harness the power of multimodal communication to convincingly perform authenticity (Zummo, 2020, p101).
+
+\hypertarget{celebrity-politicians-and-social-media}{%
+\section{Celebrity Politicians and Social Media}\label{celebrity-politicians-and-social-media}}
+
+The notion of the `celebrity politician' is highly relevant to my dissertation. Per Street (2019, p4), political analysts can gain profound insights from examining ``the behaviour of celebrity politicians as \emph{celebrities}'', or more as performers and their fans than as representatives and their citizens. Self-presentation is a political actor's promotion of their celebrity, politician, personal, and/or professional role to strategically cultivate a particular public identity (Bast, 2021, p200). Social media platforms offer a low-cost, high-potential tool for populist performances of their `unfiltered' identity, unmediated connection to their audience, and rejection of `elite' traditional media (Moffitt, 2016, p92). `Politainment' is common online, wherein the distinction between the personal and the political is blurred, for example through cooking livestreams, to emphasise and legitimise the actor's performed identity and connection to their audience (Zummo, 2020, p112). Politainment and self-presentation stimulate parasocial relationships and interaction, wherein individuals feel as though they know and are connected to a public figure on a personal level (McDonnell and Wheeler, 2019, p428). Celebrity politicians are not always populist, and not all populists are celebrity politicians (Street, 2019, p11). However, there is seemingly a natural affinity between populism, celebrity, and social media (Moffitt, 2016; Street, 2019; Bast, 2021; McDonnell and Wheeler, 2019; Zummo, 2020).
+
+\hypertarget{food-semiotics}{%
+\section{Food Semiotics}\label{food-semiotics}}
+
+Bourdieu's (1984) seminal ethnography on the social construction of taste is a common point of reference for social semiotics (meaning-making) literature. Of particular relevance to this dissertation is his construction of an antagonistic divide between the taste preferences of the ``\textbf{dominant elite}'' (`high' culture; refined, healthy, fresh, expensive, \emph{quality}) and the ``\textbf{dominated mass}'' (`low' culture; popular, unhealthy, processed, cheap, \emph{quantity}) (Bourdieu, 1984, p468). This is extended by his central claim that ``\emph{taste in the sense of the `faculty of immediately and intuitively judging aesthetic values' is inseparable from taste in the sense of the capacity to discern the flavours of foods which implies a preference for some of them}'' (Bourdieu, 1984, p99). Due to this constructed elite/mass divide and the dual meaning of the word taste, food semiotics literature can offer profound insights into populist performances.
+
+Food holds significant and often overlooked communicative power (Stano, 2015, p647). Food, along with its preparation and its consumption, signals taste and identity, particularly of socioeconomic and cultural preferences, access, and belonging (Stano, 2015, p657). To appear relatable and accessible, populist actors often invoke mirror representation as a form of mimetic identification with their constructed `people' (Diehl, 2017, p9). Food-related performances are a highly effective way for populists to align themselves with `low' culture and `the people' and distance themselves from `high' culture and `the elites' (Tindall, 2022, p126).
+
+Unlike `shared senses', such as sight and hearing, taste is a private sense, rendering food preferences and eating habits inherently private (Hai-Jew, 2022, p276; Rüdiger, 2021, p11). Accordingly, political actors can foster parasocial intimacy by selectively sharing personal information about their daily lives through revealing food preferences/habits rather than, e.g., personal relationships (Rüdiger, 2021, p11). Thus, gastropopulist performances are a form of impression management that promote preferred \emph{perceptions} regarding how the actor truly `lives', though this is ultimately unknowable (Hai-Jew, 2022, p282).
+
+Diehl (2017, p12) positions eating as ``the most powerful technique {[}for populists{]} to demonstrate proximity and similarity''. When food is incorporated --- eaten --- it not only provides the body with energy needed to survive, but it \emph{becomes} the substance of the body (Stano, 2015, p657). \emph{You are what you eat}. Due to the semiotic weight of this biological process, Diehl (2017, p1) asserts the body as crucial in populist communication to invoke mimetic identification with `the people', and Bourdieu (1984, p190) claims the body as ``the most indisputable materialisation of class taste''. In the first empirical study of gastropopulism, Garcia-Santamaria (2020, p146) concludes that ``political leaders' posts of food are never about just food''. The power of food as a \emph{political} communicative mode lies in its everyday presence concealing its semiotic weight; gastropopulist performances thus offer political actors a less-scrutinised way to construct and legitimise their public identities.
+
+\hypertarget{gastropopulism}{%
+\section{Gastropopulism}\label{gastropopulism}}
+
+In recent years, academic research has begun to apply food semiotics to populism, termed `gastropopulism'. At its core, gastropopulism is political actors' use of food as a meaning-making device to construct and signify features of populism, particularly belonging with `the people'. There are currently only three empirical gastropopulism studies, which exclusively examine it as a right-wing `discursive ideology' used to convey exclusionary nationalism and working class belonging (Garcia-Santamaria, 2020, p129; Demuru, 2021, p511; Starita, 2022, p94).
+
+The studies' operationalisations undeniably conflate populism with nationalism. The first ``fundamental distinctive feature'' of populism presented by Demuru (2021, p510) is ``the abuse of `empty signifiers', such as {[}the construction of{]} `the people'\,'' which ``revolves around the continuous appeal to a national identity'' and the juxtaposition of ``\,`true' and `legitimate' citizens {[}against{]} the ethnic minorities and migrants {[}\ldots{]} seen as a concrete threat for the State and the national culture''. Interestingly, Starita (2022, p94) and Garcia-Santamaria (2020, p131) posit Italy as a ``country of endemic populism'', yet only examine right-wing actors. Starita (2022, p93) claims that ``populism and nationalism share some key ideological elements {[}\ldots{]} their evolutions have contaminated each other''. Garcia-Santamaria (2020, p133) states that constructions of `the people' represent national belonging in nationalism, and class belonging in populism, so right-wing populists connect to a national- and class-identity of the `people'. Garcia-Santamaria (2020, p133) defines ``food populism {[}as{]} populist leaders' use of {[}\ldots{]} food as an empty signifier that connects {[}\ldots{]} with the national common people'', and explicitly claims that `food populism' avoids ``ethnic exoticism''.
+
+Certain modes, herein food, are ``less subject to social policing'' thus hold unique affordances for political actors constructing identity (Kress, 2011, p41). Accordingly, whilst gastropopulism researchers Demuru (2021, p510) and Garcia-Santamaria (2020, p132) take food to be an `empty signifier', my work centres its active role in gastropopulism by analysing it as a communicative mode. Conflating (gastro)populism with nationalism not only obstructs useful analysis of (gastro)populism, it simultaneously validates exclusionary nationalist actors' claims to connecting with `the people' (Hunger and Paxton, 2021, p630). Whilst populism is often conflated with right-wing nationalism, extant \emph{gastropopulism} research has arguably compounded this, specifically conflating the phenomenon with a single actor's communicative performances --- Matteo Salvini, presented in Figure 2.1:
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{DissdataIMAGES/gastrostudies} \caption{Contextualising the current empirical gastropopulism studies}\label{fig:unnamed-chunk-1}
+\end{figure}
+
+Figure 2.1 shows that empirical evidence of gastropopulism is overwhelmingly drawn from Italy (84.9\%) and Salvini (70\%). Salvini posts significantly more food-related content than Bolsonaro and Meloni in the samples' timeframes. This lends support to my gastropopulism-as-performance approach, as it indicates that the use of gastropopulist communication is linked to the \emph{individual} actor more plausibly than the ideology or country.
+
+Approaches rooted in ideology and discourse cannot usefully engage with (1) why gastropopulism is not used by all `populist' actors, (2) what motivates the use of `gastropopulism' over general `populism', and (3) why `non-populist' actors sometimes invoke gastropopulism. My performative approach easily accommodates these questions: actors tailor performances to the context and intended message; gastropopulism is used if the food-mode has particular affordances for these needs.
+
+\hypertarget{my-account-of-gastropopulism}{%
+\section{My Account of Gastropopulism}\label{my-account-of-gastropopulism}}
+
+This qualitative thematic literature review has synthesised the relevant themes (populism; performance and multimodal communication; celebrity and social media; food semiotics and the body; gastropopulism) to the emerging field of gastropopulism. The deep critical engagement with the three existing empirical gastropopulism studies has demonstrated the clear gap in the literature. This has established the need for my dissertation, which aims to radically reconstruct gastropopulism research. In my view, the limited scope of current gastropopulism theory and evidence need not be entrenched; my performance-based account and comprehensive research design can broaden our understanding of the phenomenon.
+
+This dissertation formulates gastropopulism as \emph{an actor's use of multimodal communication integrating language, food, and the body in performances of connecting with `the people', bad manners, and immediacy, in order to construct a consistent public identity that performs authenticity through strategically blending their celebrity, politician, personal, and professional roles}.
+
+There is a yet unaddressed concern regarding structural classism potentially being reproduced and entrenched in academia. Jayne \emph{et al} (2008, p88) criticise another paper for ``accepting rather than critiquing the use of terms such as European/continental drinking and the implicit binge drinking British `other'\,''. `Classed' assumptions regarding bodily composition and tastes, as advanced by Diehl (2017) and Bourdieu (1984), may not be accurate; a US government study of fast food consumption found a positive association with income (Fryar \emph{et al}, 2018, p3). However, for Bourdieu, ``A class is defined as much by its \emph{being-perceived} as by its \emph{being}, by its consumption--- which need not be conspicuous in order to be symbolic'' (1984, p483). Under Goffman's (1959, p20) ``dramatic realisation'', actors must \emph{within the performance} draw attention to the intended meaning for observers, so gastropopulist class performances reflect stereotypes rather than reality. For Kress (2011, p41), certain modes --- herein the body and food--- are ``less subject to social policing'', making their communicative power ``much more difficult to challenge''. In my view, this is why it is essential to challenge and extend our understanding of gastropopulism, with the knowledge that gastropopulist performances are catered to common perceptions rather than accuracy.
+
+In the next chapter, I present my research approach and explain how the methodological design of the dissertation's four analytical methods work together to robustly overcome the limitations of current gastropopulism theory. This will empirically test my account of gastropopulism and provide a multidimensional answer my research question, \textbf{\emph{How do political actors use multimodal gastropopulist performances to construct and legitimise their public identities?}}
+
+\textcolor{red}{word count 2789/2598}
+
+\hypertarget{research-approach}{%
+\chapter{Research Approach}\label{research-approach}}
+
+\hypertarget{methodological-considerations}{%
+\subsection*{Methodological considerations}\label{methodological-considerations}}
+\addcontentsline{toc}{subsection}{Methodological considerations}
+
+Social semiotics are inherently subjective and situated (Kress, 2011, p36), which is congruent with my philosophical approach of constructivist ontology and interpretivist epistemology. Social semiotics approaches are iterative, so `description', `analysis' and `interpretation' are not distinct stages of the research process (Bezemer and Mavers, 2011, p196). The core of the methods used are informed by the works on multimodal communication analysis produced by Norris (2004; 2009), Kress (2011), Bezemer and Mavers (2011), and Cowan (2014). These authors are/were (socio-)linguistic experts in the education field. However, their works are adaptable to the political science context, and proved invaluable for analysing multimodal communication.
+
+My mixed-methods research design is complex and carefully considered. There are four analytical chapters: \textbf{Chapter Four: Statistical Analysis} of key variables to assess the dataset and set up further analysis; \textbf{Chapter Five: Individual Timeline Trends Analysis} pairing interactive quantitative timeline visualisations with inductive qualitative thematic analysis to explore each actor's use of gastropopulism; \textbf{Chapter Six: Nationalism and Class} uses deductive qualitative thematic analysis to examine how the central themes of extant gastropopulism research manifest in my sample and theory; \textbf{Chapter Seven: Performative Eating} develops an original framework, Multimodal Social Semiotics Timeline Transcription (MMSSTT), to analyse performative eating videos. This dissertation's structure will produce breadth and depth of analysis of multimodal gastropopulist performances.
+
+\hypertarget{sample}{%
+\subsection*{Sample}\label{sample}}
+\addcontentsline{toc}{subsection}{Sample}
+
+The population of my study is multimodal content of British and American political actors associated with populist performances using food as a communicative mode. The political actors selected for my sample are: Alexandria Ocasio-Cortez (USA, left-wing); Donald Trump (USA, right-wing); Jeremy Corbyn (UK, left-wing); Nigel Farage (UK, right-wing). Farage and AOC were named in Garcia-Santamaria's (2020, p146) concluding remarks about other political actors who use food to connect to audiences. The addition of Trump and Corbyn enables analysis of how gastropopulism is performed within and across ideologies and countries. This is an important element to empirically test the impact of conflating of (gastro)populism with ideology and/or region. I next briefly contextualise the selected actors' celebrity origins.
+
+AOC represents New York's 14th Congressional District, population \textasciitilde700,000, yet she has 8.5 million Instagram followers (ocasio-cortez.house.gov, \emph{n.d.}). Her `everyday influencer' celebrity role attracts a large social media audience through ``carefully crafted and stylised'' interactive and multimodal politainment centring relatability and `ordinariness' (Starita and Trillò, 2022, p334; Rasulo, 2020, p125). She frequently self-presents idealised gastropopulist performances of her personal role through `stories' and livestreams, which disappear after 24 hours, aligning with Moffitt's (2016, p85) concern that the celebrity role may enable political actors to avoid scrutiny and accountability. This resonates with `disappearing' gastropopulist performances, as the aura of spontaneity and `personal' content may be used to disguise explicitly political messages.
+
+In 2023, the active and crucial part Trump's Apprentice role played in his public identity during his 2016 campaign is easily forgotten; he planned to work on season eight until June 2015, when the network publicly cut ties due to Trump's ``derogatory statements'' at campaign rallies about Mexican immigrants (St.~James, 2015). Though his reality star celebrity origins were filtered through traditional broadcast media, he quickly adapted this to harness the affordances of social media platforms, particularly Twitter (McDonnell and Wheeler, 2019, p430). Furthermore, his adversarial `billionaire boss' reality star role fostered parasocial illusions and inherently blurred the line of perceived (in)authenticity regarding his political role and politics, mutually reinforcing his celebrity and politician roles (Street, 2019, pp7-8).
+
+Farage and Corbyn's political careers long pre-date social media (and `populism' becoming a buzzword), so their public identities were largely filtered through traditional media. As such, their celebrity politician origins are rooted in their `politics', inclusive of style and substance (Street, 2019, p10; Moffitt, 2016, p85). Moffitt (2016, p84) states that a ``key tactic'' for populists relying on traditional media is brazen opportunism with media appearances, ``particularly those that ostensibly bring them closer to `the people'\,''.
+
+As an MEP for a minor party --- both elements of which inspire little media attention --- Farage courted press coverage to establish his identity through extensive gastropopulist performances, frequently involved holding a pint of beer (Tindall, 2022, p135). Farage leveraged the traditional media and asserted the political relevance of euroscepticism, and over decades of work, significantly contributed to shifting the UK's political landscape (Hart and Winter, 2022, p38).
+
+In contrast, the `celebrity politician' role was seemingly given to, rather than sought by Corbyn. Corbyn was a highly rebellious but relatively unknown backbench Labour MP for 32 years before his shock landslide victory in Labour's 2015 leadership contest (Quinn, 2016, p765). However, his performed (or perhaps more accurately, \emph{perceived}) authenticity and radical-left policies were extremely popular with young people, dubbed `Corbynmania' (Quinn, 2016, p764). Given his long-established reticence to blend his personal and politician roles (Hattenstone, 2015), the unanticipated addition of a `celebrity' role perhaps posed a challenge for Corbyn's impression management strategies.
+
+Ultimately, influenced by Street (2019), considering the \emph{celebrity} origin and affordances of the selected actors' identities has been highly insightful for my analysis of gastropopulism, particularly when explaining the variations, motivations, and credibility of individuals' performances. My dissertation is neither a critique nor defence of `celebrity' in politics, but it asserts the explanatory and cultural power of celebrity and popular culture in UK and US contexts.
+
+\hypertarget{data}{%
+\subsection*{Data}\label{data}}
+\addcontentsline{toc}{subsection}{Data}
+
+The unit of analysis is the post, always constituted of visual and/or audiovisual content, and often containing textual content (e.g., captions). As my approach stresses \emph{multimodal} communication, purely textual content was excluded. My data collection approach was guided by the existing empirical gastropopulism studies, starting with \emph{manual} scraping of each actor's \emph{entire} official Instagram account {[} \emph{my adjustments italicised}{]} (Garcia-Santamaria, 2020, p130; Starita, 2022, p94; Demuru, 2021, p511). Akin to Demuru, I extended my data collection through Internet searches of ``{[}actor{]} + {[}food/eating/cooking{]}''. My data consists of public communications from political figures collected from verified official sources. Where visible, I censored comments from non-verified users. Accordingly, my dissertation raises no particular ethical concerns. The following tables present descriptive statistics for each actor's Instagram accounts {[}Table 3.1{]} and the makeup of my sample {[}Table 3.2{]}. My final sample was n=163 {[}excluding 15 non-gastropopulist performances, addressed shortly{]}.
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-2}Actors’ Instagram statistics [03/07/2023]}
+\centering
+\begin{tabular}[t]{l|l|l|l|l}
+\hline
+Actor & Handle & Follower Count & Post Count & Date Joined\\
+\hline
+AOC & \textbackslash{}@AOC & 8,500,000 & 577 & 01/2012\\
+\hline
+Trump & \textbackslash{}@realdonaltrump & 23,400,000 & 6,126 & 04/2013\\
+\hline
+Corbyn & \textbackslash{}@jeremycorbyn & 511,000 & 1,519 & 04/2016\\
+\hline
+Farage & \textbackslash{}@nigel\_farage & 180,000 & 432 & 03/2017\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-3}Descriptive statistics for the sample}
+\centering
+\fontsize{14}{16}\selectfont
+\begin{tabular} to \linewidth {>{\raggedright}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X}
+\hline
+\multicolumn{1}{c|}{ } & \multicolumn{4}{c|}{\textbf{Actor}} & \multicolumn{1}{c}{ } \\
+\cline{2-5}
+\textbf{Variable} & \makecell[c]{\textbf{AOC}\ \ \\ N = 26 \\[+0]} & \makecell[c]{\textbf{Corbyn}\ \ \\ N = 45 \\[+2]} & \makecell[c]{\textbf{Farage}\ \ \\ N = 65 \\[+3]} & \makecell[c]{\textbf{Trump}\ \ \\ N = 27 \\[+10]} & \makecell[c]{\textbf{Overall}\ \ \\ N = 163 \\[+15]}\\
+\hline
+Gastropopulism &  &  &  &  & \\
+\hline
+\hspace{1em}Gastropopulism & 26\ \ (100\%) & 45\ \ (96\%) & 65\ \ (96\%) & 27\ \ (73\%) & 163\ \ (92\%)\\
+\hline
+\hspace{1em}Not Gastropopulism & 0\ \ (0\%) & 2\ \ (4.3\%) & 3\ \ (4.4\%) & 10\ \ (27\%) & 15\ \ (8.4\%)\\
+\hline
+Data Format &  &  &  &  & \\
+\hline
+\hspace{1em}Audiovisual & 13\ \ (50\%) & 11\ \ (24\%) & 10\ \ (15\%) & 14\ \ (52\%) & 48\ \ (29\%)\\
+\hline
+\hspace{1em}Visual & 13\ \ (50\%) & 34\ \ (76\%) & 55\ \ (85\%) & 13\ \ (48\%) & 115\ \ (71\%)\\
+\hline
+Platform &  &  &  &  & \\
+\hline
+\hspace{1em}Instagram & 21\ \ (81\%) & 39\ \ (87\%) & 54\ \ (83\%) & 14\ \ (52\%) & 128\ \ (79\%)\\
+\hline
+\hspace{1em}Other & 0\ \ (0\%) & 0\ \ (0\%) & 4\ \ (6.2\%) & 3\ \ (11\%) & 7\ \ (4.3\%)\\
+\hline
+\hspace{1em}Twitter & 2\ \ (7.7\%) & 2\ \ (4.4\%) & 0\ \ (0\%) & 4\ \ (15\%) & 8\ \ (4.9\%)\\
+\hline
+\hspace{1em}YouTube & 3\ \ (12\%) & 4\ \ (8.9\%) & 7\ \ (11\%) & 6\ \ (22\%) & 20\ \ (12\%)\\
+\hline
+Distribution &  &  &  &  & \\
+\hline
+\hspace{1em}Actor's social media & 24\ \ (92\%) & 40\ \ (89\%) & 55\ \ (85\%) & 9\ \ (33\%) & 128\ \ (79\%)\\
+\hline
+\hspace{1em}Mass media organisation & 1\ \ (3.8\%) & 2\ \ (4.4\%) & 7\ \ (11\%) & 10\ \ (37\%) & 20\ \ (12\%)\\
+\hline
+\hspace{1em}Other social media & 1\ \ (3.8\%) & 3\ \ (6.7\%) & 3\ \ (4.6\%) & 8\ \ (30\%) & 15\ \ (9.2\%)\\
+\hline
+\end{tabular}
+\end{table}
+
+These descriptive tables establish differences within my sample concerning how each actor uses social media and food in their political communications. Table 3.2 shows that 79\% of my sample was collected from Instagram, and (coincidentally) 79\% was collected from the actors' official social media accounts. I next lay out the structure of my methods and analysis, including my gastropopulism codebook.
+
+\hypertarget{methods-and-analysis}{%
+\section{Methods and Analysis}\label{methods-and-analysis}}
+
+The structure of my methods, analysis, and findings is complex but cohesive. I created an extensive coding frame with variables informed by academic literature, and coded my entire gastropopulism sample {[}n=163{]}. During the initial data collection, `non-gastropopulist' performances were informally flagged {[}n=15{]} and not coded further. My detailed codebook can be found in \textcolor{red}{Appendix A} \textcolor{blue}{only include important variables}. For conceptual clarity, I now provide an extract of the codebook regarding gastropopulism. Briefly, I used this to individually code the features of gastropopulism as `present' or `absent', and items coded as `not gastropopulism' were excluded from the sample. To properly examine the multimodality of the features of gastropopulism, each mode was coded ``in terms specific to its affordances {[}and shaping{]}, and in terms shared by all modes'' (Kress, 2011, p38). Multimodal approaches identify/interpret meanings through ``common parlance'' or theoretical accounts (Kress, 2011, p39).
+
+\begin{figure}
+\includegraphics[width=13.44in]{../oxforddown-3.5/DissdataIMAGES/gpcode} \caption{Codebook extract, Gastropopulism}\label{fig:unnamed-chunk-4}
+\end{figure}
+
+During the coding process, I generated informal notes of ``potential data items of interest, questions, connections between data items, and other preliminary ideas'' (Kiger and Varpio, 2020, p850). As a result, themes became clearer and I clarified my codes accordingly, congruent with my iterative social semiotics approach (Bezemer and Mavers, 2011, p196). Each argument is developed through analysis of one or more relevant items, screenshots of which are presented using the \texttt{knitr} (Xie, 2023) and \texttt{gridextra} (Auguie, 2022) R packages. The process of selecting items for deeper analysis was informed by ``analytical and rhetorical purposes'', that is, ``telling'' moments with strong potential for analytical insights (Bezemer and Mavers, 2011, pp194-195). The performative eating chapter analyses only audiovisual data, the other chapters draw from both visual and audiovisual data.
+
+\hypertarget{statistical-analysis}{%
+\subsection*{Statistical Analysis}\label{statistical-analysis}}
+\addcontentsline{toc}{subsection}{Statistical Analysis}
+
+The statistical analysis chapter assesses how gastropopulist performances are constructed. I adapted Starita's (2022, p95) approach to generate a summary statistics table of my entire sample using my coding of key variables and the \texttt{gtsummary} R package (Sjoberg, 2021). `Key variables' were informed by the literature, and guide my further analysis. The table quantitatively explores the dataset's distribution, showing the count and relative frequency of selected categories per actor, ideology, region, and overall. This structure is a considered effort to empirically test performative, ideological, and regional theories regarding gastropopulism.
+
+Key variables:
+* Incorporation: whether the food was eaten
+* Cultural association: how the food relates to the actor's cultural identity
+* Nourishment: healthy, moderate, unhealthy
+* Taste: flavour profile
+* Individual features of gastropopulism
+* Individual Trends
+
+The statistical analysis chapter establishes how political actors construct their gastropopulist performances. Subsequent chapters continue this work, through examining how political actors use \emph{multimodal} gastropopulism performances to construct their \emph{public identities}.
+
+\hypertarget{mixed-methods-individual-timeline-thematic-analysis}{%
+\subsection*{Mixed-methods Individual Timeline Thematic Analysis}\label{mixed-methods-individual-timeline-thematic-analysis}}
+\addcontentsline{toc}{subsection}{Mixed-methods Individual Timeline Thematic Analysis}
+
+This chapter quantitatively and qualitatively examines each actor's entire data in the sample, through timeline visualisations paired with inductive qualitative thematic analysis. The \texttt{vistime} (Raabe, 2022), \texttt{plotly} (Sievert, 2020) and \texttt{emoji} (Hvitfeldt, 2022) R packages were used to generate individual interactive quantitative timeline visualisations. This original design aims to visualise potential patterns in each actor's use of gastropopulism, such as clusters during campaign periods.
+
+The following visualisation of the entire dataset introduces the interactive elements. Hovering on markers displays the date posted and sample ID (Px indicating image, Vx indicating video, and on Trump's individual timeline, NGx indicating non-gastropopulist content). Datapoints are colour coded to reflect whether the individual theme was present, implied, or absent (N/A {[}pre-slogan{]} are coloured grey for Corbyn). On the individual timelines, datapoints used for further analysis are overlaid with symbols, hovering displays the sample ID, date and food. Furthermore, relevant election dates are marked with flag emojis, hovering over which displays the election type and date.
+
+\begin{figure}
+\centering
+\includegraphics{_main_files/figure-latex/unnamed-chunk-5-1.pdf}
+\caption{\label{fig:unnamed-chunk-5}Full Dataset Timeline Visualisation}
+\end{figure}
+
+When generating the individual visualisations, Trump's data raised some methodological challenges, due to: his over \textbf{two year ban from Meta} (Instagram and FaceBook) platforms {[}06/01/2020-07/02/2023{]} after inciting a deadly insurrection attempt (Meta, 2021); the \textbf{10 non-gastropopulist items}, eight of ostentatious empty plates at elite political events; and as shown in Table 3.2, the \textbf{distribution of his gastropopulist content} being fairly evenly split between his own social media accounts {[}n=9{]}, his senior advisor Jason Miller's official Twitter and Instagram accounts (both @JasonMillerinDC) {[}n=8{]}, and mass media organisations {[}n=10{]}.
+
+Accordingly, Trump's individual timeline marks non-gastropopulist items with grey crosses, and his Meta ban as a grey line. Furthermore, the y axis uses the \texttt{Distribution} variable to delineate between data collected from: his own social media; Miller's social media; mass media. Trump's non-gastropopulist items are marked for transparency because they represent a quarter (n=10, 27\%) of his initial data collected (n=37), and my argument is based on the purposeful alignment of his gastropopulism with his campaigns. Thus, the timings of his non-gastropopulist performances are relevant, though not further analysed.
+
+Non-gastropopulist items were excluded from other actors' timelines, as no such items were coded for AOC, only two for Corbyn (4.5\%) and three for Farage (4.3\%). Additionally, the other actors' data were primarily collected from their own social media accounts (AOC 92\%; Corbyn 89\%; Farage 86\%), so their y axes do not use the \texttt{distribution} variable. Four items dated between 2011-2014 were excluded from Farage's timeline as they distorted the visualisation's scale {[}P3, 09/09/2011; V13, 03/05/2013; P120, 23/04/2014, used in §6.2 Class; V16, 03/10/2014, used in §7 Performative Eating{]}. For Corbyn, four items occurred pre-slogan so are colour-coded grey on his timeline {[}P2; P36; P41; P44{]}. Documenting these methodological decisions is vital for transparency and replicability (Bezemer and Mavers, 2011, p204).
+
+Each actor's timeline visualisation is followed by a discussion of their individual trend, generated through inductive qualitative thematic analysis. Inductive thematic analysis is highly suited to my social semiotics approach, as it centres the context and data of each actor to develop themes. This chapter allows us to get a sense of how each actor tailors gastropopulism to their needs.
+
+\hypertarget{deductive-qualitative-thematic-analysis}{%
+\subsection*{Deductive Qualitative Thematic Analysis}\label{deductive-qualitative-thematic-analysis}}
+\addcontentsline{toc}{subsection}{Deductive Qualitative Thematic Analysis}
+
+My deductive qualitative thematic analysis examines how the central themes (nationalism and class) of extant gastropopulism literature manifest within my sample and under my theory. As the aforementioned studies present gastropopulism as a right-wing discursive ideology used to convey exclusionary nationalism, my nationalism analysis considers four instances of exclusionary and inclusionary nationalism by Farage and Trump. The studies also assert gastropopulism as a right-wing tool to convey class belonging, however, this is common to populists across the ideological spectrum (Tindall, 2022, p139). Thus, instead of centring ideology, my analysis scrutinises how the actors' performances of class belonging are shaped by their celebrity and professional roles. This extends the discussions of their individual trends by considering how the actors attempt impression management.
+
+This deductive qualitative thematic analysis chapter aims to build upon existing gastropopulism theory to provide a comprehensive account of gastropopulism that is not distorted by ideological assumptions. Instead, this centres the analytical focus on the actor's integration of communicative modes in their gastropopulist performances, as well as the role of their constructed identity. This chapter offers insights into the performative nature of gastropopulism, and how actors benefit from cohesive gastropopulist performances.
+
+\hypertarget{multimodal-social-semiotics-timeline-transcription}{%
+\subsection*{Multimodal Social Semiotics Timeline Transcription}\label{multimodal-social-semiotics-timeline-transcription}}
+\addcontentsline{toc}{subsection}{Multimodal Social Semiotics Timeline Transcription}
+
+The final analytical chapter dissects the \emph{multimodality} of gastropopulist performances through examining performative eating videos. This considers the communicative power of political actors publicly demonstrating \emph{you are what you eat} (Diehl, 2017, p12; Bourdieu, 1984, p190; Stano, 2015, p657). The works regarding online eating performers by Hai-Jew (2022) and Rüdiger (2021) were helpful not only to consider the affordances of the audiovisual format in this context, but to scrutinise the inherently performative nature of eating for an audience. Though not written for the political context, they are keenly relevant to my work, owing to their explorations of performed authenticity, intimacy, and spontaneity, as well as the sociocultural role of food and eating.
+
+This chapter is shaped by Norris' (2009, p351) seminal work on multimodal (inter)action analysis, which facilitates analysis of how individual communicative modes interact with each other to convey a single message. ELAN (2023) video annotation software was used to generate multimodal social semiotics timeline transcriptions (MMSSTT). My design adapted Cowan's (2014, pp15-16) multimodal timeline transcript structure (which primarily coded body language modes non-linguistically, using symbols) to incorporate multimodal social semiotics analysis research by Kress (2011) and Bezemer and Mavers (2011). Figure 3.3 below presents my pilot MMSSTT:
+
+\begin{figure}
+\includegraphics[width=40in]{../oxforddown-3.5/DissdataIMAGES/AOCpilot} \caption{Multimodal social semiotics timeline transcript [pilot]}\label{fig:unnamed-chunk-6}
+\end{figure}
+
+Using my gastropopulism codebook, each communicative mode (language, embodied, food) was individually assessed for each feature of gastropopulism (part of `the people', bad manners, immediacy) to conduct granular analysis. Figure 3.3 was conducted before the formal codes were finalised (Bezemer and Mavers, 2011, p195). In the textual analysis, timestamps denote minute:second {[}e.g., 1:17{]}. The layout is structured to illustrate the ``complexities of meaning making'' (Bezemer and Mavers, 2011, p202). This chapter examines how individual communicative modes are choreographed and integrated to build a `natural' and cohesive performance of the features of gastropopulism. This pays particular attention to the communicative power of eating. This analytical method draws from literature across multiple disciplines to develop a useful original design.
+
+\hypertarget{methodology-discussion}{%
+\section*{Methodology Discussion}\label{methodology-discussion}}
+\addcontentsline{toc}{section}{Methodology Discussion}
+
+Though undeniably complex, this research design is formulated to provide a rigorous and comprehensive account of gastropopulism with robust empirical evidence. Each analytical chapter builds from the previous to form an unprecedented breadth and depth of gastropopulism analysis. Ultimately, this will enable a robust answer to my research question, \emph{how do political actors use multimodal gastropopulist performances to construct and legitimise their public identities?}.
+
+\textcolor{red}{word count 1335/1283}
+
+\hypertarget{statistical-analysis-1}{%
+\chapter{Statistical Analysis}\label{statistical-analysis-1}}
+
+Table 4.1 below presents summary statistics for my sample, showing the count and relative frequency of each code per actor, ideology, region, and overall. The literature review critiqued gastropopulism studies generalising from the empirical evidence disproportionately drawn from one actor. In my sample, UK actors generated the most data (67\%), with Corbyn accounting for 63.4\% `left' data and Farage 69.9\% `right' data. This is congruent with my performance-based approach, which does not expect actors to use gastropopulism equally. Table 4.1 illustrates how conflating gastropopulism with an actor's ideology or region obscures individual-level variations and patterns. In fact, it demonstrates how gastropopulism research is unsuited to statistical generalisability. Resultantly, Table 4.1 is intended towards analytical generalisability. This chapter establishes the empirical grounding of the subsequent analytical sections.
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-7}Summary Statistics Table by Actor, Ideology, Region, and Overall}
+\centering
+\fontsize{14}{16}\selectfont
+\begin{tabu} to \linewidth {>{}l|>{\centering}X>{\centering}X>{\centering}X>{}c|>{\centering}X>{}c|>{\centering}X>{}c|>{\centering}X}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{4}{c}{\textbf{Actor}} & \multicolumn{2}{c}{\textbf{Ideology}} & \multicolumn{2}{c}{\textbf{Geography}} & \multicolumn{1}{c}{ } \\
+\cmidrule(l{3pt}r{3pt}){2-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9}
+\textbf{Variable} & \makecell[c]{\textbf{AOC}\ \ \\N = 26} & \makecell[c]{\textbf{Corbyn}\ \ \\N = 45} & \makecell[c]{\textbf{Farage}\ \ \\N = 65} & \makecell[c]{\textbf{Trump}\ \ \\N = 27} & \makecell[c]{\textbf{Left}\ \ \\N = 71} & \makecell[c]{\textbf{Right}\ \ \\N = 92} & \makecell[c]{\textbf{UK}\ \ \\N = 110} & \makecell[c]{\textbf{USA}\ \ \\N = 53} & \makecell[c]{\textbf{Overall}\ \ \\N = 163}\\
+\midrule
+**Incorporation** &  &  &  &  &  &  &  &  & \\
+\hspace{1em}Absent & 14\ \ \ \ (54\%) & 29\ \ \ \ (64\%) & 25\ \ \ \ (38\%) & 17\ \ \ \ (63\%) & 43\ \  (61\%) & 42\ \  (46\%) & 54\ \ \ \ (49\%) & 31\ \ \ \ (58\%) & 85\ \ (52\%)\\
+\hspace{1em}Implied & 5\ \ \ \ (19\%) & 9\ \ \ \ (20\%) & 30\ \ \ \ (46\%) & 8\ \ \ \ (30\%) & 14\ \  (20\%) & 38\ \  (41\%) & 39\ \ \ \ (35\%) & 13\ \ \ \ (25\%) & 52\ \ (32\%)\\
+\hspace{1em}Present & 7\ \ \ \ (27\%) & 7\ \ \ \ (16\%) & 10\ \ \ \ (15\%) & 2\ \ \ \ (7.4\%) & 14\ \  (20\%) & 12\ \  (13\%) & 17\ \ \ \ (15\%) & 9\ \ \ \ (17\%) & 26\ \ (16\%)\\
+**Cultural Association** &  &  &  &  &  &  &  &  & \\
+\addlinespace
+\hspace{1em}Assimilated & 4\ \ \ \ (15\%) & 11\ \ \ \ (24\%) & 9\ \ \ \ (14\%) & 5\ \ \ \ (19\%) & 15\ \  (21\%) & 14\ \  (15\%) & 20\ \ \ \ (18\%) & 9\ \ \ \ (17\%) & 29\ \ (18\%)\\
+\hspace{1em}Endogenous & 15\ \ \ \ (58\%) & 19\ \ \ \ (42\%) & 38\ \ \ \ (58\%) & 19\ \ \ \ (70\%) & 34\ \  (48\%) & 57\ \  (62\%) & 57\ \ \ \ (52\%) & 34\ \ \ \ (64\%) & 91\ \ (56\%)\\
+\hspace{1em}Exogenous & 3\ \ \ \ (12\%) & 10\ \ \ \ (22\%) & 7\ \ \ \ (11\%) & 0\ \ \ \ (0\%) & 13\ \  (18\%) & 7\ \  (7.6\%) & 17\ \ \ \ (15\%) & 3\ \ \ \ (5.7\%) & 20\ \ (12\%)\\
+\hspace{1em}N/A & 0\ \ \ \ (0\%) & 2\ \ \ \ (4.4\%) & 4\ \ \ \ (6.2\%) & 0\ \ \ \ (0\%) & 2\ \  (2.8\%) & 4\ \  (4.3\%) & 6\ \ \ \ (5.5\%) & 0\ \ \ \ (0\%) & 6\ \ (3.7\%)\\
+\hspace{1em}Regional Endogenous & 4\ \ \ \ (15\%) & 3\ \ \ \ (6.7\%) & 7\ \ \ \ (11\%) & 3\ \ \ \ (11\%) & 7\ \  (9.9\%) & 10\ \  (11\%) & 10\ \ \ \ (9.1\%) & 7\ \ \ \ (13\%) & 17\ \ (10\%)\\
+\addlinespace
+**Nourishment** &  &  &  &  &  &  &  &  & \\
+\hspace{1em}Healthy & 1\ \ \ \ (3.8\%) & 7\ \ \ \ (16\%) & 8\ \ \ \ (12\%) & 1\ \ \ \ (3.7\%) & 8\ \  (11\%) & 9\ \  (9.8\%) & 15\ \ \ \ (14\%) & 2\ \ \ \ (3.8\%) & 17\ \ (10\%)\\
+\hspace{1em}Moderate & 6\ \ \ \ (23\%) & 19\ \ \ \ (42\%) & 4\ \ \ \ (6.2\%) & 3\ \ \ \ (11\%) & 25\ \  (35\%) & 7\ \  (7.6\%) & 23\ \ \ \ (21\%) & 9\ \ \ \ (17\%) & 32\ \ (20\%)\\
+\hspace{1em}Unhealthy & 19\ \ \ \ (73\%) & 19\ \ \ \ (42\%) & 53\ \ \ \ (82\%) & 23\ \ \ \ (85\%) & 38\ \  (54\%) & 76\ \  (83\%) & 72\ \ \ \ (65\%) & 42\ \ \ \ (79\%) & 114\ \ (70\%)\\
+**Taste** &  &  &  &  &  &  &  &  & \\
+\addlinespace
+\hspace{1em}Alcohol & 5\ \ \ \ (19\%) & 3\ \ \ \ (6.7\%) & 35\ \ \ \ (54\%) & 0\ \ \ \ (0\%) & 8\ \  (11\%) & 35\ \  (38\%) & 38\ \ \ \ (35\%) & 5\ \ \ \ (9.4\%) & 43\ \ (26\%)\\
+\hspace{1em}Fresh & 3\ \ \ \ (12\%) & 5\ \ \ \ (11\%) & 8\ \ \ \ (12\%) & 2\ \ \ \ (7.4\%) & 8\ \  (11\%) & 10\ \  (11\%) & 13\ \ \ \ (12\%) & 5\ \ \ \ (9.4\%) & 18\ \ (11\%)\\
+\hspace{1em}Hot drink & 2\ \ \ \ (7.7\%) & 7\ \ \ \ (16\%) & 3\ \ \ \ (4.6\%) & 0\ \ \ \ (0\%) & 9\ \  (13\%) & 3\ \  (3.3\%) & 10\ \ \ \ (9.1\%) & 2\ \ \ \ (3.8\%) & 12\ \ (7.4\%)\\
+\hspace{1em}Other & 3\ \ \ \ (12\%) & 4\ \ \ \ (8.9\%) & 0\ \ \ \ (0\%) & 0\ \ \ \ (0\%) & 7\ \  (9.9\%) & 0\ \  (0\%) & 4\ \ \ \ (3.6\%) & 3\ \ \ \ (5.7\%) & 7\ \ (4.3\%)\\
+\hspace{1em}Salty/fatty & 7\ \ \ \ (27\%) & 20\ \ \ \ (44\%) & 11\ \ \ \ (17\%) & 16\ \ \ \ (59\%) & 27\ \  (38\%) & 27\ \  (29\%) & 31\ \ \ \ (28\%) & 23\ \ \ \ (43\%) & 54\ \ (33\%)\\
+\addlinespace
+\hspace{1em}Sweet & 6\ \ \ \ (23\%) & 6\ \ \ \ (13\%) & 8\ \ \ \ (12\%) & 9\ \ \ \ (33\%) & 12\ \  (17\%) & 17\ \  (18\%) & 14\ \ \ \ (13\%) & 15\ \ \ \ (28\%) & 29\ \ (18\%)\\
+**Worker Performance** &  &  &  &  &  &  &  &  & \\
+\hspace{1em}Absent & 22\ \ \ \ (85\%) & 36\ \ \ \ (80\%) & 61\ \ \ \ (94\%) & 27\ \ \ \ (100\%) & 58\ \  (82\%) & 88\ \  (96\%) & 97\ \ \ \ (88\%) & 49\ \ \ \ (92\%) & 146\ \ (90\%)\\
+\hspace{1em}Present & 4\ \ \ \ (15\%) & 9\ \ \ \ (20\%) & 4\ \ \ \ (6.2\%) & 0\ \ \ \ (0\%) & 13\ \  (18\%) & 4\ \  (4.3\%) & 13\ \ \ \ (12\%) & 4\ \ \ \ (7.5\%) & 17\ \ (10\%)\\
+**Part of 'the people'** &  &  &  &  &  &  &  &  & \\
+\addlinespace
+\hspace{1em}Absent & 0\ \ \ \ (0\%) & 1\ \ \ \ (2.2\%) & 0\ \ \ \ (0\%) & 0\ \ \ \ (0\%) & 1\ \  (1.4\%) & 0\ \  (0\%) & 1\ \ \ \ (0.9\%) & 0\ \ \ \ (0\%) & 1\ \ (0.6\%)\\
+\hspace{1em}Present & 26\ \ \ \ (100\%) & 44\ \ \ \ (98\%) & 65\ \ \ \ (100\%) & 27\ \ \ \ (100\%) & 70\ \  (99\%) & 92\ \  (100\%) & 109\ \ \ \ (99\%) & 53\ \ \ \ (100\%) & 162\ \ (99\%)\\
+**Bad Manners** &  &  &  &  &  &  &  &  & \\
+\hspace{1em}Absent & 2\ \ \ \ (7.7\%) & 11\ \ \ \ (24\%) & 2\ \ \ \ (3.1\%) & 2\ \ \ \ (7.4\%) & 13\ \  (18\%) & 4\ \  (4.3\%) & 13\ \ \ \ (12\%) & 4\ \ \ \ (7.5\%) & 17\ \ (10\%)\\
+\hspace{1em}Present & 24\ \ \ \ (92\%) & 34\ \ \ \ (76\%) & 63\ \ \ \ (97\%) & 25\ \ \ \ (93\%) & 58\ \  (82\%) & 88\ \  (96\%) & 97\ \ \ \ (88\%) & 49\ \ \ \ (92\%) & 146\ \ (90\%)\\
+\addlinespace
+**Immediacy** &  &  &  &  &  &  &  &  & \\
+\hspace{1em}Absent & 0\ \ \ \ (0\%) & 2\ \ \ \ (4.4\%) & 0\ \ \ \ (0\%) & 0\ \ \ \ (0\%) & 2\ \  (2.8\%) & 0\ \  (0\%) & 2\ \ \ \ (1.8\%) & 0\ \ \ \ (0\%) & 2\ \ (1.2\%)\\
+\hspace{1em}Present & 26\ \ \ \ (100\%) & 43\ \ \ \ (96\%) & 65\ \ \ \ (100\%) & 27\ \ \ \ (100\%) & 69\ \  (97\%) & 92\ \  (100\%) & 108\ \ \ \ (98\%) & 53\ \ \ \ (100\%) & 161\ \ (99\%)\\
+**Individual Trend** &  &  &  &  &  &  &  &  & \\
+\hspace{1em}Absent & 3\ \ \ \ (12\%) & 19\ \ \ \ (46\%) & 22\ \ \ \ (34\%) & 8\ \ \ \ (30\%) & 22\ \  (33\%) & 30\ \  (33\%) & 41\ \ \ \ (39\%) & 11\ \ \ \ (21\%) & 52\ \ (33\%)\\
+\addlinespace
+\hspace{1em}Implied & 7\ \ \ \ (27\%) & 13\ \ \ \ (32\%) & 16\ \ \ \ (25\%) & 10\ \ \ \ (37\%) & 20\ \  (30\%) & 26\ \  (28\%) & 29\ \ \ \ (27\%) & 17\ \ \ \ (32\%) & 46\ \ (29\%)\\
+\hspace{1em}Present & 16\ \ \ \ (62\%) & 9\ \ \ \ (22\%) & 27\ \ \ \ (42\%) & 9\ \ \ \ (33\%) & 25\ \  (37\%) & 36\ \  (39\%) & 36\ \ \ \ (34\%) & 25\ \ \ \ (47\%) & 61\ \ (38\%)\\
+\bottomrule
+\end{tabu}
+\end{table}
+
+\hypertarget{incorporation}{%
+\section*{Incorporation}\label{incorporation}}
+\addcontentsline{toc}{section}{Incorporation}
+
+While Diehl (2017, p12) and Bourdieu (1984, p190) emphasise incorporation, or eating, as the most powerful way to signify belonging to the people, Table 4.1 shows that this was present in only 26 (16\%) items overall. `Implied' incorporation, with the actor framed as ``about'' to eat/drink was twice as common, found in 52 (32\%) items. Just over half of my sample lacked actual or implied incorporation.
+
+Interestingly, breaking down the \texttt{Data\ Format} variable by the \texttt{Incorporation} variable indicates the affordances of audiovisual content for incorporation \textcolor{red}{{[}table in Appendix B{]}}. This shows that 23 (88\%) of the 26 `present' \texttt{incorporation} items were audiovisual, and 50 (96\%) of the 52 `implied' \texttt{incorporation} items were visual. Still images of a political actor incorporating food/drink present a high risk of looking overly posed (breaking the illusion of spontaneity) or overly unappealing (inviting ridicule). With still images, implied incorporation may appear more natural/candid, thus legitimising the performed authenticity and spontaneity. Biting and chewing are dynamic, violent motions (Stano, 2015, p658) best suited to the video format, which captures the process of incorporation rather than just a frame. With videos, implied incorporation may pierce performed authenticity and spontaneity, as it highlights that the actor is not actually consuming the food/drink. This speaks to the distinct affordances of visual and audiovisual formats for impression management.
+I return to this idea in my final analytical section, §7: Performative Eating.
+
+\hypertarget{cultural-association}{%
+\section*{Cultural Association}\label{cultural-association}}
+\addcontentsline{toc}{section}{Cultural Association}
+
+Examining the \texttt{Cultural\ Association} variable provides initial support for my theory's emphasis on the explanatory power of individual-level analysis rather than extant gastropopulism theory's focus on ideology and Italy.
+Food semiotics are highly culturally situated (Kress, 2011, p45). Accordingly, the categories for this variable are situated, meaning they relate to the cultural identities of the actor and their region. This adapts the food origin distinctions presented as national/local by Starita (2022, Appendix) and as endogenous/exogenous by Stano (2015, p3) \textcolor{red}{put in codebook}. For example, the Scottish soft drink Irn Bru is `regional endogenous' for Farage {[}P3{]} and Corbyn {[}P2{]} but `exogenous' for AOC {[}P1; V49{]}. Farage's appearances at the \emph{British Curry} Awards {[}P109; V10; V11; V13{]} and Corbyn's at the \emph{British Kebab} Awards {[}V12; V14{]} are coded as `assimilated'. Conversely, items showing Corbyn dishing up curries in Sikh Gurdwaras {[}P14; P34; P39; V30{]} are coded as `exogenous', as Corbyn is not Sikh.
+
+Unexpectedly, Table 4.1 shows that AOC and Farage have the most similar \texttt{cultural\ association} distributions, with almost identical relative frequencies of their uses of endogenous, assimilated, and exogenous foods. This is notable because their politics surrounding cultural/national identity are diametrically opposed. Prior gastropopulism literature emphasises an exclusionary/inclusionary dichotomy, asserting that right-wing populists primarily use food to convey their exclusionary nationalism, with no reference to its potential for inclusion. In §6.1: Nationalism, I explore how the strategic ambiguity utilised in gastropopulist performances by Trump and Farage thwart analytical attempts to code gastropopulism using an exclusionary/inclusionary dichotomy. The individual variation and strategic ambiguity within my sample's \texttt{cultural\ association} variable and analysis thereof demonstrates the theoretical and empirical limitations of analysing gastropopulism through an ideological lens. My performance-based theory does not deny that ideology and region contribute to how an actor manifests their gastropopulism. However, I assert gastropopulism as a flexible and open way for individuals to construct identity, rather than a restrictive representation of ideology that exists independently of the actor.
+
+\hypertarget{performances-of-class-belonging}{%
+\section*{Performances of Class Belonging}\label{performances-of-class-belonging}}
+\addcontentsline{toc}{section}{Performances of Class Belonging}
+
+The \texttt{Nourishment} and \texttt{Taste} variables attempt to capture Bourdieu's (1984, p468) elite/mass food-based class division (e.g., healthy/unhealthy; light/heavy; quality/quantity). Table 4.1 shows that AOC, Farage, and Trump lean heavily towards unhealthy foods. Corbyn's profile is more balanced, but favours the moderate-unhealthy and salty/fatty. The \texttt{taste} variable's \texttt{fresh} category includes home-cooked meals. This is where the absence of AOC's disappearing gastropopulist content (e.g., cooking livestreams) is most keenly felt, limiting its analytical utility. The consistency of Trump's performed tastes preferences for salty/fatty {[}n=16 (59\%){]} and sweet {[}n=9 (33\%){]} foods is not a coincidence; García-Santamaría (2020, p143) views this as a way to reveal a relatable and \emph{seemingly} apolitical weakness. Farage's extensive use of alcohol in his gastropopulism {[}n=35 (54\%){]} is a form of mimetic identification with British binge drinking culture (Jayne \emph{et al}, 2008, p88). Jayne \emph{et al} (2008, p88) caution against accepting entrenched ``classed'' perceptions of ``respectability'' that oppose British binge drinking with ``\,`continental' or `sensible'\,'' European drinking culture. However, through Goffman's (1959, p20) lens, this is ``dramatic realisation'' of precisely the identity Farage wishes to convey through his alcohol-centred gastropopulist performances. In addition, the \texttt{Worker\ Performance} variable sets the stage for §6.2: Class, examining how the actors embody their class belonging through food hospitality worker role performances. No such observations of Trump were found, so his discussion explores how he embodies class belonging through his menu choices.
+
+\hypertarget{gastropopulism-and-individual-trends}{%
+\section*{Gastropopulism and Individual Trends}\label{gastropopulism-and-individual-trends}}
+\addcontentsline{toc}{section}{Gastropopulism and Individual Trends}
+
+The variables capturing gastropopulism's individual features show that the actors were highly consistent at integrating all three into their performances. Corbyn, however, omitted \texttt{bad\ manners} in 24\% his performances. This motivates looking at his full dataset, and providing a multimodal analysis of how he -- and the others -- actually perform their gastropopulism \emph{multimodally}. To this end, the \texttt{Individual\ Trend} variable sets the stage for the next analytical chapter: Individual Timelines and Trends.
+
+\textbf{Trump} {[}n=9 (33\%){]} \textbf{`put his money where his mouth is'}, meaning instances wherein he (claimed to) use his personal wealth to buy fast food for his people, with a secondary code for performances of his personal consumption of popular, cheap foods {[}n=10 (37\%){]}. \textbf{AOC} {[}n=16 (62\%){]} \textbf{physically engages with her constituency} through gastropopulist performances, with a secondary code for performances implied to be in her NY/DC homes {[}n=7 (27\%){]}. \textbf{Corbyn} {[}n=9 (22\%){]} uses his Labour campaign slogan \textbf{``for the many, not the few''} in his gastropopulist performances, particularly through puns and emojis, with a secondary code for performances embodying the slogan, e.g., community work {[}n=13 (32\%){]}. Finally, I explore how \textbf{Farage} {[}n=27 (42\%){]} explicitly leverages \textbf{food and drink as the cause and solution of problems}, blending the personal and the political, with a secondary code for doing so implicitly {[}n=16 (25\%){]}.
+
+\hypertarget{discussion-of-statistical-analysis}{%
+\section*{Discussion of Statistical Analysis}\label{discussion-of-statistical-analysis}}
+\addcontentsline{toc}{section}{Discussion of Statistical Analysis}
+
+This statistical analysis chapter has assessed how political actors construct gastropopulist performances. Moreover, this has provided a robust comparison of individual-, ideological-, and regional-level explanations. This gives an unprecedented depth and breadth of analysis of empirical evidence of gastropopulism. Crucially, this facilitates analytic generalisability for existing theory as well as establishing a flexible and transparent framework for future studies of (gastro)populism. In addition, this has demonstrated how my research design is informed by the data as well as literature, in order to conduct a cohesive and comprehensive test of my theory. This chapter has contextualised the empirical grounding for the subsequent analyses, which will closely scrutinise the multimodality of the performances, and the role of constructed public identity. This will enable a considered answer to my research question, \emph{how do political actors use multimodal gastropopulist performances to construct and legitimise their public identities?}.
+
+\textcolor{red}{word count 2981/2931}
+
+\hypertarget{individual-timelines-thematic-analysis}{%
+\chapter{Individual Timelines Thematic Analysis}\label{individual-timelines-thematic-analysis}}
+
+In Demuru's (2021, p508) introduction, he postulates that when ``casually browsing'' Trump's social media, food ``might eventually be present'' but ``does not play such an important role as for Salvini and Bolsanaro''. Yet, when quantitatively coded and visualised in Figure 5.1 below, we can see a clear trend of Trump using gastropopulism almost exclusively during campaigns. Therefore, generating individual timelines from the dataset can reveal unanticipated insights about how actors use gastropopulism. Pairing these visualisations with deeper qualitative inductive thematic analysis helps us understand actors' habits and motivations for gastropopulist performances.
+
+\hypertarget{trump}{%
+\section{Trump}\label{trump}}
+
+\begin{figure}
+\centering
+\includegraphics{_main_files/figure-latex/unnamed-chunk-8-1.pdf}
+\caption{\label{fig:unnamed-chunk-8}Trump Gastropopulism Timeline}
+\end{figure}
+
+This analysis considers how Trump uses gastropopulist performances to `put his money where his mouth is' by personally buying food for his people, through examination of a paradigm campaign example {[}V7, 22/02/23{]} and the two outlying non-campaign gastropopulist performances {[}V6, 15/01/2019; V45, 04/03/2019{]}. Figure 5.1 also shows that Trump's gastropopulist performances are frequently disseminated by others, and he gave only five performances during his 2020 campaign. I return to these observations in §6.2: Class, considering how and why others construct Trump's public identity as gastropopulist.
+
+\begin{figure}
+\includegraphics[width=40in]{../oxforddown-3.5/DissdataVIDEOS/V7} \caption{Trump in an Ohio McDonalds [V7, 22/02/23]}\label{fig:unnamed-chunk-9}
+\end{figure}
+
+V7 {[}22/02/2023{]} shows Trump in a McDonalds in East Palestine, Ohio, shortly after a train carrying hazardous chemicals derailed in the area (Colvin and Seewer, 2023). Trump was in campaign-mode, wearing his trademark ``Make America Great Again'' red cap and handing some out to the audience (Colvin and Seewer, 2023). After greeting the staff, Trump says, ``I know this menu better than you do. I probably know it better than anyone in here.''. Here, he positions himself as belonging to the people, yet still elevated as an authority. These light-hearted claims reflect his deeper disregard for the expertise of others, which is typical of populist bad manners (Moffitt, 2016, p44).
+
+In V7, Trump says to the cashier, ``We're gonna take care of the fire department. We're gonna take care of the police department. {[}\ldots{]} Plus, the people that are in here, they're gonna get a nice, free meal.''. He positions himself as a caretaker to demonstrate his belonging with the people. This is a representative example of how Trump has frequently `put his money where his mouth is' by personally paying for fast food feasts for his people. This enables Trump to perform both his commitment to using his resources to benefit the people, and the working class affinity of his personal tastes. Buying food is a particularly efficient way to achieve this as it is a relatively low-cost and low-effort endeavour for Trump, yet establishes a connection between Trump and his audience that feels tangible, personal, and embodied. This simulates commensality despite Trump rarely eating at such events. `Putting his money where his mouth is' is highly suited to the campaign trail, as there will always be a glut of available restaurants and people wanting a free meal. Moreover, it proved successful in Trump's two outlying non-campaign gastropopulist performances.
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{_main_files/figure-latex/unnamed-chunk-10-1} \caption{Trump, Football, and Fast Food [V6, 15/01/2019; V45, 04/03/2019]}\label{fig:unnamed-chunk-10}
+\end{figure}
+
+In V6 {[}15/01/2019{]} and V45 {[}04/03/2019{]}, Trump follows custom by inviting championship-winning football teams, the Clemson Tigers and the Bison, respectively, to catered White House receptions (Oprysko, 2019). Deviating from custom, these events were catered by, in Trump's words, ``All-American companies, Burger King, Wendy's, McDonalds'' {[}V6; V45{]}.
+
+V6 occurred during a government shutdown, which furloughed White House kitchen staff (Oprysko, 2019). Trump says his options were no food, salads made by the First and Second Ladies, or ``I send out for about 1,000 hamburgers'', paid for with his own money. He says, ``We have everything that I like, that you like''. This gastropopulist performance was so successful that two months later, he repeated it for the Bisons, reported by \emph{Politico} as ``turning his well-known fast food affinity into a White House tradition'' (Oprysko, 2019). In V45, Trump states, ``We had the Clemson Tigers here and we did the same thing. We could have had chefs, but we got fast food, because I know you people very well.''. As such, while Trump generally limits his gastropopulist performances to campaign periods, he will use gastropopulism if it has particular affordances for his needs. This shows how Trump strategically puts his money where his mouth is in gastropopulist performances to demonstrate his belonging with the people, disregard for formality, and spontaneity.
+
+\hypertarget{aoc}{%
+\section{AOC}\label{aoc}}
+
+\begin{figure}
+\centering
+\includegraphics{_main_files/figure-latex/unnamed-chunk-11-1.pdf}
+\caption{\label{fig:unnamed-chunk-11}AOC Gastropopulism Timeline}
+\end{figure}
+
+For AOC, the primary analytical relevance is \emph{where}, not when, gastropopulism is performed. Given AOC's massive audience relative to her district, she must balance her borderless representative claims and her direct representative responsibilities. AOC achieves this through primarily setting her gastropopulist content in her represented district {[}n=16{]}, or her (implied) home {[}n=7{]}. This serves two crucial purposes: it performs intimacy with her constituents; and it emphasises the \emph{politician} element of her celebrity politician role. This is intended to legitimise her performed authenticity as a dedicated local representative who will not be corrupted by power, fame, or money. Gastropopulism is particularly effective for this purpose as it facilitates the generation of politainment that is at once universal and geographically connected.
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{_main_files/figure-latex/unnamed-chunk-12-1} \caption{AOC in the Bronx with Desus and Mero V55 [07/02/2020]}\label{fig:unnamed-chunk-12}
+\end{figure}
+
+As a New York native and representative, AOC has endless local opportunities for interesting and strategic influencer-style gastropopulist performances.
+V55 {[}07/02/2020{]} is a video interview with `Desus \& Mero' (a late-night talkshow), the second-most watched on their YouTube channel with 2.15 million views (Desus \& Mero, 2020).
+Where the interview takes place is up to the guest, with many using a Bronx bar or talk-show set.
+AOC chooses to locate her interview through several Bronx food-settings, pictured above: a bodega to get a BEC (bacon-egg-cheese bagel); eating and walking around the neighbourhood; a bar where she makes cocktails; a taqueria to get burritos.
+
+The video is a carefully arranged gastropopulist performance that cohesively utilises several of AOC's roles.
+In the bodega (V55a, top left), AOC states that it is ``impossible'' to get a good BEC in DC, due to the lack of bodegas.
+She claims, ``I don't know how anybody eats in Washington DC. Which probably explains why everyone's fighting all the time!''.
+Eating the BEC as they walk around the neighbourhood, multiple citizens greet and compliment AOC.
+V55b, top right, depicts when a citizen gets out of a car and runs towards AOC, they embrace twice as the citizen says, ``I love you! Wow you are powerful. I love you so much, girl. You are a light, keep shining.'', and AOC --- still holding her foil-wrapped BEC --- says ``Thank you! You too.''.
+They blow kisses at each other as they end their conversation.
+V55c, bottom left, shows AOC making cocktails at a bar they ``luckily'' walked past.
+V55d, bottom right, shows the group with burritos at a taqueria.
+
+In this video, AOC flexes her self-presentation skills, masterfully integrating and blurring her different roles to cohesively: distance herself from the DC political elite; demonstrate her natural belonging to and immense popularity with the people she represents; embody her service worker history; show her enthusiastic taste for cheap, popular NY and Latin American foods.
+Throughout the video, she treats her interlocutors (interviewers, citizens, service staff) equally as good friends, with expressive and informal language, hugs, blowing kisses, shouting across the street, laughing and joking. The interlocutors serve to corroborate her performance (Rüdiger, 2021, p23).
+Her performed authenticity is fluent and appears effortless, but this nevertheless is a highly structured and edited video.
+This politainment content is a perfect representation of how the affordances of her `everyday influencer' celebrity role enable the strategic integration of her political, personal, and professional roles and bolster the performed authenticity of her public identity.
+Furthermore, it specifically locates her as belonging to her district the Bronx, through her own preference and that of the citizens she represents, who shower her with parasocial love and reciprocated physical affection.
+
+\hypertarget{corbyn}{%
+\section{Corbyn}\label{corbyn}}
+
+\begin{figure}
+\centering
+\includegraphics{_main_files/figure-latex/unnamed-chunk-13-1.pdf}
+\caption{\label{fig:unnamed-chunk-13}Corbyn Gastropopulism Timeline}
+\end{figure}
+
+Corbyn's timeline shows a hesitant adoption of gastropopulism. His first foray, P2 in 2015, is explored in §7: Performative Eating. His three gastropopulist posts in 2016 were in the run-up to the EU referendum. Of his seven such posts in 2017, three occurred in the month leading to the General Election (GE). 2018 was seemingly a fallow year, totalling only three relevant items. However, in 2019, with the UK's final EU Parliament Elections and a snap GE, Corbyn issued 23 gastropopulist performances, six of which in the week before the GE. This enthusiasm quickly dissipated, with only seven such posts in 2020, one in 2021, and none from 2022 until my data collection concluded in June 2023. This section is a comparative analysis of how Corbyn used tea in his gastropopulism outwith {[}V27{]} and within {[}V28; P26{]} campaigns. This finishes by considering how Corbyn's performances were motivated by his leadership role, the loss of which leading to his withdrawal from gastropopulism.
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{_main_files/figure-latex/unnamed-chunk-14-1} \caption{Corbyn and Tea [V27, 17/01/2018; V28, 12/12/19; P26a/P26b, 07/12/2019]}\label{fig:unnamed-chunk-14}
+\end{figure}
+
+V27 {[}17/01/2018{]} is a quick-looping gif of Corbyn pretending to sip from a Labour-red `For The Many' campaign merchandise mug as a camera light flashes, geotagged at the Houses of Parliament. In the caption, Corbyn uses light-hearted wordplay to integrate tea into his Labour slogan: ``\#ForTheMany/\#AndTheBrew''. This post blends the front- and back-stages by performing a `behind-the-scenes' display of Corbyn's photoshoot, with Corbyn's body positioned towards the `Instagram' camera as his face/gaze is directed elsewhere, likely the official photographer. Tea is an extremely popular food-product assimilated into UK culture. `Cuppa' and `brew' are informal names for tea, and the sturdy mug (opposed to a fine china teacup) position this as low-brow, ordinary British tea culture.
+
+Here, Corbyn is using everyday British gastronomy to casually position himself and his politics as belonging with and sharing the tastes of `the many' (the people). The light-hearted integration of tea into his political slogan and his body is a form of mimetic identification that both softens and performs authenticity for his constructed public identity, without making any concrete political claims or attempts to mobilise the audience. This seems to naturally set the stage for using the slogan in politicised and mobilising campaign-oriented gastropopulism. However, as shown in Figure 5.6, five of the nine uses of the \emph{campaign} slogan in Corbyn's gastropopulist performances were clustered in the six months \emph{following} the 2017 GE, and it was used only three times during the 2019 campaigns.
+
+During the 2019 GE campaign, Corbyn invoked the food-mode in explicitly political messages aiming to mobilise. V28, posted on election day, is another gif of Corbyn sipping tea. Though the `for the many' slogan is not invoked through the linguistic mode, it is embodied through his performance as of a service worker. Corbyn claims that ``Boris Johnson will sell-off our NHS, and that's the tea. \#VoteLabourToday''. In addition to the aforementioned role of tea in British culture, ``the T/tea'' (meaning `truth') is slang originating from the Queer Black American community (merriam-webster.com, 2023), adding a further semiotic layer that performs Corbyn's informality and proximity to youth/popular culture. Despite performing urgency through the linguistic mode (the need to vote ``Today'' due to threat Johnson poses to ``our'' NHS), he appears relaxed in his body-mode (casual sipping) and food-mode (gossip-y use of ``the tea''), lacking expressive coherence (Goffman, 1959, p38).
+
+Interestingly, P26a and P26b {[}07/12/2019{]} are more content from this event, composed of two pictures with the caption ``Swipe right.''. The pictures first show Corbyn sprinkling sugar onto a coffee {[}P26a{]}, then a coffee with a ``Vote Labour'' message on the foam {[}P26b{]}. Thus, it is probable that Corbyn is actually drinking coffee, not tea, in V28. However, presenting the drink as tea in V28 facilitates the construction of a cohesive identity that plays upon everyday British culture and contemporary slang. In both posts, the food mode is used to mobilise the audience to vote Labour. However, in line with my performance-based theory of gastropopulism, the food-mode is used as a prop rather than a tangible manifestation of ideology or political discourse.
+
+Figure 5.6 also shows Corbyn's withdrawal from gastropopulist performances. Between being ousted as leader {[}04/04/2020{]} and ousted from the parliamentary party {[}29/10/2020{]}, he made only five gastropopulist posts, and only one thereafter. This aspect supports my theory's focus on the actor's \emph{celebrity} politician role. Recall my assertion that for Corbyn, this role was abruptly given to him with his leader role and motivated his gastropopulist performances. As such, it makes sense that the loss of these roles temporally aligns with his move away from gastropopulism and return to his firm separation of his personal role from his public identity.
+
+\hypertarget{farage}{%
+\section{Farage}\label{farage}}
+
+\begin{figure}
+\centering
+\includegraphics{_main_files/figure-latex/unnamed-chunk-15-1.pdf}
+\caption{\label{fig:unnamed-chunk-15}Farage Gastropopulism Timeline}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{_main_files/figure-latex/unnamed-chunk-16-1} \caption{Farage with wine bottles [P78, 10/06/2017; P79, 27/11/2019]}\label{fig:unnamed-chunk-16}
+\end{figure}
+
+Farage frequently uses food and alcohol to represent the causes and solutions of political problems {[}n=27 and implied n=16{]}. This simulates commensality (eating/drinking together) as Farage performs sharing political struggles such as Brexit with his people (Hai-Jew, 2022, p270). Here, I examine Farage's use of carefully curated wine brands.
+
+P78 {[}10/06/2017{]} and P79 {[}27/11/2019{]} utilise wine brands to allude to other political actors and their politics --- Trump and Corbyn, respectively. In P78, a poorly-lit grinning Farage claims to be battling ``Brexit blues with a bottle of Trump'', holding the miniature bottle and a small glass of red wine towards the camera. It is relevant to note that Farage stepped down as UKIP leader shortly after the EU referendum, but remained a party MEP (Thomas, 2016). P78 was posted two days following the 2017 GE, wherein UKIP faced a dramatic blow to its political relevance, with a -10.8\% swing and loss of its only seat (Swinford, 2017). However, this post frames the outcome as neither a personal nor party loss but a blow to Brexit itself. This gastropopulist performance invokes food semiotics through utilising the wine bottle to present the solution to affective political issues (``Brexit blues'') as drinking alcohol (mimetic identification with British binge-drinking culture) and the embodiment of Donald Trump's politics (substance and style). Despite Farage's `Brexit blues', he remains smiling, safe in the knowledge that a ``bottle of Trump'' (signifying alcohol, signifying Donald Trump) will see him through.
+
+In P79, Farage slightly smirks as he holds a `Corbin' wine bottle to the camera, describing it as a ``Disappointing choice. Past its best, now leaves a bitter taste.''.
+P79 was posted two weeks before the 2019 GE, and is transparently a negative campaign message against Corbyn.
+Representing Corbyn via a wine bottle introduces the lexical field of wine tasting notes (aged ``past its best'', overly tannic/``bitter taste'') and implies that whether on the menu or the ballot, Corb{[}i/y{]}n is a ``disappointing choice''.
+Another interesting aspect of the wine lexical field is the idea of `Old World' (Europe) and `New World' (of relevance herein, the US).
+Old World winemaking abides by strict rules and regulations rooted in tradition, such as \emph{appellation}, which is a legally defined and protected geographic indication, e.g., Champagne (Hoss, \emph{n.d.}).
+New World winemaking lacks many of the Old World's traditions and restrictions, and as a result, is historically seen as less refined (Hoss, \emph{n.d.}).
+As well as the alignment with high/low culture, this adds a further semiotic layer regarding the legal regulations of the Old and New Worlds that are analogous to Farage's claims regarding the EU and US.
+
+These posts illustrate Bourdieu's (1984, p99) assertion that the dual meaning of the word `taste' --- as value judgement and as gustatory perception --- is inseparable.
+The less-scrutinised food-mode is used here as a material representation of political identities that emphatically locates Farage's constructed identity with the far-right Trump, the US, the low-brow, and fewer regulations, and away from the far-left Corbyn, Europe, the high-brow, and `bureaucracy'.
+The use of wine brands provides a veil between Farage's posts and their implied actors, presenting the posts as capturing Farage's fun and spontaneous interactions with everyday objects rather than purposeful political positioning.
+
+This provides an insight as to how Farage takes advantage of food/drink to communicate the cause/solution of political problems. Notably, he represents other political actors' identities through alcohol as a less-scrutinised communicative mode to construct and legitimise his own gastropopulist identity. Farage is particularly savvy at integrating food semiotics with performances of affect (emotion), paying heed to the social role of food, especially for celebration and comfort.
+
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+
+This individual timeline thematic analysis demonstrates how each actor tailors gastropopulism to their needs, by considering the underlying habits, motivations, and consistency of their multimodal gastropopulist performances and constructed public identities. This chapter has brought the statistical analysis to life by centring multimodality in the data and analysis. Visualising each actor's gastropopulism timeline and exploring representative examples of individual themes echoes García-Santamaría's (2020, p146) position that political actors' food posts are ``never about just food''. Moreover, this structure offers the potential to generate insightful patterns in the data that are effectively imperceptible when casually browsing. In particular, this has illuminated how Trump strategically aligns his performances with campaigns, and the slow rise and fast fall of Corbyn's gastropopulism. We have started to investigate the consistency of AOC and Farage's carefully constructed gastropopulist identities. The inherent individuality and subtlety of gastropopulist performances necessitates analysis that centres the data, rather than the author's perceptions/assumptions.
+
+Looking beyond this dissertation, the chapter's mixed-methods design offers a significant contribution to gastropopulism research, through providing a data-driven methodological and analytical framework that is flexible to different ideological and regional contexts. This would improve the transparency, replicability, and generalisability of future empirical gastropopulism research (Peels, 2019, p4). In the next chapter, deductive qualitative thematic analysis is used to examine how the central themes of gastropopulism literature --- nationalism and class --- manifest within my dataset and theory. This explores how actors attempt to foster perceived credibility of their public identities through gastropopulist performances.
+
+\textcolor{red}{word count 3176/3146}
+
+\hypertarget{deductive-thematic-analysis}{%
+\chapter{Deductive Thematic Analysis}\label{deductive-thematic-analysis}}
+
+\hypertarget{nationalism}{%
+\section{Nationalism}\label{nationalism}}
+
+This discussion of `nationalism' in gastropopulism uses extant literature as a starting point to explore how right-wing political actors take advantage of the less scrutinised food-mode to soften and make palatable their identity and politics (Demuru, 2021, p523, García-Santamaría, 2020, p139; Starita, 2022, p101). The literature considers only the exclusionary dimension, and I analyse two congruent items. Then, I consider two items of Farage and Trump using gastropopulism as a mechanism of strategic ambiguity regarding exclusionary/inclusionary national identities. This is used to play with and subvert expectations regarding their established identities.
+
+\hypertarget{exclusionary}{%
+\subsection{Exclusionary}\label{exclusionary}}
+
+\hypertarget{farage-1}{%
+\subsubsection*{Farage}\label{farage-1}}
+\addcontentsline{toc}{subsubsection}{Farage}
+
+\begin{figure}
+\includegraphics[width=26.14in]{../oxforddown-3.5/DissdataIMAGES/P84} \caption{Farage and the continental breakfast [P84, 27/02/2019]}\label{fig:unnamed-chunk-17}
+\end{figure}
+
+P84, showing Farage at a restaurant is an example of gastropopulism used to exclude.
+The reaction meme formula of the post {[}``\emph{when x does y my reaction is z}''{]} is an attempt at relatable humour (knowyourmeme.com, 2021), simultaneously constructing and embodying his `people', demonstrating bad manners, and performing spontaneity.
+P84 is an excellent illustration of gastropopulism's multimodality.
+With this post, Farage is using the food- and body-modes to assert his distaste of mainland Europe for comedic effect.
+His exaggerated expression of horror regarding the continental breakfast `proves' his intrinsic repulsion from all things European.
+This post uses a backdrop of humour to display consistency between his personal and political tastes, thus softening and legitimising his constructed public identity (Demuru, 2021, p523).
+Accordingly, his dramatic, humorous gastropopulist performance aims to distinguish him from traditional political elites and align him with ordinary internet users.
+P84 is dated 27/02/2019, 2.5 weeks after Farage announced that he would be running under the Brexit party in the May 2019 EU elections (English, 2019).
+As such, this item is congruent with prior gastropopulism theory.
+
+\hypertarget{trump-1}{%
+\subsubsection*{Trump}\label{trump-1}}
+\addcontentsline{toc}{subsubsection}{Trump}
+
+\begin{figure}
+\centering
+\includegraphics{_main_files/figure-latex/unnamed-chunk-18-1.pdf}
+\caption{\label{fig:unnamed-chunk-18}Trump, Oreos, and exclusion {[}V47, 21/01/2016; V48, 20/05/2016{]}}
+\end{figure}
+
+V47 {[}21/01/2016{]} shows Trump delivering a campaign speech, claiming to be boycotting Oreos due to their decision to move production from the US to Mexico.
+He begins to chant, ``No more Oreos!'', smiling and giving a thumbs up as the crowd takes over.
+His delivery is more reminiscent of an observational comedian than a politician, pulling faces and gesticulating as he states, ``Ah, it's gonna be tough getting off Oreos. Well, I never liked Mexican water to be honest with you.''.
+In V48 {[}20/05/2016{]}, Trump again addresses companies moving production out of the US to Mexico, naming Carrier (HVAC systems), Ford, and Nabisco (producer of Oreos).
+However, in V47 and V48 he specifically calls for a boycott of \emph{Oreos}.
+This is because Oreos are a recognisable `face' of Nabisco, and an everyday purchase, unlike cars or AC units.
+Thus the food mode presents particular affordances for Trump to demonstrate his belonging and the immediacy required; it will not be easy for him and his people to give up Oreos but it is \emph{necessary}.
+Similarly to García-Santamaría's (2020, p140) assessment of Salvini's rejection of Turkish hazelnuts in Italian Nutella, Trump frames his dramatic rejection of Mexican-produced Oreos (and water) as protecting the American people and their jobs, shielding the racist connotations of the message.
+His claimed distaste for Mexican water signifies his distaste for the \emph{essence} of Mexico, invoking the dual meaning of taste (Bourdieu, 1984, p99).
+Trump's efforts to mobilise an Oreo boycott are congruent with extant gastropopulism literature and the theory advanced herein.
+Arguably more analytically interesting is how Farage and Trump utilise gastropopulism in superficially inclusive performances.
+
+\hypertarget{inclusionary}{%
+\subsection{Inclusionary}\label{inclusionary}}
+
+\hypertarget{farage-2}{%
+\subsubsection*{Farage}\label{farage-2}}
+\addcontentsline{toc}{subsubsection}{Farage}
+
+\begin{figure}
+\includegraphics[width=26in]{../oxforddown-3.5/DissdataIMAGES/P64} \caption{Farage's ambiguous pizza [P64, 11/07/2021]}\label{fig:unnamed-chunk-19}
+\end{figure}
+
+Item P64 showing Farage at an Italian restaurant in London is analytically rich, illustrating the fuzziness between exclusionary and inclusionary gastropopulism.
+In the foreground, Farage and a restaurant worker stand side-by-side and hold pizzas made to resemble their respective \emph{performed} national identity.
+The food mode, here, is the England flag pizza and the Italian flag pizza, both (presumably) ordered by Farage.
+In the linguistic mode, Farage captions this image as a ``Friendly rivalry'' and uses the English and Italian flag emojis.
+In the embodied mode, Farage wears Union Jack-coloured clothes, and holds his pizza's plate with both hands --- importantly --- slightly below the `Italian' pizza.
+He appears to be starting to smile, and looks up towards the camera.
+This camera perspective staging choice makes the people pictured look smaller, and performs humility (Kress and Van Leeuwen, 2020, p138).
+The consistent inclusion of English and Italian flags and markers of humbleness and conviviality across communicative modes point to this being an example of gastropopulism used towards \emph{inclusion} rather than exclusion.
+
+However, interestingly, the `Italian' pizza has \emph{fresh, raw, light} toppings (chopped tomatoes, sliced mozzarella cheese, fresh basil), whereas the `English' pizza uses \emph{greasy, cooked, heavy} toppings of tomato sauce and cooked cheese. This mirrors Bourdieu's (1984, p468) antagonistic taste opposition of the dominant `elite' and dominated `mass'.
+This adds another semiotic layer that blends national and class identity in a more exclusionary way, as performed through food.
+This demonstrates the strategic ambiguity afforded by gastropopulist performances.
+As such, this is an example of Farage centring food in a multimodal performance to soften his populist identity and perform authenticity and spontaneity as a `good natured' and `fun' persona.
+Whether it is exclusionary or inclusionary is in the eye of the beholder.
+
+\hypertarget{trump-2}{%
+\subsubsection*{Trump}\label{trump-2}}
+\addcontentsline{toc}{subsubsection}{Trump}
+
+\begin{figure}
+\includegraphics[width=22.75in]{../oxforddown-3.5/DissdataIMAGES/P4} \caption{Trump celebrating Cinco de Mayo [P4, 05/05/2016]}\label{fig:unnamed-chunk-20}
+\end{figure}
+
+Item P4 of Trump, posted 05/05/2016 and geotagged Trump Tower New York, is \emph{fascinating}.
+Trump integrates his communicative modes to deliver a cohesive --- though not necessarily convincing --- performance.
+In the body mode, Trump sits at his desk, slightly hunched over, giving a big toothy smile and making eye contact with the camera, positioned slightly above him.
+His hands are horizontally aligned with the food, one giving a thumbs-up and the other holding a loaded fork.
+The food-mode concerns the taco bowl, visually and discursively centred in the post.
+The caption, ``Happy \#CincoDeMayo! The best taco bowls are made in Trump Tower Grill. I love Hispanics!'' is plainly ridiculous.
+Here, Trump temporarily reconfigures `the people' to include ``Hispanics'', a vague term that refers to people ``with ancestry from a country whose primary language is Spanish'' (Alexander, 2022).
+He again positions himself as belonging with the people, yet still elevated, with ``the best taco bowls'' being made in his eponymous restaurant.
+In this gastropopulist performance, he proudly shares his celebration of a Mexican holiday and emphasises his enjoyment of the fusion of Mexican and US gastronomy and culture.
+
+This post is an attempt to deflect criticism and appeal to a broader audience (including `Hispanic' voters; Latinos are the largest ethnic minority in the US {[}Murphy, 2016{]}).
+Trump's performance occurred during his campaign centred on his calls for a US-Mexico border wall due to his constructed threat to `the {[}true, American{]} people' posed by Latin American immigrants, whom he declared ``criminals and rapists'' (Parker, 2016)
+Thus Trump's gastropopulist performance, including his declaration that he ``love{[}s{]} Hispanics!'', is an effort to publicly `balance' his otherwise vitriolic messaging regarding Latin American people.
+The taco bowl constructs Trump's private taste as inclusive, inviting parasocial illusions of his personal role.
+This transparent attempt at strategic ambiguity is intended to offer the audience a veneer of plausible deniability regarding the `true' nature of Trump's identity.
+Eagle-eyed readers may have noticed that V48, discussed in the `exclusionary' section, is dated 20/05/2016 --- just two weeks after this Cinco de Mayo performance.
+This illustrates the ephemeral nature of gastropopulism.
+
+\hypertarget{nationalism-discussion}{%
+\subsection*{Nationalism discussion}\label{nationalism-discussion}}
+\addcontentsline{toc}{subsection}{Nationalism discussion}
+
+Whilst the `exclusionary' discussion is congruent with gastropopulism theory, conflating this aspect with gastropopulism is theoretically and analytically unsatisfying.
+The images analysed in the `inclusionary' discussion demonstrate the performative and ad-hoc nature of gastropopulism, here as an ostensible subversion of the actors' wider political messages and identity.
+This is used to deflect criticism of their exclusionary discourse and to appeal to a broader audience, softening their public identity.
+However, this is a balancing act to avoid alienating their `people' (Hai-Jew, 2022, p291) and piercing their performed authenticity.
+This ``strategic ambiguity'' facilitates parasocial illusions of the actor that legitimise their performed authenticity (Hai-Jew, 2022, p291).
+This demonstrates the performative, rather than ideological, essence of gastropopulism. Adhering to the exclusionary/inclusionary dichotomy misses significant insights.
+
+\hypertarget{class}{%
+\section{Class}\label{class}}
+
+This section examines how political actors embody class solidarity in gastropopulist performances through assuming a pub/bar worker role --- with the exception of Trump. Corbyn, Farage, and AOC serve drinks to the people, making tangible their political service to the people. By temporarily assuming this front-facing hospitality worker role, the actors embody their class solidarity and belonging. Given that the crux of each episode of `The Apprentice' was `billionare boss' Trump barking the catchphrase, ``You're fired!'', his lack of low-paid hospitality worker performances is perhaps unsurprising. Instead, Trump performs embodied class solidarity through his menu choices.
+
+Moreover, this section dissects what it means for a gastropopulist performance to be viewed as credible. This considers Goffman's (1959, p38) position that ``\emph{sometimes when we ask whether a fostered impression is true or false, we really mean to ask whether or not the performer is authorised to give the performance in question, and we are not primarily concerned with the actual performance itself}''. Accordingly, this section explores the cyclical nature of constructed identity - gastropopulist performances - constructed identity.
+
+\hypertarget{corbyn-1}{%
+\subsection*{Corbyn}\label{corbyn-1}}
+\addcontentsline{toc}{subsection}{Corbyn}
+
+\begin{figure}
+\includegraphics[width=16.72in]{../oxforddown-3.5/DissdataIMAGES/P110} \caption{Corbyn at Glastonbury [P110, 24/06/2017]}\label{fig:unnamed-chunk-21}
+\end{figure}
+
+P110 shows Corbyn's performance of pulling a pint at the 2017 Glastonbury music festival, before giving a speech on the biggest stage. In the linguistic mode, Corbyn captions the image with two references to his belonging to `the people'. The tagged `WorkersBeerCo' is owned by a London-based Trade Union Council; its workers are volunteers raising money for grassroots causes (Workers Beer Company, 2023). ``Beers \#ForTheMany'' repurposes Corbyn's Labour slogan and plays into British binge drinking culture. This gastropopulist performance may have been designed to pre-empt criticism of his celebrity politician role corrupting his political role. Here, Corbyn attempts to convey that despite his political celebrity resulting in him speaking on the main stage at the UK's biggest festival, he still belongs ``Serving'' and interacting with the people. That is, to justify his presence at the festival as for \emph{work}, he visibly performs physical labour, serving drinks to the people, with the money generated going to on-message causes. In Goffman's (1959, p20) terms, this is a dramatic realisation of his populist identity.
+
+However, the performed authenticity is undermined by both the body mode (awkward grip on the lever, and poor technique will result in excessive head) and the food mode (no beer is actually being poured), breaking his worker performance by conveying his unfamiliarity with the task at hand. Recall how Farage purposefully uses alcohol brands to represent political figures; P110 (accidentally) foregrounds a `Thatchers Gold' cider cup --- not a statement that Corbyn would likely endorse! Though individually minor, together these breaks can easily derail the impression management attempt (Goffman, 1959, p36). This suggests that Corbyn does not care to maximise the affordances of individual communicative modes to build a cohesive and convincing gastropopulist performance. This dovetails pleasingly into my examination of Farage pulling a pint.
+
+\hypertarget{farage-3}{%
+\subsection*{Farage}\label{farage-3}}
+\addcontentsline{toc}{subsection}{Farage}
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{_main_files/figure-latex/unnamed-chunk-22-1} \caption{Farage and Proper Job IPA [P120a, P120b, 23/04/2014]}\label{fig:unnamed-chunk-22}
+\end{figure}
+
+P120a and P120b {[}23/04/2014{]} show Farage pulling a pint of `Proper Job' IPA in a North Yorkshire pub on St.~George's Day {[}England's patron saint{]}, campaigning for the May 2014 EU Elections. Instantly, we can see the difference in how Farage leverages individual communicative modes and harnesses the wider political and cultural context to build a cohesive and credible gastropopulist performance. In both items, Farage is highly expressive. In P120a, his facial expression, hand gesture, and clutched empty glass give him the air of a drunk who has snuck behind the bar, rather than the leader of a popular political party. In P120b, he looks more coherent, smiling widely as he confidently pulls a pint of `Proper Job'. Both items suit his constructed public identity of a \emph{bon vivant} who is not like other politicians. Here Farage self-presents as a unpretentious and rare politician who will do a `proper job', even if at first he seems out of place. As such, by spending (some of) St.~George's Day enthusiastically \emph{serving} pints at a local pub, he emphasises his class belonging with his people in this gastropopulist performance. While the red rose on his lapel symbolises England, this is a remarkably subtle display of national identity from the man whom we last saw going for a casual meal dressed like the Union Jack. Accordingly, I take this gastropopulist performance as primarily conveying class, rather than national, belonging.
+
+This performance raises another interesting point regarding Farage's use of gastropopulism. Farage's long-term self-branding with beer is extremely strategic and image-conscious --- like an `elite' politician. Yet image-conscious politicians are assumed to expend effort on looking good, polished, and in control (Diehl, 2017, p7). Thus, as Farage's image-consciousness intentionally rejects such aesthetics, the effort he expends on constructing his identity is easily overlooked. As such, unflattering shots, like looking drunk with a double chin {[}P120a{]}, help foster parasocial illusions about his unpretentious, fun, `real' identity. Farage has crafted his gastropopulist public identity over decades, and is an expert at leveraging the affordances of communicative modes to convey his intended message. Now, I will analyse how AOC convincingly performs class authenticity to construct her gastropopulist identity.
+
+\hypertarget{aoc-1}{%
+\subsection*{AOC}\label{aoc-1}}
+\addcontentsline{toc}{subsection}{AOC}
+
+\begin{figure}
+\includegraphics[width=26.08in]{../oxforddown-3.5/DissdataIMAGES/P46} \caption{AOC returns to bartending [P46, 01/06/2019]}\label{fig:unnamed-chunk-23}
+\end{figure}
+
+AOC's employment history as a bartender is frequently referenced by herself and others --- including Trump, who in April 2019 described her as a ``young bartender'' who has `establishment' Democrats ``petrified of her'' (Relman, 2019).
+Less than two months later, AOC gave a high-profile performance of her bartender role in her district's Queensboro bar, Queens NY. P46 {[}01/06/2019{]} is an Instagram post containing two images and one 11-second video of this performance.
+These were taken during a one-hour publicity event supporting a bill co-sponsored by AOC to raise the national minimum wage to \$15 (Wang, 2019).
+The in-person audience was mostly constituted of nail salon and restaurant workers (wearing matching `One Fair Wage' t-shirts) and press actors (Wang, 2019).
+In the 11-second video, AOC uses her left arm to vigorously shake a cocktail shaker, in a repeated fluid and confident motion from above her head to her chest level, before removing the shaker's lid.
+In the images and video, she does not acknowledge the camera at any point, instead speaking with `customers' and `colleagues'.
+In the third image, a `candid'-style shot, her gaze is directed at her colleague, her arm is in motion with a cocktail shaker and drops of liquid are visible on the shoulder of her white shirt.
+
+This bartender role performance is highly effective at constructing her gastropopulist identity.
+While her use of statistics in the caption (``1 in 10 NYCers work in the restaurant industry. 1 in 2 Americans will work in hospitality {[}\ldots{]}'') supports her position as belonging to `the people', this is most convincingly achieved through her \emph{embodiment} of the hospitality worker role that has \emph{discursively} contributed so much to her public identity.
+While ``detractors'', like Trump, have used this to undermine her politician role, here she artfully takes control of the narrative to re-integrate the two.
+She comfortably slips between her bartender and politician roles, performing authenticity of both, and consequentially, her wider public identity.
+Furthermore, staging the performance at a bar in her hometown and district emphasises her personal roots and her proximity to her constituents.
+Ultimately, this performance conveys that she is not ashamed or above her working class background (professional, geographic, personal) in a way that constructs a cohesive and `legitimate' gastropopulist identity.
+
+\hypertarget{trump-3}{%
+\subsection*{Trump}\label{trump-3}}
+\addcontentsline{toc}{subsection}{Trump}
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{_main_files/figure-latex/unnamed-chunk-24-1} \caption{Trump's visits to the Red Arrow Diner [P117, 12/01/2016; V53, 27/04/2023]}\label{fig:unnamed-chunk-24}
+\end{figure}
+
+For context, the Red Arrow Diner in New Hampshire (NH), USA is historically embedded in American gastropolitical culture across the ideological spectrum, visited by many Presidential hopefuls (He, 2020). P117 {[}12/01/2016{]} shows Trump's first visit, where he ordered `The Newton': a beef patty bookended by two grilled cheese sandwiches instead of a bun, a fist-sized ball of deep-fried macaroni cheese, a ladle of cheese sauce, served with fries (Mielke, 2016; Red Arrow Diner, 2023a).
+Two weeks after Trump won the NH primary, the Red Arrow Diner (2016) announced the ``Trump Tower Burger'' -- the Newton rebranded. This speaks to the perceived credibility of Trump's gastropopulist identity, which is not only constructed by himself but by \emph{others}. As a result, Trump has significant freedom in the consistency and content of his gastropopulist performances. Arguably, this helps explain his reduction in gastropopulist performances during 2020, as he may have viewed this identity as sufficiently established. However, for reasons far beyond the scope of this dissertation, his 2024 campaign is seemingly re-embracing gastropopulism as a tried-and-tested way to construct a familiar and ``entertaining'' public identity.
+
+V53 {[}27/04/2023{]} shows Trump's return to the diner, ordering the \emph{Trump Tower} burger and a milkshake (Red Arrow Diner, 2023b). In music, `hyperpop' refers to pop music pushed to its extremes: slick, exaggerated, highly-processed and tongue-in-cheek manipulation of the pop genre's tropes and motifs (Cafolla, 2022). I posit the `Trump Tower', \emph{née} Newton, burger as hyperfastfood; it simultaneously satirises and pays homage to ideas of `all-American' fast food and excess, to create a (potentially delicious) maximalist monstrosity. Momentarily putting aside the name, the burger itself is pure hedonistic defiance of upper-class tastes, manners, health concerns, and \emph{limits}. As such, it encapsulates gastropopulism: it is a prop that combines commonly consumed foods (\textbf{belonging}) in a way that is impossible to eat with dignity and grace (\textbf{manners}), and is extraordinarily unhealthy (\textbf{immediacy}). Incorporating this monstrosity is to perform sharing the people's taste ``without fear of possible unhealthy consequences'' (Diehl, 2017, p13). Topping it off with a milkshake is frankly obscene.
+
+However, the burger's incorporation is either implied {[}P117{]} or absent {[}V53{]}. We never actually see how much he eats, or his reaction. Yet, there is a degree of parasocial trust regarding the working-class affinity of Trump's dietary habits and tastes, whereby the audience fill in the blanks of the performance from their pre-existing perceptions. In Goffman's (1959, p38) terms, Trump is authorised to give gastropopulist performances, so individual instances are readily accepted without much scrutiny.
+
+\textcolor{blue}{skipping bill sentence}
+
+\hypertarget{discussion-of-class}{%
+\subsection{Discussion of class}\label{discussion-of-class}}
+
+Goffman's (1959, p38) work has been illuminating for exploring how gastropopulism can perform class belonging, and the reciprocal dynamics of the actors' constructed identities and gastropopulist performances in their impression management. Trump's gastropopulist reputation precedes him, so his performances are observed through this lens. Similarly, Farage has crafted his gastropopulist identity over decades, and his reliance on alcohol imbues his performances with a level of freedom and assumed credibility. This cultivated authorisation is not exclusive to right-wing actors. While AOC only entered the public eye in 2018, gastropopulism has played a careful, consistent, and crucial role in the construction of her public identity. Conversely, Corbyn's sudden adoption of gastropopulism in response to his newfound celebrity politician role invites more scrutiny, rather than granting him authorisation. This weakens the credibility of his gastropopulist performances, making them more vulnerable to perceived fractures. This deductive thematic analysis chapter has critically engaged with the central themes of gastropopulism literature to develop our understanding of how gastropopulist performances and identities are constructed for --- and sometimes \emph{by} --- observers.
+
+\textcolor{red}{word count 2338/2222}
+
+\hypertarget{performative-eating-multimodal-social-semiotics-timeline-transcripts}{%
+\chapter{Performative Eating: Multimodal Social Semiotics Timeline Transcripts}\label{performative-eating-multimodal-social-semiotics-timeline-transcripts}}
+
+This chapter examines the communicative power of performative eating, which is ``consuming food as a form of entertainment'' (Hai-Jew, 2022, p267). In such events, gastropopulism's features are mutually reinforcing, fostering cohesive multimodal performances. Performative eating inherently entails \textbf{populist bad manners} by centring the actor's non-politician roles and making a public spectacle of private tastes (Moffitt, 2016, p44). This is often supplemented with \textbf{culturally-situated bad manners} like open-mouthed chewing or speaking with a full mouth (Rüdiger, 2021, p23). The politainment aspect imbues such performances with \textbf{spontaneity}, as actors can interact with food and the audience in seemingly unplanned ways (Rüdiger, 2021, p17). The actual incorporation of food allows actors to embody their \textbf{belonging with the people}, egged on by enthusiastic observers, becoming more powerful when the actors perform commensality by sharing food with the audience (Diehl, 2017, p12). Accordingly, performative eating is highly conducive to gastropopulist performances of authenticity, intimacy, and spontaneity to construct and legitimise a political actor's public identity. This is compounded by the intrinsic individuality of performative eating, whereby each actor ``communicates unique messages about themselves, their relationship to food, {[}and{]} their relationship to the audience'' (Hai-Jew, 2022, p291). This chapter dissects how each actor leverages individual communicative modes and features of gastropopulism through performative eating.
+
+\hypertarget{trump-4}{%
+\section*{Trump}\label{trump-4}}
+\addcontentsline{toc}{section}{Trump}
+
+\begin{figure}
+\includegraphics[width=40in]{../oxforddown-3.5/DissdataIMAGES/TrumpV57ELAN} \caption{Trump Performative Eating MMSSTT [V57, 22/04/23]}\label{fig:unnamed-chunk-25}
+\end{figure}
+
+I have asserted that Trump is able to ride the wave of his gastropopulist identity in his gastropopulist performances. However, performative eating is still a powerful tool for Trump to legitimise his public identity.
+V57 {[}22/04/23{]} is one of a series of short videos of Trump at a Floridian pizza parlour with a throng of supporters, security staff, and press actors. In these various videos, he says to the cashier ``I wanna take care of all the people here'' (V56, \emph{`money where his mouth is'}) and hands out pizza slices (V52). In V52, which directly leads into V57, Trump hands a pizza slice to an audience member, before picking up another and taking a big, prolonged bite as the audience cheers. In the 15-second long V57, Trump waves the half-eaten slice above and around his head {[}0:00-0:05{]}, asking, ``Does anybody want a piece that I've eaten?'' {[}0:02-0:04{]} as the crowd cheers. He laughs and repeats, ``No!'' twice {[}0:04; 0:06{]} before taking another awkward bite of the seemingly chewy pizza {[}0:08-0:10{]}. He chews with his mouth open and speaks with his mouth full, declaring, ``it's good'' {[}0:10-0:14{]}. Native New Yorker that he is, he folds the slice. Trump's consumption is a spectacle, egged on by the crowd's uproarious cheers with each bite.
+
+While we have previously seen Trump \emph{voice} the working class affinity of his personal taste (Individual Timelines; Exclusionary Nationalism; Class), in V57 he \emph{embodies} this class solidarity by actually eating the pizza he bought for his people. Accordingly, the performed commensality in V57 of handing slices to crowd members and eating `with' them, as well as joking about his fans wanting his half-eaten slice, intensifies the performed authenticity, intimacy, and spontaneity of Trump's gastropopulist performance. The food-mode presents the pizza as a prop that makes tangible Trump's belonging with `the people' (embodied solidarity, commensality, physical proximity), bad manners (open-mouth chewing, speaking with mouth full, unhygienic food-handling), and immediacy (`spontaneous' jokes and movements). As such, this is an excellent example of the power of performative eating to legitimise a (gastro)populist identity, whilst seeming natural and apolitical.
+
+\hypertarget{farage-4}{%
+\section*{Farage}\label{farage-4}}
+\addcontentsline{toc}{section}{Farage}
+
+\begin{figure}
+\includegraphics[width=26.94in]{../oxforddown-3.5/elandraft/milibacon} \caption{Miliband Bacon Sandwich [21/05/2014]}\label{fig:unnamed-chunk-26}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=40in]{../oxforddown-3.5/DissdataIMAGES/FARAGEV16ELAN} \caption{Farage Performative Eating MMSSTT [V16, 03/10/2014]}\label{fig:unnamed-chunk-27}
+\end{figure}
+
+V16 {[}03/10/2014{]} shows Farage during a by-election campaign performatively eating a bacon sandwich, accompanied by his then-deputy leader Paul Nuttall and surrounded by press actors. V16 was distributed by the Daily Mail (2014). Farage's performance was motivated by a widely circulated (and ridiculed) May 2014 photograph of Labour's then-leader Ed Miliband caught awkwardly eating a bacon sandwich, \textcolor{orange}{included above} (Ruck, 2014). Returning to the statistical analysis chapter's discussion of incorporation, Miliband's photograph exemplifies why in gastropopulist performances, still images overwhelmingly \emph{imply} rather than \emph{actualise} incorporation. The shot's photographer, Jeremy Selwyn, stated it was unplanned (Selwyn, 2014). Conversely, Farage's recreation was a carefully orchestrated PR stunt, enabling Farage to self-present an idealised performance (Goffman, 1959, p30).
+
+In V16, Farage uses a local catering van to signify informality and working class belonging. As the group stand at the van's hatch, Farage asks Nuttall, ``What've you roped me into here?'' and they laugh together {[}0:10-0:15{]}, performing spontaneity for the planned event. Farage's food- and body-acts of lifting and then taking the first bite of the sandwich are temporally aligned with Nuttall's narration of how Miliband ate the sandwich {[}0:32-0:42{]}. Nuttall's role as the architect of the event serves to hide the carefully arranged nature of Farage's performance in plain sight by making fun of `elite' politicians who need to be prompted by their team for even the most basic human activities, such as eating a sandwich. This positions Farage's engagement as spontaneous and silly. As such, Nuttall's presence strengthens the credibility of Farage's performance (Rüdiger, 2021, p23).
+
+Farage's body-acts of bites are purposeful and large {[}0:35; 0:43{]}. Here, he avoids a potential unflattering struggle to bite through the fat and embraces the embodied solidarity of eating this cheap, unhealthy food. The speech-acts of ``it's good'', ``lovely'' and ``excellent'' {[}0:37; 0:39; 0:41{]} as Farage chews perform his common taste with the people and informal bad manners. As the MMSSTT shows, the audiovisual format enables Farage to layer the features of gastropopulism throughout his communicative modes to deliver a cohesive performance. Towards the end, he appears smug as he chews and looks around at the cameras encircling him {[}0:46-0:50{]}. By turning eating into a newsworthy spectacle, Farage's performance is highly effective at embodying his gastropopulist identity whilst distancing himself from the `incompetent' and `inauthentic' political elite.
+
+\hypertarget{aoc-2}{%
+\section*{AOC}\label{aoc-2}}
+\addcontentsline{toc}{section}{AOC}
+
+\begin{figure}
+\includegraphics[width=16.78in]{../oxforddown-3.5/DissdataIMAGES/P1} \caption{AOC, Sturgeon, and Irn Bru [P1, 10/11/2021]}\label{fig:unnamed-chunk-28}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=40in]{../oxforddown-3.5/DissdataIMAGES/AOCV49ELAN} \caption{AOC Performative Eating MMSSTT [V49, 10/11/2021]}\label{fig:unnamed-chunk-29}
+\end{figure}
+
+The selected example of AOC's performative eating epitomises her everyday influencer celebrity role, with V49 boasting 2.25 million views. During COP26 Climate Change Conference, held in Glasgow, Scotland, AOC complained via social media that she was unable to find any Irn Bru --- a very popular Scottish soft drink. P1 {[}10/11/2021{]} shows (then) First Minister of Scotland Nicola Sturgeon presenting AOC with an Irn Bru can. Later that day, AOC posted V49, a 1:06-long video of her first taste of Irn Bru. The reaction-style format is common for online cross-cultural eating performances, enabling performed spontaneity through expressive `surprised' reactions and showing AOC's appetite for trying unfamiliar, local gastronomy --- however this is delicate as negative reactions can easily be perceived as disrespectful or prejudiced (Hai-Jew, 2022, p271). Regardless, AOC wants to ``immediately'' share her first taste with her social media audience, her enthusiasm performing spontaneity and urgency as well as intimacy and belonging.
+
+During V49, AOC presents the can to the camera five times {[}0:02-0:07; 0:14-0:15; 0:38-0:43; 0:45-0:47; 1:00-1:06{]}, yet takes only two sips {[}0:17-0:19; 0:52-0:55{]}. This is typical of online eating performances, as the `eater' often does multiple takes, so typically limits their consumption. This is a reminder that gastropopulist eating performances are \emph{performances} for an audience, rather than natural candid experiences (Hai-Jew, 2022, p293). Through these repeated actions, AOC performs commensality and thereby demonstrates her belonging with `the people'. AOC's offscreen in-person audience act as a silent sounding board, as she turns to them after tasting, saying ``this tastes like umm {[}2s pause, \emph{claps}{]} this tastes like the Latino soda ah Kola Champagne? {[}\ldots{]} I don't know where it comes from, I don't know if it's Dominican or Puerto Rican'' {[}0:23-0:38{]}. She then turns back to the camera and immediately exclaims ``This tastes just like a Puerto Rican soooodaaaaa! This is Kola Champagne!'' {[}0:38.5-0:44{]} as she presents the can to the camera and repeatedly taps its side {[}0:38-0:43{]}. In total, she makes four references to Kola Champagne {[}0:31; 0:34; 0:46; 1:00{]}
+
+AOC acts delighted that her cross-cultural eating adventure has unexpectedly returned her to her Puerto Rican roots, discovering shared tastes between Scotland and Latin America. She repeats ``I love it'' {[}0:51; 0:52; 1:04{]}. Her enthusiastic repetitions in each communicative mode (``Kola Champagne'' and ``I love it''; sipping; presenting the can to the camera) harness multimodality in impression management. In V49's Instagram caption, she states, ``{[}\ldots{]} Upon further tasting, it's not EXACTLY like Kola Champagne {[}\ldots{]} I was so shocked at having something in Glasgow that tasted like HOME 🇵🇷 however Irn Bru is also very unique on its own {[}\ldots{]}''. This further supports the performed spontaneity of AOC's enthusiastic reaction in the video. This gastropopulist performance is congruent with AOC's wider inclusionary politics that celebrate cultural interactions. Without saying anything explicitly `political', AOC has leveraged food using an established online performer reaction format to perform: authenticity of her public identity; intimacy with her audience; spontaneity and informality. This demonstrates how AOC artfully leverages her `everyday influencer' celebrity role in gastropopulist performances to legitimise her public identity.
+
+\hypertarget{corbyn-2}{%
+\section*{Corbyn}\label{corbyn-2}}
+\addcontentsline{toc}{section}{Corbyn}
+
+Approximately a year following the narrowly-rejected Scottish Independence Referendum, 5 months after Labour held only one Scottish seat in the 2015 General Election (Mitchell, 2015, p97), and 2 weeks after becoming Labour leader, Corbyn was also presented with an opportunity for Irn Bru-based gastropopulism during his inaugural visit to Scotland. On 01/10/2015, \emph{Buzzfeed} journalist Jamie Ross offered Corbyn a can of Irn Bru, which Corbyn rejected with a slightly confused, ``No thanks.'' {[}CNG1{]} (Ross, 2015). Later that day, the (then) Scottish Labour leader, Kezia Dugdale, tweeted some photos of Corbyn with a bottle of Irn Bru {[}P2a; P2b{]} (@kezdugdale, 01/10/2015; Ross, 2015).
+
+\begin{figure}
+\includegraphics[width=17.53in]{../oxforddown-3.5/elandraft/CNG2} \caption{CNG1  [CNG1, 01/10/2015]}\label{fig:unnamed-chunk-30}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{_main_files/figure-latex/unnamed-chunk-31-1.pdf}
+\caption{\label{fig:unnamed-chunk-31}Corbyn and Irn Bru {[}P2a, P2b, 01/10/2015{]}}
+\end{figure}
+
+While the Tweet of a happy Corbyn with the \emph{unopened} bottle remain on Dugdale's Twitter {[}P2a{]} (@kezdugdale, 01/10/2015), the unhappy/opened Tweet {[}P2b{]} has been deleted without comment, leaving only an echo in the \emph{Buzzfeed} article. A public figure rejecting food/drink from a stranger is reasonable. However, the inherent \emph{Scottishness} of Irn Bru infused the interaction with semiotic weight regarding the highly salient issue of English and Scottish cultural identity and taste, a test which Corbyn clearly failed. Corbyn's attempts to gain control over the narrative were clumsy --- in P2a, he poses examining the bottle, before giving a sloppy thumbs up and smile, holding the still-unopened bottle. In P2b, Corbyn does not look like the Irn Bru helped to ``keep {[}him{]} going'', not helped by Dugdale's commentary that he said, ``It's like nothing I've ever tasted'' (Ross, 2015). Though understandable, the initial rejection pierced the performed spontaneity and authenticity of the subsequent Irn Bru posts, resulting in unconvincing gastropopulist performances. It is interesting to compare the rejected Irn Bru to Corbyn accepting a Pringle on the campaign trail in Cambridge, the week before the 2017 General Election {[}V15, 31/05/2017{]}.
+
+\begin{figure}
+\includegraphics[width=40in]{../oxforddown-3.5/DissdataIMAGES/CORBYNV15ELAN} \caption{Corbyn Performative Eating MMSSTT [V15, 31/05/2017]}\label{fig:unnamed-chunk-32}
+\end{figure}
+
+Figure 7.8 shows Corbyn performing commensality.
+An off-screen male voice offers Corbyn a Pringle {[}0:06{]}, which he accepts with the simultaneous speech-act, ``I'll have a Pringle {[}pause{]} I'll have a Pringle'' and body-act of reaching through the fence and taking the crisp {[}0:07-0:12{]}. This performs commensality and intimacy with the people, interacting as a friend rather than a politician. Corbyn raises the crisp so the crowd can see, before bringing it to his mouth to eat, drawing attention to his mimetic identification performance {[}0:12-0:14{]}. It is effective; the audience cheer as he lifts the crisp, continuing to variously cheer, laugh, and chant ``Jeremy'' as he chews. His brisk chewing continues as he uses the crisp-hand to shake outstretched hands through the fence {[}0:14-0:23{]}, briefly speaking with his mouth full as he says ``thank you'' to an audience member {[}0:19{]}. This demonstrates his embodied solidarity and intimacy with the audience, with whom he unhesitatingly shares food and physical contact. Though the thick black iron fence is a physical boundary between Corbyn and his people, he performs breaking through to physically connect with them, in doing so performing shared tastes and his non-politicianlike identity (Diehl, 2017, p13). Corbyn's gastropopulist Pringle performance choreographs communicative modes to foster perceptions of authenticity, intimacy, and spontaneity, to which the audience enthusiastically respond. As the Irn Bru day shows, immediacy is often a vital element of legitimising gastropopulist performances and naturally cannot be recaptured. Potentially, Corbyn learnt from his Irn Bru refusal to understand the politics of performative eating, becoming more confident in his celebrity politician role and interacting with `fans' as an effective impression management strategy.
+
+\hypertarget{discussion-1}{%
+\section*{Discussion}\label{discussion-1}}
+\addcontentsline{toc}{section}{Discussion}
+
+Ultimately, akin to Hai-Jew's (2022, p284) research, this chapter demonstrates the complexity, dimensionality, and nuance of performative eating. This illustrates how the actors' distinct and unique public identities (and their constitutive roles) provide particular affordances and restraints to their eating performances, which then feed back into the perceived authenticity of their public identities. Performative eating is highly conducive to impression management, as its structure entails cohesive integration of individual communicative modes and gastropopulist features. The layout of MMSSTT harnesses multimodal communication to dissect this structure and provide a rich analysis of why performative eating is so effective for delivering convincing gastropopulist performances. This highlights the communicative power of non-linguistic modes; the actors actually say very little in these videos, including AOC's simple repetitions. In performative eating, the bulk of the impression management is exerted through the body and food modes, which are often overlooked and therefore appear `natural' or `authentic'. As such, I position performative eating as the most powerful way for political actors to use multimodal gastropopulist performances when constructing and legitimising their public identities. The final chapter is a reflection on the theory, methodological frameworks, and arguments advanced in this dissertation.
+
+\textcolor{red}{word count 1298/1287}
+
+\hypertarget{conclusion}{%
+\chapter{Conclusion}\label{conclusion}}
+
+\textcolor{red}{RESEARCH QUESTION}
+
+Ultimately, this dissertation has argued that political actors use multimodal gastropopulist performances as an impression management strategy to construct and legitimise their public identities. Per Bourdieu (1984, p79), food semiotics are socially ingrained from birth, making them feel natural rather than \emph{socially} constructed; this subtlety is compounded by its everyday role in personal life and society. As a result, food and the body are less-scrutinised yet deeply powerful communicative modes for signalling identity and belonging. Politicians are generally observed through a cynical lens, particularly regarding what they \emph{say}. Populists not only seek to distinguish themselves from traditional `elite' politicians but establish their belonging with `the people'. Through taking advantage of food and the body as overlooked communicative modes, political actors can \emph{perform} idealised versions of their politics and public identities that are observed as glimpses into their authentic, personal `selves'. This is why multimodal gastropopulist performances are a highly effective impression management strategy for political actors seeking to construct and legitimise their public identities.
+
+However, the success of such impression management depends on not only the actor's ability to seamlessly choreograph individual modes and features, but their authorisation by observers to deliver gastropopulist performances. This dissertation has provided a multidimensional exploration of how selected actors attempt to harness these elements. This is emphatically \textbf{not} to label the actors (in)authentic; it reflects the inextricably \emph{performative} nature of authenticity. \textbf{Trump's} authorisation extends to his gastropopulist identity, so his individual performances are accepted as `authentic' even if they lack careful cohesion and are overwhelmingly clustered during campaign periods. He has long established his `low' culture taste preferences, appearing in adverts for: Pizza Hut {[}1995{]}; McDonalds {[}2002{]}; Oreos {[}2009{]} (Haltiwanger, 2019). As such, gastropopulism is a natural way for Trump to construct a familiar and ``entertaining'' political identity.
+
+\textbf{Farage} has spent decades establishing his gastropopulist identity, extensively using alcohol. This \emph{bon vivant} identity serves to conceal the effort he expends on curating his image, particularly through unflattering or humorous performances. Farage understands and respects the social role of food, not only in terms of semiotics but its \emph{affective} role, especially for comfort and celebration. As his gastropopulism was historically filtered through the traditional `elite' media, he became an expert at designing his performances to convey \emph{his} intended message by paying close attention to the power of less-scrutinised communicative modes. As such, the success of his impression management is no accident. Surprisingly, Farage and AOC are the most similar gastropopulist performers in this regard. Each developed their gastropopulism for their media landscape --- traditional for Farage; social for AOC. \textbf{AOC} also understands and respects the social role of food, and its position in online culture. Her `everyday influencer' style of gastropopulism has been integral in constructing and legitimising her public identity. Gastropopulist politainment serves to fuse her political, celebrity, and personal roles, offering an idealised window into her `mundane' daily life and `true' personality. These multimodal performances are carefully designed to seem effortless and stimulate parasocial engagement.
+
+Conversely, \textbf{Corbyn} had spent decades as a rebellious backbench MP purposefully separating his private life from his political role. Perhaps, with his long-term low profile, he viewed the contextual shift brought about by observation (turning actions into communicative performances) as a \emph{choice}. Yet suddenly, he had to convincingly perform authenticity for his newfound highly visible roles: leader of the opposition; celebrity; `personal'. Thus, his hesitant adoption of gastropopulism was an attempt to integrate these roles into his public identity. While the other actors designed their gastropopulism to be observed as effortless and a reflection of their `true' selves, this strategic impression management likely felt inauthentic to Corbyn. This is reflected in his inconsistent gastropopulist performances, because he did not respect the communicative power.
+
+\hypertarget{limitations-contributions-and-future-research}{%
+\section*{Limitations, Contributions, and Future Research}\label{limitations-contributions-and-future-research}}
+\addcontentsline{toc}{section}{Limitations, Contributions, and Future Research}
+
+The main limitation of this dissertation is the missing data. This is most keenly felt for AOC, who often uses `disappearing' stories and livestreams to disseminate her gastropopulist performances. Echoes found of these performances were frequently edited or spliced by the echoer, thus could not tell us about how AOC uses gastropopulism. As this project purposefully aimed toward analytical, not statistical, generalisability, missing data is not as problematic. My sample {[}n=163{]} is bigger than any previous gastropopulism study (per Figure One: García-Santamaría \emph{n=36}; Demuru \emph{n=80}; Starita \emph{n=150}). Under my qualitative social semiotics research approach, I had naturally reached a point of saturation, so additional data was not necessary. Indeed, my dataset generated many interesting themes that unfortunately did not fit into this dissertation.
+
+This dissertation represents a significant contribution to gastropopulism literature. Each analytical chapter built from the previous to deliver a cohesive and comprehensive exploration of gastropopulism. \textbf{Chapter Four: Statistical Analysis} assessed how gastropopulist performances are constructed, providing the first quantitative test of individual-, ideological-, and regional-level explanations. This supported my individual-level performance-based account, and demonstrated the limitations of conflating gastropopulism with specific ideology or region. Thus, future empirical studies should aim toward analytic, not statistical generalisability. \textbf{Chapter Five: Individual Timelines Thematic Analysis} developed an original mixed-methods design to provide an overview of each actor's use of gastropopulism. This is an excellent method for authors and readers to understand the data. The interactive visualisations can generate insightful patterns to be developed through inductive thematic analysis, facilitating a clear sense of how each actor tailors their gastropopulism. \textbf{Chapter Six: Nationalism and Class Deductive Thematic Analysis} extended the central themes of gastropopulism literature to consider its flexibility in constructing national and class identity. This demonstrated how gastropopulism is developed for observation, emphasising its inherently performative nature. \textbf{Chapter Seven: Performative Eating Multimodal Social Semiotics Timeline Transcription} used ELAN software to develop an original framework that dissected audiovisual data into individual communicative modes and features of gastropopulism. This layout enabled a clear view into the multimodality of gastropopulist performances, exploring the communicative power of food and the body in eating performances.
+
+Future gastropopulism research should centre the actor, and take care not to conflate the phenomenon with ideology. Given Garcia-Santamaria (2020, p131) and Starita (2022, p94) label Italy a ``country of endemic populism'', research specifically into Italian left-wing gastropopulism could illuminate how Italy's strong gastronomic culture is integrated into its politics. In addition, further research into performative eating could use the MMSSTT frame to examine potential patterns in how the modes and features are rhythmically integrated in such performances. My work adds to the emerging field that stresses the overlooked communicative power of food for populist actors. The four analytical chapters herein --- three original designs --- offer future gastropopulism studies flexible, transparent, and replicable methods that explicitly disentangle (gastro)populism from ideological and regional assumptions.
+
+\hypertarget{final-reflection-are-you-what-you-eat}{%
+\section*{Final reflection: Are you what you eat?}\label{final-reflection-are-you-what-you-eat}}
+\addcontentsline{toc}{section}{Final reflection: Are you what you eat?}
+
+`\emph{You are what you eat}' has been a central theme of this paper, with Diehl (2017, p1) and Bourdieu (1984, p190) asserting this process as `proof' of class belonging. However, I have purposefully avoided scrutinising the actor's bodies in terms of size/shape/weight. At first this stemmed from discomfort at judging the bodies of others in this way; upon deeper reflection having completed this dissertation, this is because gastropopulist performances cannot offer useful insights into the performer's bodily composition.
+
+This reflects commercial online eating performers, who are often slim yet frequently consume vast quantities of food \emph{on camera}, with off-camera behaviour potentially including chewing and spitting or purging (through vomiting, laxatives, or exercise) (Hai-Jew, 2022, p287). This reminds us that gastropopulist performances are \emph{performances} and not reality; an actor's bodily state is a result of their daily habits, of which gastropopulist performances can only offer a parasocial illusion. However, I maintain performative eating as the most effective and (almost) foolproof impression management strategy for gastropopulists cultivating such parasocial illusions.
+
+\startappendices
+
+\hypertarget{the-first-appendix}{%
+\chapter{The First Appendix}\label{the-first-appendix}}
+
+This first appendix includes an R chunk that was hidden in the document (using \texttt{echo\ =\ FALSE}) to help with readibility:
+
+\textbf{In 02-rmd-basics-code.Rmd}
+
+\textbf{And here's another one from the same chapter, i.e.~Chapter \ref{code}:}
+
+\hypertarget{the-second-appendix-for-fun}{%
+\chapter{The Second Appendix, for Fun}\label{the-second-appendix-for-fun}}
+
+\hypertarget{references}{%
+\chapter*{References}\label{references}}
+\addcontentsline{toc}{chapter}{References}
+
+\markboth{References}{}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{0}{0}
+\end{CSLReferences}
+
+%%%%% REFERENCES
+
+
+\end{document}

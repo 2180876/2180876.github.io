@@ -1,0 +1,143 @@
+---
+output:
+  bookdown::html_document2: 
+    theme:
+      primary: "#6D1919"
+    repo: https://github.com/ulyngs/oxforddown
+    pandoc_args: "--lua-filter=scripts_and_filters/colour_and_highlight.lua"
+documentclass: book
+---
+
+```{r setup cran4, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+knitr::knit_hooks$set(htmlcap = function(before, options, envir) {
+  if(before) {
+    paste('<p class="caption">', options$htmlcap, "</p>",sep="")
+  }
+})
+```
+
+
+```{r load lib4}
+xfun::pkg_attach(c("tidyverse", "dplyr", "devtools", "addinslist", "wesanderson", "ghibli", "viridis", "viridisLite", "reactablefmtr", "flextable", "gt", "gtExtras", "gtsummary", "ggpubr", "overviewR", "officer", "car", "easystats", "jtools", "sjPlot", "huxtable", "kableExtra", "pander", "vistime", "plotly", "emoji", "htmlwidgets", "grid", "png", "gridExtra", "webshot", "webshot2"))
+```
+
+```{r read csvs4}
+fulltestgp <- read.csv("fullgastroonly17-8.csv")
+
+wordcount <- read.csv("wordcount.csv")
+```
+
+```{r sumstats setup4}
+
+sumselected <- select(fulltestgp, "Actor" = group, Ideology, Geography, "**Incorporation**" = Incorporation,"**Nourishment**" =  Nourishment, "**Taste**" =  Taste,
+   "**Cultural Association**"   = Cultural.Association ,
+    "**Worker Performance**" =  Worker.Performance,
+     "**Part of 'the people'**" =  Part.of..the.people.,
+       "**Bad Manners**" = Bad.Manners ,
+       "**Immediacy**" =  Immediacy, 
+          "**Individual Trend**" = Individual.Trend)
+
+```
+
+```{r tblsummary prep4}
+options(kableExtra.html.bsTable = T)
+actsum <- sumselected %>%
+  select(Actor, "**Incorporation**", "**Cultural Association**", "**Nourishment**", "**Taste**", "**Worker Performance**", "**Part of 'the people'**", "**Bad Manners**", "**Immediacy**", "**Individual Trend**") %>%
+  tbl_summary(by= Actor,
+    type = all_categorical() ~ "categorical",
+    statistic = list(all_categorical() ~ "{n}    ({p}%)"),
+    missing = "no") %>%
+  modify_header(label ~ "**Variable**",
+    stat_1 ~ "**AOC**  \n N = 26",
+     stat_2 ~ "**Corbyn**  \n N = 45",
+      stat_3 = "**Farage**  \n N = 65",
+      stat_4 = "**Trump**  \n N = 27") %>%
+  modify_footnote(update = everything() ~ NA)
+
+ideosum <- sumselected %>%
+  select(Ideology, "**Incorporation**", "**Cultural Association**", "**Nourishment**", "**Taste**", "**Worker Performance**", "**Part of 'the people'**", "**Bad Manners**", "**Immediacy**", "**Individual Trend**") %>%
+  tbl_summary(by= Ideology,
+    type = all_continuous() ~ "continuous2",
+    statistic = list(all_categorical() ~ "{n}   ({p}%)"),
+    missing = "no") %>%
+  modify_header(label ~ "**Variable**",
+    stat_1 ~ "**Left**  \n N = 71",
+     stat_2 ~ "**Right**  \n N = 92") %>%
+  modify_footnote(update = everything() ~ NA)
+
+geosum <- sumselected %>%
+  select(Geography, "**Incorporation**", "**Cultural Association**", "**Nourishment**", "**Taste**", "**Worker Performance**", "**Part of 'the people'**", "**Bad Manners**", "**Immediacy**", "**Individual Trend**") %>%
+  tbl_summary(by= Geography,
+    type = all_continuous() ~ "continuous2",
+    statistic = list(all_categorical() ~ "{n}    ({p}%)"),
+    missing = "no") %>%
+  modify_header(label ~ "**Variable**",
+    stat_1 ~ "**UK**  \n N = 110",
+     stat_2 ~ "**USA**  \n N = 53") %>%
+  modify_footnote(update = everything() ~ NA)
+
+oversum <- sumselected %>%
+  select("**Incorporation**", "**Cultural Association**", "**Nourishment**", "**Taste**", "**Worker Performance**", "**Part of 'the people'**", "**Bad Manners**", "**Immediacy**", "**Individual Trend**") %>%
+  tbl_summary(
+    type = all_continuous() ~ "continuous2",
+    statistic = list(
+      all_categorical() ~ "{n}  ({p}%)"),
+    missing = "no") %>%
+  modify_header(label ~ "**Variable**",
+    stat_0 ~ "**Overall**  \n N = 163") %>%
+  modify_footnote(update = everything() ~ NA)
+
+```
+
+# Statistical Analysis 
+
+## Introduction
+
+Table 4.1 below presents summary statistics for my sample, showing the count and relative frequency of each code per actor, ideology, region, and overall. The literature review critiqued gastropopulism studies generalising from the empirical evidence disproportionately drawn from one actor. In my sample, UK actors generated the most data (67%), with Corbyn accounting for 63.4% ‘left’ data and Farage 69.9% ‘right’ data. This is congruent with my performance-based approach, which does not expect actors to use gastropopulism equally. Table 4.1 illustrates how conflating gastropopulism with an actor’s ideology or region obscures individual-level variations and patterns. In fact, it demonstrates how gastropopulism research is unsuited to statistical generalisability. Resultantly, Table 4.1 is intended towards analytical generalisability. This chapter establishes the empirical grounding of the subsequent analytical sections. 
+
+```{r htmlcap="Table 4.1: Summary Statistics by Actor, Ideology, Region, and Overall"}
+testsum <- tbl_merge(
+    tbls = list(actsum, ideosum, geosum, oversum),
+    tab_spanner = c("**Actor**", "**Ideology**", "**Geography**", " ")) %>%
+  modify_footnote(update = everything() ~ NA)
+    
+
+as_kable_extra(testsum)  %>%
+  kable_styling(font_size= 14, bootstrap_options = "condensed", fixed_thead = T, full_width = T)     %>%
+  column_spec(c(1, 5, 7, 9), border_right = T) %>%
+   scroll_box(width = "100%", height = "750px")
+
+```
+
+## Incorporation 
+
+While Diehl (2017, p12) and Bourdieu (1984, p190) emphasise incorporation, or eating, as the most powerful way to signify belonging to the people, Table 4.1 shows that this was present in only `r inline_text(oversum, variable = "**Incorporation**", level = "Present", column = stat_0)` items overall. ‘Implied’ incorporation, with the actor framed as “about” to eat/drink was twice as common, found in `r inline_text(oversum, variable = "**Incorporation**", level = "Implied", column = stat_0)` items. Just over half of my sample lacked actual or implied incorporation. 
+
+Interestingly, breaking down the `Data Format` variable by the `Incorporation` variable indicates the affordances of audiovisual content for incorporation [Table in Appendix B]. This shows that 23 (88%) of the 26 ‘present’ `incorporation` items were audiovisual, and 50 (96%) of the 52 ‘implied’ `incorporation` items were visual. Still images of a political actor incorporating food/drink present a high risk of looking overly posed (breaking the illusion of spontaneity) or overly unappealing (inviting ridicule). With still images, implied incorporation may appear more natural/candid, thus legitimising the performed authenticity and spontaneity. Biting and chewing are dynamic, violent motions (Stano, 2015, p658) best suited to the video format, which captures the process of incorporation rather than just a frame. With videos, implied incorporation may pierce performed authenticity and spontaneity, as it highlights that the actor is not actually consuming the food/drink. This speaks to the distinct affordances of visual and audiovisual formats for impression management. 
+I return to this idea in my final analytical section, §7: Performative Eating. 
+
+## Cultural Association 
+
+Examining the `Cultural Association` variable provides initial support for my theory’s emphasis on the explanatory power of individual-level analysis rather than extant gastropopulism theory’s focus on ideology and Italy. 
+Food semiotics are highly culturally situated (Kress, 2011, p45). Accordingly, the categories for this variable are situated, meaning they relate to the cultural identities of the actor and their region. This adapts the food origin distinctions presented as national/local by Starita (2022, Appendix) and as endogenous/exogenous by Stano (2015, p3). For example, the Scottish soft drink Irn Bru is ‘regional endogenous’ for Farage [P3] and Corbyn [P2] but ‘exogenous’ for AOC [P1; V49]. Farage’s appearances at the _British Curry_ Awards [P109; V10; V11; V13] and Corbyn’s at the _British Kebab_ Awards [V12; V14] are coded as ‘assimilated’. Conversely, items showing Corbyn dishing up curries in Sikh Gurdwaras [P14; P34; P39; V30] are coded as ‘exogenous’, as Corbyn is not Sikh. 
+
+Unexpectedly, Table 4.1 shows that AOC and Farage have remarkably similar `cultural association` distributions, with almost identical relative frequencies of their uses of assimilated and exogenous foods. This is notable because their politics surrounding cultural/national identity are diametrically opposed. Prior gastropopulism literature emphasises an exclusionary/inclusionary dichotomy, asserting that right-wing populists primarily use food to convey their exclusionary nationalism, with no reference to its potential for inclusion. In §6.1: Nationalism, I explore how the strategic ambiguity utilised in gastropopulist performances by Trump and Farage thwart analytical attempts to code gastropopulism using an exclusionary/inclusionary dichotomy. The individual variation and strategic ambiguity within my sample’s `cultural association` variable and analysis thereof demonstrates the theoretical and empirical limitations of analysing gastropopulism through an ideological lens. My performance-based theory does not deny that ideology and region contribute to how an actor manifests their gastropopulism. However, I assert gastropopulism as a flexible and open way for individuals to construct identity, rather than a restrictive representation of ideology that exists independently of the actor. 
+
+## Performances of Class Belonging 
+
+The `Nourishment` and `Taste` variables attempt to capture Bourdieu's (1984, p468) elite/mass food-based class division (e.g., healthy/unhealthy; light/heavy; quality/quantity). Table 4.1 shows that AOC, Farage, and Trump lean heavily towards unhealthy foods. Corbyn’s profile is more balanced, but favours the moderate-unhealthy and salty/fatty. The `taste` variable’s `fresh` category includes home-cooked meals. This is where the absence of AOC’s disappearing gastropopulist content (e.g., cooking livestreams) is most keenly felt, limiting its analytical utility. The consistency of Trump’s performed tastes preferences for salty/fatty [n=`r inline_text(actsum, variable = "**Taste**", level = "Salty/fatty", column = stat_4)`] and sweet [n=`r inline_text(actsum, variable = "**Taste**", level = "Sweet", column = stat_4)`] foods is not a coincidence; García-Santamaría (2020, p143) views this as a way to reveal a relatable and _seemingly_ apolitical weakness. Farage’s extensive use of alcohol in his gastropopulism [n=`r inline_text(actsum, variable = "**Taste**", level = "Alcohol", column = stat_3)`] is a form of mimetic identification with British binge drinking culture (Jayne _et al_, 2008, p88). Jayne _et al_ (2008, p88) caution against accepting entrenched “classed” perceptions of “respectability” that oppose British binge drinking with “‘continental’ or ‘sensible’” European drinking culture. However, through Goffman’s (1959, p20) lens, this is “dramatic realisation” of precisely the identity Farage wishes to convey through his alcohol-centred gastropopulist performances. In addition, the `Worker Performance` variable sets the stage for §6.2: Class, examining how the actors embody their class belonging through food hospitality worker role performances. No such observations of Trump were found, so his discussion explores how he embodies class belonging through his menu choices. 
+
+## Gastropopulism and Individual Trends 
+
+The variables capturing gastropopulism's individual features show that the actors were highly consistent at integrating all three into their performances. Corbyn, however, omitted `bad manners` in 24% his performances. This motivates looking at his full dataset, and providing a multimodal analysis of how he -- and the others -- actually perform their gastropopulism _multimodally_. To this end, the `Individual Trend` variable sets the stage for the next analytical chapter: Individual Timelines and Trends. 
+
+**Trump** [n=`r inline_text(actsum, variable = "**Individual Trend**", level = "Present", column = stat_4)`] **‘put his money where his mouth is’**, meaning instances wherein he (claimed to) use his personal wealth to buy fast food for his people, with a secondary code for performances of his personal consumption of popular, cheap foods [n=`r inline_text(actsum, variable = "**Individual Trend**", level = "Implied", column = stat_4)`]. **AOC** [n=`r inline_text(actsum, variable = "**Individual Trend**", level = "Present", column = stat_1)`] **physically engages with her constituency** through gastropopulist performances, with a secondary code for performances implied to be in her NY/DC homes [n=`r inline_text(actsum, variable = "**Individual Trend**", level = "Implied", column = stat_1)`]. **Corbyn** [n=`r inline_text(actsum, variable = "**Individual Trend**", level = "Present", column = stat_2)`] uses his Labour campaign slogan **“for the many, not the few”** in his gastropopulist performances, particularly through puns and emojis, with a secondary code for performances embodying the slogan, e.g., community work [n=`r inline_text(actsum, variable = "**Individual Trend**", level = "Implied", column = stat_2)`]. Finally, I explore how **Farage** [n=`r inline_text(actsum, variable = "**Individual Trend**", level = "Present", column = stat_3)`] explicitly leverages **food and drink as the cause and solution of problems**, blending the personal and the political, with a secondary code for doing so implicitly [n=`r inline_text(actsum, variable = "**Individual Trend**", level = "Implied", column = stat_3)`]. 
+
+## Discussion of Statistical Analysis 
+
+This statistical analysis chapter has assessed how political actors construct gastropopulist performances. Moreover, this has provided a robust comparison of individual-, ideological-, and regional-level explanations. This gives an unprecedented depth and breadth of analysis of empirical evidence of gastropopulism. Crucially, this facilitates analytic generalisability for existing theory as well as establishing a flexible and transparent framework for future studies of (gastro)populism. In addition, this has demonstrated how my research design is informed by the data as well as literature, in order to conduct a cohesive and comprehensive test of my theory. This chapter has contextualised the empirical grounding for the subsequent analyses, which will closely scrutinise the multimodality of the performances, and the role of constructed public identity. This will enable a considered answer to my research question, _how do political actors use multimodal gastropopulist performances to construct and legitimise their public identities?_. 

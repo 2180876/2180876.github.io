@@ -1,0 +1,5 @@
+"0","faragetest2 <- plotly::plotly_build(faragetest1)"
+"0",""
+"0","# step 2: loop over pp$x$data, and change the marker size of all text elements to 50px"
+"0","for(i in seq_along(faragetest2$x$data)){"
+"0","    if(faragetest2$x$data[[i]]$mode == ""markers"") faragetest2$x$data[[i]]$marker$size <- 12}"

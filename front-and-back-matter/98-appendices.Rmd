@@ -1,0 +1,48 @@
+`r if(knitr:::is_latex_output()) '\\startappendices'`
+
+`r if(!knitr:::is_latex_output()) '# Appendices {-}'` 
+
+<!-- If you feel it necessary to include an appendix, it goes here. The first appendix should include the commands above. -->
+
+```{r setup cran9, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+knitr::knit_hooks$set(htmlcap = function(before, options, envir) {
+  if(before) {
+    paste('<p class="caption">', options$htmlcap, "</p>",sep="")
+  }
+})
+```
+
+
+
+# Appendix A {-}
+
+Appendix A presents the detailed codebook used throughout this dissertation. Only the 'features of gastropopulism' variables were specifically analysed for individual communicative modes, to shape the MMSSTT. Other variables were coded but not used in the dissertation, so this presents only the relevant variables. 
+
+```{r htmlcap="Detailed Codebook"}
+knitr::include_graphics("/Users/taylorswift/downloads/dissertation/DissdataIMAGES/codeapp.png")
+```
+```{r htmlcap="Detailed Codebook, Gastropopulism"}
+knitr::include_graphics("/Users/taylorswift/downloads/dissertation/DissdataIMAGES/gpcode.png")
+```
+
+# Appendix B {-}
+
+Appendix B presents the table used in Chapter Four: Statistical Analysis to examine how the `Incorporation` and `Data Format` variables interact. 
+
+```{r htmlcap="Data Format by Incorporation"}
+knitr::include_graphics("/Users/taylorswift/downloads/dissertation/DissdataIMAGES/incdf.png")
+```
+
+# Appendix C {-}
+
+Appendix C presents word counts for the individual chapters and total dissertation. This table uses the `wordcountaddin` R package, recommended in the University's Quantitative Data Analysis course [SPS5033]. I am not sure why TurnItIn was unable to generate an accurate count for the PDF, but this is an accurate measure for the RStudio environment. 
+
+```{r htmlcap="Word Counts by Chapter and Overall"}
+knitr::include_graphics("/Users/taylorswift/downloads/dissertation/DissdataIMAGES/wordcount.png")
+```
+

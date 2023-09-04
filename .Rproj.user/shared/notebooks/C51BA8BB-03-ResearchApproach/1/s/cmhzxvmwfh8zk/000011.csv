@@ -1,0 +1,8 @@
+"0","fulltestselected <- select(fulltest, ""Actor"" = group, Ideology, Geography, Incorporation, Nourishment, Type, ""Role of Food"" = Role.of.food,"
+"0","   ""Cultural Association""   = Cultural.Association ,"
+"0","    ""Worker Performance"" =  Worker.Performance,"
+"0","     ""Part of 'the people'"" =  Part.of..the.people.,"
+"0","       ""Bad Manners"" = Bad.Manners ,"
+"0","     Immediacy)"
+"0",""
+"0","instastats <- select(instastats, Actor, Handle, ""Follower Count"" = Follower.Count, ""Post Count"" = Post.Count, ""Date Joined""  = Date.Joined)"

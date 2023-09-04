@@ -1,0 +1,34 @@
+---
+output:
+  bookdown::html_document2: 
+    theme:
+      primary: "#6D1919"
+    repo: https://github.com/ulyngs/oxforddown
+    pandoc_args: "--lua-filter=scripts_and_filters/colour_and_highlight.lua"
+documentclass: book
+---
+
+
+```{r setup cran1, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+```{r load lib}
+xfun::pkg_attach(c("tidyverse", "dplyr", "devtools", "addinslist", "wesanderson", "ghibli", "viridis", "viridisLite", "reactablefmtr", "flextable", "gt", "gtExtras", "gtsummary", "ggpubr", "overviewR", "officer", "car", "easystats", "jtools", "sjPlot", "huxtable", "kableExtra", "pander", "vistime", "plotly", "emoji", "htmlwidgets", "grid", "png", "gridExtra"))
+```
+
+# Introduction
+
+This dissertation aims to broaden our understanding of gastropopulism to accommodate a range of ideological and regional contexts. The emerging research on gastropopulism explores it in conflation with right-wing discursive ideology, specifically exclusionary nationalism. Furthermore, the empirical evidence heavily relies (70%) on the content of a single actor, which distorts the findings. These factors are forming a vicious circle, entrenching a limited and biased understanding of gastropopulism. The political implication of academic conflation of (gastro)populism with nationalism is the validation of harmful claims as ‘soft’ and representative of “the people” (Hunger and Paxton, 2021, p630). As such, there is a significant gap in the literature that necessitates radical review of gastropopulism. In this dissertation I have designed and applied a research methodology to overcome the current divides in populism research: conflation with ideology; insensitivity to geographical/cultural contexts; differences between quantitative and qualitative methods (Hunger and Paxton, 2021, p629).
+
+Research Question: **_How do political actors use multimodal gastropopulist performances to construct and legitimise their public identities?_**
+
+In this dissertation, ‘multimodal communication’, ‘gastropopulism’, and ‘public identities’ are divided into the following elements. Multimodal communication integrates the individual communicative modes of language, food and the body (Norris, 2004, p152). The features of gastropopulist performances are (1) belonging with ‘the people’; (2) bad manners; (3) immediacy (Moffitt, 2016, p40). A public identity is constructed through emphasising selected roles, herein, celebrity, politician, personal, and professional (Bast, 2021, p200).
+
+Accordingly, my account formulates gastropopulism as _an actor’s use of multimodal communication integrating language, food, and the body in performances of connecting with ‘the people’, bad manners, and immediacy, in order to construct a consistent public identity that performs authenticity through strategically blending their celebrity, politician, personal, and professional roles_.
+
+To test my account, I have undertaken mixed-methods analysis of visual and audiovisual data of Alexandria Ocasio-Cortez [AOC]\ (left-wing, US), Donald Trump (right-wing, US), Nigel Farage (right-wing, UK) and Jeremy Corbyn (left-wing, UK). My research design is complex but comprehensive and cohesive, structured as follows. **Chapter Two: Integrative Literature Review** offers a qualitative synthesis of the relevant themes to the emerging field of gastropopulism, namely: populism; performance and multimodal communication; celebrity and social media; food semiotics and the body. I then critically assess the three existing empirical studies of gastropopulism to clearly establish the gap in the literature and the need to challenge and extend our knowledge of gastropopulism. **Chapter Three: Multimodal Social Semiotics Research Approach** outlines my methodological considerations, sample, and methods. This presents descriptive statistics for my sample. My methods and coding process are discussed, and my codebook for gastropopulist features is presented. **Chapter Four: Statistical Analysis** generates summary statistics of key variables for my entire sample [n=163], by actor, ideology, region, and overall, to examine how gastropopulist performances are constructed. This chapter demonstrates why empirical evidence of gastropopulism is suited to analytic, not statistical, generalisability. Furthermore, the empirical grounding of the subsequent chapters is established. **Chapter Five: Individual Timeline Thematic Analysis** is a mixed-methods examination of each actor’s data, using quantitative interactive timeline visualisations paired with qualitative discussions of individual trends, generated through inductive thematic analysis. This examines how the actors demonstrate their belonging to their people: Trump uses his personal wealth to buy his people fast food; AOC physically belongs in her constituency; Corbyn uses his campaign slogan ‘For The Many’; Farage uses food/drink to represent the cause/solution of problems. **Chapter Six: Nationalism and Class** uses deductive qualitative thematic analysis to explore how the central themes of extant gastropopulism literature manifest in my sample and theory. The ‘nationalism’ section critically assesses the exclusionary/inclusionary binary presented by the literature, as well as the conflation of gastropopulism with right-wing discursive ideology. The ‘class’ section considers how the actors embody class solidarity through performing a pub/bar worker role, apart from Trump, who integrates his professional identity into his food choices. This chapter dissects what it means for a gastropopulist performance to be viewed as credible. **Chapter Seven: Performative Eating** analyses performative eating videos using an original framework, Multimodal Social Semiotics Timeline Transcription. This explores the unique affordances of turning eating into a spectacle for gastropopulist performers. **Chapter Eight: Discussion** reflects upon the theory and arguments brought forth. This considers the work’s limitations and offers opportunities for future research. Ultimately, I conclude that
+political actors use multimodal gastropopulist performances as an effective impression management strategy to construct and legitimise their public identities. Furthermore, I defend my position that disentangling gastropopulism from ideological assumptions is necessary and achievable; my research design facilitates a comprehensive understanding of gastropopulism _qua_ gastropopulism that can comfortably accommodate different ideological and regional contexts. 
