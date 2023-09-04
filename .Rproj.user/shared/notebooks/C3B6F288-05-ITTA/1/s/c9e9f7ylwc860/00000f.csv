@@ -1,0 +1,302 @@
+"0","xfun::pkg_attach(c(""tidyverse"", ""dplyr"", ""devtools"", ""addinslist"", ""wesanderson"", ""ghibli"", ""viridis"", ""viridisLite"", ""reactablefmtr"", ""flextable"", ""gt"", ""gtExtras"", ""gtsummary"", ""ggpubr"", ""overviewR"", ""officer"", ""car"", ""easystats"", ""jtools"", ""sjPlot"", ""huxtable"", ""kableExtra"", ""pander"", ""vistime"", ""plotly"", ""emoji"", ""htmlwidgets"", ""grid"", ""png"", ""gridExtra"", ""webshot"", ""webshot2""))"
+"2","── [1mAttaching core tidyverse packages[22m ─────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+[32m✔[39m [34mdplyr    [39m 1.1.2     [32m✔[39m [34mreadr    [39m 2.1.4
+[32m✔[39m [34mforcats  [39m 1.0.0     [32m✔[39m [34mstringr  [39m 1.5.0
+[32m✔[39m [34mggplot2  [39m 3.4.3     [32m✔[39m [34mtibble   [39m 3.2.1
+[32m✔[39m [34mlubridate[39m 1.9.2     [32m✔[39m [34mtidyr    [39m 1.3.0
+[32m✔[39m [34mpurrr    [39m 1.0.2     "
+"2","── [1mConflicts[22m ───────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+[31m✖[39m [34mdplyr[39m::[32mfilter()[39m masks [34mstats[39m::filter()
+[31m✖[39m [34mdplyr[39m::[32mlag()[39m    masks [34mstats[39m::lag()
+[36mℹ[39m Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors"
+"2","Loading required package: usethis
+"
+"2","Registered S3 method overwritten by 'ghibli':
+  method        from       
+  print.palette wesanderson
+"
+"2","Loading required package: viridisLite
+"
+"2","Loading required package: reactable
+"
+"2","
+Attaching package: ‘reactablefmtr’
+
+"
+"2","The following object is masked from ‘package:ggplot2’:
+
+    margin
+
+"
+"2","
+Attaching package: ‘flextable’
+
+"
+"2","The following object is masked from ‘package:reactablefmtr’:
+
+    void
+
+"
+"2","The following object is masked from ‘package:purrr’:
+
+    compose
+
+"
+"2","
+Attaching package: ‘gt’
+
+"
+"2","The following objects are masked from ‘package:reactablefmtr’:
+
+    google_font, html
+
+"
+"2","
+Attaching package: ‘gtsummary’
+
+"
+"2","The following objects are masked from ‘package:flextable’:
+
+    as_flextable, continuous_summary
+
+"
+"2","
+Attaching package: ‘ggpubr’
+
+"
+"2","The following objects are masked from ‘package:flextable’:
+
+    border, font, rotate
+
+"
+"2","Loading required package: carData
+"
+"2","
+Attaching package: ‘car’
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    recode
+
+"
+"2","The following object is masked from ‘package:purrr’:
+
+    some
+
+"
+"2","[34m# Attaching packages: easystats 0.6.0[39m
+[32m✔ [39m[30mbayestestR [39m [32m0.13.1[39m   [32m✔ [39m[30mcorrelation[39m [32m0.8.4 [39m
+[32m✔ [39m[30mdatawizard [39m [32m0.8.0 [39m   [32m✔ [39m[30meffectsize [39m [32m0.8.5 [39m
+[32m✔ [39m[30minsight    [39m [32m0.19.3[39m   [32m✔ [39m[30mmodelbased [39m [32m0.8.6 [39m
+[32m✔ [39m[30mperformance[39m [32m0.10.4[39m   [32m✔ [39m[30mparameters [39m [32m0.21.1[39m
+[32m✔ [39m[30mreport     [39m [32m0.5.7 [39m   [32m✔ [39m[30msee        [39m [32m0.8.0 [39m
+
+"
+"2","
+Attaching package: ‘jtools’
+
+"
+"2","The following object is masked from ‘package:modelbased’:
+
+    standardize
+
+"
+"2","The following objects are masked from ‘package:insight’:
+
+    get_data, get_weights
+
+"
+"2","The following object is masked from ‘package:effectsize’:
+
+    standardize
+
+"
+"2","The following objects are masked from ‘package:datawizard’:
+
+    center, standardize
+
+"
+"2","The following object is masked from ‘package:flextable’:
+
+    theme_apa
+
+"
+"2","Install package ""strengejacke"" from GitHub (`devtools::install_github(""strengejacke/strengejacke"")`) to load all sj-packages at once!
+"
+"2","
+Attaching package: ‘huxtable’
+
+"
+"2","The following object is masked from ‘package:sjPlot’:
+
+    font_size
+
+"
+"2","The following objects are masked from ‘package:parameters’:
+
+    print_html, print_md
+
+"
+"2","The following objects are masked from ‘package:performance’:
+
+    print_html, print_md
+
+"
+"2","The following object is masked from ‘package:modelbased’:
+
+    print_md
+
+"
+"2","The following objects are masked from ‘package:insight’:
+
+    print_html, print_md
+
+"
+"2","The following objects are masked from ‘package:effectsize’:
+
+    print_html, print_md
+
+"
+"2","The following objects are masked from ‘package:datawizard’:
+
+    print_html, print_md
+
+"
+"2","The following objects are masked from ‘package:correlation’:
+
+    print_html, print_md
+
+"
+"2","The following objects are masked from ‘package:bayestestR’:
+
+    print_html, print_md
+
+"
+"2","The following objects are masked from ‘package:officer’:
+
+    to_html, to_rtf
+
+"
+"2","The following object is masked from ‘package:ggpubr’:
+
+    font
+
+"
+"2","The following object is masked from ‘package:gtsummary’:
+
+    as_flextable
+
+"
+"2","The following object is masked from ‘package:gt’:
+
+    fmt_percent
+
+"
+"2","The following objects are masked from ‘package:flextable’:
+
+    align, as_flextable, bold, font, height, italic, set_caption, valign, width
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    add_rownames
+
+"
+"2","The following object is masked from ‘package:ggplot2’:
+
+    theme_grey
+
+"
+"2","
+Attaching package: ‘kableExtra’
+
+"
+"2","The following object is masked from ‘package:huxtable’:
+
+    add_footnote
+
+"
+"2","The following objects are masked from ‘package:flextable’:
+
+    as_image, footnote
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    group_rows
+
+"
+"2","
+Attaching package: ‘pander’
+
+"
+"2","The following object is masked from ‘package:huxtable’:
+
+    wrap
+
+"
+"2","
+Attaching package: ‘plotly’
+
+"
+"2","The following objects are masked from ‘package:flextable’:
+
+    highlight, style
+
+"
+"2","The following object is masked from ‘package:ggplot2’:
+
+    last_plot
+
+"
+"2","The following object is masked from ‘package:stats’:
+
+    filter
+
+"
+"2","The following object is masked from ‘package:graphics’:
+
+    layout
+
+"
+"2","
+Attaching package: ‘emoji’
+
+"
+"2","The following object is masked from ‘package:ggplot2’:
+
+    arrow
+
+"
+"2","
+Attaching package: ‘grid’
+
+"
+"2","The following object is masked from ‘package:emoji’:
+
+    arrow
+
+"
+"2","
+Attaching package: ‘gridExtra’
+
+"
+"2","The following object is masked from ‘package:dplyr’:
+
+    combine
+
+"
+"2","Registered S3 method overwritten by 'webshot2':
+  method        from   
+  print.webshot webshot
+"
+"2","
+Attaching package: ‘webshot2’
+
+"
+"2","The following objects are masked from ‘package:webshot’:
+
+    appshot, resize, rmdshot, shrink, webshot
+
+"

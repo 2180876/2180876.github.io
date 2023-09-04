@@ -84,10 +84,9 @@ knitr::include_graphics("/Users/taylorswift/downloads/dissertation/DissdataIMAGE
 
 
 ```{r htmlcap="Figure 7.7: Corbyn Accepts Irn Bru [P2a, P2b, 01/10/2015]"}
-P2a <- rasterGrob(readPNG("/Users/taylorswift/downloads/dissertation/DissdataIMAGES/P2a.png"), interpolate=TRUE)
-P2b <- rasterGrob(readPNG("/Users/taylorswift/downloads/dissertation/DissdataIMAGES/P2b.png"), interpolate=TRUE)
-# grid.arrange(pre_fig, post_fig, ncol=2)
-grid.arrange(P2a, P2b, ncol=2)
+
+knitr::include_graphics("/Users/taylorswift/downloads/dissertation/DissdataIMAGES/fig7-7.png")
+
 
 ```
 
